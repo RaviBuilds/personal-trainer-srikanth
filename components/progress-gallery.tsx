@@ -2,7 +2,8 @@ import { WhatsAppLogo } from "@/components/icons";
 import { ProgressViewer } from "@/components/progress-viewer";
 import { Reveal } from "@/components/reveal";
 import { toStoryView } from "@/src/lib/progress-stories";
-import { buildWhatsAppUrl, getVisibleStories, siteContent } from "@/src/lib/site-content";
+import { getVisibleStories } from "@/src/lib/progress-story-data";
+import { buildWhatsAppUrl, siteContent } from "@/src/lib/site-content";
 
 const { progressStories: copy } = siteContent;
 
