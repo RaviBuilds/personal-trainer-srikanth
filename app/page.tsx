@@ -1,69 +1,32 @@
 import Image from "next/image";
+import Link from "next/link";
+import { SiteHeader } from "@/components/site-header";
+import { FAQList } from "@/components/faq-list";
+import { siteContent } from "@/src/lib/site-content";
+
+const method = [
+  ["Understand", "Start with your goals, schedule, experience, and the context that matters to your training."],
+  ["Plan", "Agree on a training direction that fits your starting point and the time you can give it."],
+  ["Coach", "Get clear guidance through exercises in the format that has been confirmed for you."],
+  ["Track", "Review the progress indicators that make sense for your goals and routine."],
+  ["Adjust", "Refine the approach as you learn what works with your life and participation."],
+];
 
 export default function Home() {
-  return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
-  );
+  return <>
+    <SiteHeader />
+    <main>
+      <section className="hero"><div className="container hero-grid"><div className="hero-copy"><p className="eyebrow">Personal training in Hyderabad</p><h1>Train with intent.</h1><p className="lede">Personal training in Hyderabad, with online and in-person coaching shaped around your goals, schedule, and starting point.</p><div className="hero-actions"><a className="button" href="#contact">Enquire about training</a><a className="button button-secondary" href="#coaching">Explore coaching</a></div></div><div className="hero-media"><Image src={siteContent.assets.hero.src} alt={siteContent.assets.hero.alt} width={900} height={1100} priority /><span className="arc" aria-hidden="true" /></div></div></section>
+      <section className="format-strip"><div className="container format-inner"><strong>Start with a format that fits.</strong><div className="format-list"><span className="format-item">In-person sessions</span><span className="format-item">Online coaching</span><span className="format-item">Goal-led training</span></div></div></section>
+      <section className="section" id="coach"><div className="container split-grid"><div className="split-copy"><p className="eyebrow">A considered starting point</p><h2>Good coaching begins with a useful conversation.</h2><p>The right training approach depends on more than a goal written down. It also depends on your routine, experience, preferences, and the format that is genuinely practical for you.</p><p>Share what you are working towards and what your week looks like. The details of coaching, scheduling, and fit can then be discussed clearly.</p></div><div className="split-media"><Image src={siteContent.assets.coach.src} alt={siteContent.assets.coach.alt} width={900} height={1100} /></div></div></section>
+      <section className="section coaching" id="coaching"><div className="container service-layout"><div className="section-intro"><p className="eyebrow">Coaching formats</p><h2>Choose the setting that helps you show up.</h2><p>Both formats are presented as options. Exact delivery details, location, session structure, and inclusions are confirmed during your enquiry.</p><Image src={siteContent.assets.detail.src} alt={siteContent.assets.detail.alt} width={900} height={650} style={{marginTop:"32px", width:"100%", height:"auto", borderRadius:"16px"}} /></div><div className="service-list"><article className="service-panel"><div><h3>In-person fitness training</h3><p>For people who value face-to-face coaching and a dedicated training setting. Enquire with your preferred area so the delivery arrangement can be confirmed.</p></div><Link href={siteContent.services.inPerson.href}>View format</Link></article><article className="service-panel"><div><h3>Online fitness coaching</h3><p>For people who want training to work around their own space and schedule. The live or programme format, platform, and equipment expectations are confirmed before starting.</p></div><Link href={siteContent.services.online.href}>View format</Link></article></div></div></section>
+      <section className="section method" id="method"><div className="container"><div className="section-intro"><p className="eyebrow">The method</p><h2>A clear process, without unnecessary noise.</h2><p>Training gets easier to understand when the next step is visible. This is a general framework for the coaching conversation, not a claim about a clinical assessment or a specific tracking system.</p></div><div className="method-grid">{method.map(([title, copy], index) => <article className="method-step" key={title}><span>{String(index + 1).padStart(2, "0")}</span><h3>{title}</h3><p>{copy}</p></article>)}</div></div></section>
+      <section className="section coach-band"><div className="container split-grid"><div className="split-copy"><p className="eyebrow">Meet Shrikant</p><h2>Personal attention, kept practical.</h2><p>Shrikant is the working public name for this first website pass. The final public name, credentials, service details, and biography are still to be confirmed before launch.</p><p>For now, the site keeps the focus on a transparent training conversation rather than making claims that are not yet verified.</p><a className="button button-secondary" href={siteContent.instagram}>View Instagram profile</a></div><div className="split-media"><Image src={siteContent.assets.coach.src} alt="Temporary editorial portrait for the coach profile, to be replaced with an approved trainer photograph" width={900} height={1100} /></div></div></section>
+      {siteContent.showTransformationDemo && <section className="section demo"><div className="container split-grid"><div className="split-copy"><p className="eyebrow">Progress stories</p><h2>Real proof belongs to real people.</h2><p>Client stories will be added only with permission and accurate context. This temporary layout shows where approved progress imagery can live without presenting stock photography as a result.</p><p className="demo-note">Demo placeholder, replace with consented client photos before launch.</p></div><div className="split-media demo-frame"><figure><Image src={siteContent.assets.hero.src} alt="Temporary demo image placeholder, not a client result" width={600} height={600} /><figcaption>Before image placeholder</figcaption></figure><figure><Image src={siteContent.assets.detail.src} alt="Temporary demo image placeholder, not a client result" width={600} height={600} /><figcaption>After image placeholder</figcaption></figure></div></div></section>}
+      <section className="section" id="pricing"><div className="container pricing-grid"><div className="section-intro"><p className="eyebrow">Pricing and packages</p><h2>Clear details, once they are confirmed.</h2><p>Package prices, session length, frequency, inclusions, and cancellation terms are not published yet. Enquire to discuss the current options rather than relying on guessed numbers.</p></div><div className="pricing-note"><div className="pricing-row"><strong>Format</strong><span>Online or in-person</span></div><div className="pricing-row"><strong>Price</strong><span>To be confirmed</span></div><div className="pricing-row"><strong>Next step</strong><span>Discuss your training</span></div><a className="button" href="#contact" style={{marginTop:"16px"}}>Ask about options</a></div></div></section>
+      <section className="section faq-section" id="faqs"><div className="container faq-grid"><div><p className="eyebrow">FAQs</p><h2>Before you enquire.</h2><p className="section-intro">A few practical answers, with the details that still need to be confirmed kept visible.</p></div><FAQList /></div></section>
+      <section className="contact" id="contact"><div className="container contact-grid"><div><p className="eyebrow" style={{color:"var(--amber)"}}>Start a conversation</p><h2>Let&apos;s find a training approach that fits your life.</h2><p className="lede">Tell us what you are considering. This form is ready for a real endpoint once the final contact workflow is configured.</p></div><form className="contact-form" action="mailto:" method="post" encType="text/plain"><div className="form-grid"><label>Name<input required name="name" type="text" autoComplete="name" /></label><label>Preferred contact<input required name="contact" type="text" /></label></div><div className="form-grid"><label>Coaching format<select name="format" defaultValue=""><option value="" disabled>Select one</option><option>In-person training</option><option>Online coaching</option><option>Not sure yet</option></select></label><label>Preferred time<input name="time" type="text" /></label></div><label>What would you like to work on?<textarea required name="goal" /></label><p className="form-note">Please do not include sensitive medical information. The enquiry flow and privacy details must be reviewed before production launch.</p><button className="button" type="submit">Prepare enquiry</button></form></div></section>
+    </main>
+    <footer className="footer"><div className="container footer-inner"><div className="wordmark"><span>{siteContent.brand}</span><small>PERSONAL TRAINING</small></div><div className="footer-links"><Link href="/guides/">Guides</Link><Link href="/privacy/">Privacy</Link><Link href="/disclaimer/">Disclaimer</Link><a href={siteContent.instagram}>Instagram</a></div></div></footer>
+  </>;
 }
