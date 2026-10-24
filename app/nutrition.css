@@ -1,0 +1,468 @@
+/* Nutrition wheel section (after Goals).
+   Loaded after goals.css. Palette roles: page #FFFBF5, ink #1E140B,
+   secondary #5A4838, muted #7A6755, amber #F2AC50 (CTA only), burnt #D4601E
+   (large display text and the tab underline), ring #8A7660, border #E8D8BF.
+   Radii: 8 / 16 / 28 only. Shadows: card and hover lift only. No gradients.
+   Mobile first: base under 640px, then 640, 768 and 1024 and up. */
+
+.nw {
+  --nw-page: #FFFBF5;
+  --nw-ink: #1E140B;
+  --nw-soft: #5A4838;
+  --nw-muted: #7A6755;
+  --nw-burnt: #D4601E;
+  --nw-ring: #8A7660;
+  --nw-border: #E8D8BF;
+  --nw-cream: #FCF0E1;
+  --nw-ease: cubic-bezier(.22, 1, .36, 1);
+  --nw-ease-clip: cubic-bezier(.65, 0, .35, 1);
+  background: var(--nw-page);
+  padding: 72px 0;
+}
+
+.nw :focus-visible { outline: 2px solid var(--nw-ink); outline-offset: 2px; }
+
+/* Reveal wrappers are only intersection triggers; inner elements carry the motion. */
+.nw .reveal.nw-reveal { opacity: 1; transform: none; transition: none; }
+
+/* ---------- Layout: single column (mobile first). DOM order is heading,
+   lede, tabs, wheel, card, caption; areas set the visual order. ---------- */
+.nw-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-areas:
+    "head"
+    "wheel"
+    "tabs"
+    "card"
+    "caption";
+  max-width: 640px;
+  margin-inline: auto;
+}
+.nw-head-reveal { grid-area: head; min-width: 0; }
+.nw-wheel-reveal { grid-area: wheel; min-width: 0; margin-top: 40px; }
+.nw-tablist { grid-area: tabs; }
+.nw-card-reveal { grid-area: card; min-width: 0; margin-top: 12px; }
+.nw-caption { grid-area: caption; }
+
+/* ---------- Heading and lede ---------- */
+.nw-h2 {
+  margin: 0;
+  color: var(--nw-ink);
+  font-family: var(--font-archivo), sans-serif;
+  font-weight: 800;
+  letter-spacing: -.03em;
+  font-size: clamp(2.25rem, 9vw, 2.75rem);
+  line-height: 1.05;
+  text-wrap: balance;
+}
+.nw-h2-accent { color: var(--nw-burnt); }
+.nw-lede {
+  margin: 24px 0 0;
+  max-width: 54ch;
+  color: var(--nw-soft);
+  font-size: 18px;
+  line-height: 1.6;
+}
+.nw-lede-link {
+  color: var(--nw-ink);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  text-decoration-thickness: 1.5px;
+}
+
+/* ---------- Tabs ---------- */
+.nw-tablist {
+  position: relative;
+  display: flex;
+  gap: 0;
+  padding: 4px;
+  margin: 28px -4px 0;
+  overflow-x: auto;
+  scroll-snap-type: x proximity;
+  scrollbar-width: none;
+}
+.nw-tablist::-webkit-scrollbar { display: none; }
+.nw-tab {
+  flex: none;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0 12px;
+  border: 0;
+  border-radius: 8px;
+  background: none;
+  color: var(--nw-soft);
+  font-family: var(--font-figtree), sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1;
+  white-space: nowrap;
+  cursor: pointer;
+  scroll-snap-align: center;
+  transition: color 150ms ease;
+}
+.nw-tab[aria-selected="true"] { color: var(--nw-ink); }
+@media (hover: hover) {
+  .nw-tab:hover { color: var(--nw-ink); }
+}
+/* Sliding underline (positioned by script, moved with a transform). */
+.nw-indicator {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 1px;
+  height: 2px;
+  background: var(--nw-burnt);
+  transform-origin: 0 0;
+  transition: transform 200ms var(--nw-ease);
+  pointer-events: none;
+  opacity: 0;
+}
+.nw-grid[data-enhanced="true"] .nw-indicator { opacity: 1; }
+/* Same underline in the same place until the script has measured the tabs. */
+.nw-grid[data-enhanced="false"] .nw-tab[aria-selected="true"]::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 6px;
+  height: 2px;
+  background: var(--nw-burnt);
+}
+
+/* ---------- Wheel ---------- */
+.nw-wheel {
+  position: relative;
+  width: min(320px, 88vw);
+  aspect-ratio: 1;
+  margin-inline: auto;
+}
+.nw-disc {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  box-shadow: var(--shadow-card);
+}
+.nw-disc-media {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  overflow: hidden;
+  background: var(--nw-cream);
+}
+.nw-scale { position: absolute; inset: 0; }
+.nw-spin {
+  position: absolute;
+  inset: 0;
+  transform-origin: 50% 50%;
+  transition: transform 700ms var(--nw-ease-clip);
+  will-change: transform;
+}
+.nw-photo {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.nw-veils {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.nw-wedge {
+  fill: #FFFBF5;
+  opacity: .5;
+  cursor: pointer;
+  transition: opacity 300ms ease;
+}
+.nw-wedge[data-active="true"] { opacity: 0; cursor: default; }
+@media (hover: hover) and (pointer: fine) {
+  .nw-wedge[data-active="false"]:hover { opacity: .3; }
+}
+.nw-divider {
+  stroke: #FFFBF5;
+  stroke-width: 4px;
+  vector-effect: non-scaling-stroke;
+  pointer-events: none;
+}
+
+/* Hub: centred, fixed (never rotates). Items share one cell and cross-fade. */
+.nw-hub {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 2;
+  display: grid;
+  width: 36%;
+  aspect-ratio: 1;
+  transform: translate(-50%, -50%);
+  border: 1px solid var(--nw-border);
+  border-radius: 50%;
+  background: #FFFBF5;
+  box-shadow: var(--shadow-card);
+  container-type: inline-size;
+  pointer-events: none;
+}
+.nw-hub-item {
+  grid-area: 1 / 1;
+  align-self: center;
+  justify-self: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  text-align: center;
+  opacity: 0;
+  transition: opacity 200ms linear;
+}
+.nw-hub-item[data-active="true"] { opacity: 1; transition-delay: 200ms; }
+.nw-hub-value {
+  color: var(--nw-ink);
+  font-family: var(--font-archivo), sans-serif;
+  font-weight: 800;
+  letter-spacing: -.03em;
+  font-size: min(26px, 18cqw);
+  line-height: 1;
+  white-space: nowrap;
+}
+.nw-hub-caption {
+  margin-top: 2px;
+  max-width: 94%;
+  color: var(--nw-soft);
+  font-size: 12px;
+  line-height: 1.2;
+  text-wrap: balance;
+}
+
+/* Pointer: fixed ink triangle outside the rim at 3 o'clock, pointing at the wheel. */
+.nw-pointer {
+  position: absolute;
+  right: -16px;
+  top: 50%;
+  z-index: 2;
+  width: 10px;
+  height: 14px;
+  transform: translateY(-50%);
+  background: var(--nw-ink);
+  clip-path: polygon(100% 0, 0 50%, 100% 100%);
+}
+
+/* ---------- Card ---------- */
+.nw-card {
+  padding: 24px;
+  border: 1px solid var(--nw-border);
+  border-radius: 28px;
+  background: #fff;
+  box-shadow: var(--shadow-card);
+}
+/* Without script every panel flows one after another. */
+.nw-panel + .nw-panel {
+  margin-top: 32px;
+  padding-top: 32px;
+  border-top: 1px solid var(--nw-border);
+}
+/* With script all panels share one cell, so the card keeps the tallest height. */
+html.js-motion .nw-panels { display: grid; }
+html.js-motion .nw-panel {
+  grid-area: 1 / 1;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 150ms ease, visibility 0s linear 150ms;
+}
+html.js-motion .nw-panel[data-active="true"] {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transition: none;
+}
+
+.nw-name {
+  margin: 0;
+  color: var(--nw-ink);
+  font-family: var(--font-archivo), sans-serif;
+  font-weight: 800;
+  letter-spacing: -.03em;
+  font-size: 28px;
+  line-height: 1.05;
+}
+.nw-role {
+  margin: 12px 0 0;
+  color: var(--nw-ink);
+  font-size: 18px;
+  line-height: 1.5;
+}
+.nw-cols {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 24px;
+  margin-top: 24px;
+}
+.nw-label {
+  margin: 0 0 8px;
+  color: var(--nw-soft);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: .1em;
+  line-height: 1.3;
+  text-transform: uppercase;
+}
+.nw-text {
+  margin: 0;
+  color: var(--nw-ink);
+  font-size: 16px;
+  line-height: 1.55;
+}
+
+.nw-footer {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 24px;
+  padding-top: 24px;
+  border-top: 1px solid var(--nw-border);
+}
+.nw-footnote {
+  margin: 0;
+  color: var(--nw-soft);
+  font-size: 15px;
+  line-height: 1.5;
+}
+.nw-controls { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.nw-step {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 1px solid var(--nw-ring);
+  border-radius: 8px;
+  background: #fff;
+  color: var(--nw-ink);
+  cursor: pointer;
+  transition: background-color 150ms ease;
+}
+@media (hover: hover) {
+  .nw-step:hover { background: var(--nw-cream); }
+}
+.nw-cta {
+  flex: 1 1 100%;
+  gap: 10px;
+  min-height: 48px;
+  padding: 0 20px;
+  text-align: center;
+}
+.nw-cta svg { flex: none; }
+
+.nw-caption {
+  margin: 16px 0 0;
+  max-width: 60ch;
+  color: var(--nw-muted);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+/* No script: static wheel, stacked panels, and no controls that need script. */
+html:not(.js-motion) .nw-tablist,
+html:not(.js-motion) .nw-step { display: none; }
+html:not(.js-motion) .nw-wedge { cursor: default; }
+
+/* ---------- Tablet and up ---------- */
+@media (min-width: 640px) {
+  .nw-wheel { width: 420px; }
+  .nw-card { padding: 32px; }
+  .nw-name { font-size: 36px; }
+  .nw-cols { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px; }
+  .nw-hub-value { font-size: min(40px, 18cqw); }
+  .nw-hub-caption { font-size: 14px; }
+  .nw-controls { gap: 8px; }
+  .nw-cta { flex-basis: 0; }
+}
+@media (min-width: 768px) {
+  .nw { padding: 96px 0; }
+}
+
+/* ---------- Desktop: wheel left half, content right half ---------- */
+@media (min-width: 1024px) {
+  .nw { padding: 120px 0; }
+
+  .nw-grid {
+    max-width: none;
+    margin-inline: 0;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 32px;
+    /* Free rows above and below keep the right-hand stack centred on the wheel. */
+    grid-template-rows: 1fr auto auto auto auto 1fr;
+    grid-template-areas:
+      "wheel ."
+      "wheel head"
+      "wheel tabs"
+      "wheel card"
+      "wheel caption"
+      "wheel .";
+  }
+  .nw-wheel-reveal { margin-top: 0; align-self: center; }
+  .nw-wheel { width: min(100%, 604px); margin-inline: 0; }
+  .nw-tablist { margin: 28px 0 0 -16px; overflow: visible; scroll-snap-type: none; }
+  .nw-card-reveal { margin-top: 12px; }
+  .nw-h2 { font-size: 44px; text-wrap: wrap; }
+}
+
+/* ---------- Motion: CSS only (transform, opacity, clip-path). Hidden start
+   states exist only under html.js-motion and no-preference, so no-script and
+   reduced-motion visitors always see the final state. ---------- */
+@media (prefers-reduced-motion: no-preference) {
+  html.js-motion .nw-head-reveal:not(.is-visible) .nw-h2,
+  html.js-motion .nw-head-reveal:not(.is-visible) .nw-lede,
+  html.js-motion .nw-card-reveal:not(.is-visible) .nw-card,
+  html.js-motion .nw-wheel-reveal:not(.is-visible) .nw-disc,
+  html.js-motion .nw-wheel-reveal:not(.is-visible) .nw-hub,
+  html.js-motion .nw-wheel-reveal:not(.is-visible) .nw-pointer { opacity: 0; }
+  html.js-motion .nw-wheel-reveal:not(.is-visible) .nw-disc-media { clip-path: circle(0% at 50% 50%); }
+
+  html.js-motion .nw-head-reveal.is-visible .nw-h2 { animation: nw-rise 600ms var(--nw-ease) backwards; }
+  html.js-motion .nw-head-reveal.is-visible .nw-lede { animation: nw-rise 600ms var(--nw-ease) 80ms backwards; }
+
+  html.js-motion .nw-wheel-reveal.is-visible .nw-disc { animation: nw-fade 400ms linear backwards; }
+  html.js-motion .nw-wheel-reveal.is-visible .nw-disc-media { animation: nw-wipe 800ms var(--nw-ease-clip) backwards; }
+  html.js-motion .nw-wheel-reveal.is-visible .nw-scale { animation: nw-settle 800ms var(--nw-ease-clip) backwards; }
+  html.js-motion .nw-wheel-reveal.is-visible .nw-hub,
+  html.js-motion .nw-wheel-reveal.is-visible .nw-pointer { animation: nw-fade 400ms ease 500ms backwards; }
+
+  html.js-motion .nw-card-reveal.is-visible .nw-card { animation: nw-card-rise 600ms var(--nw-ease) backwards; }
+
+  /* Card content swap after a selection */
+  html.js-motion .nw-grid[data-switched="true"] .nw-panel[data-active="true"] {
+    animation: nw-swap 250ms var(--nw-ease) both;
+  }
+}
+
+@keyframes nw-fade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes nw-rise { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: none; } }
+@keyframes nw-card-rise { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: none; } }
+@keyframes nw-swap { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+@keyframes nw-wipe { from { clip-path: circle(0% at 50% 50%); } to { clip-path: circle(50% at 50% 50%); } }
+@keyframes nw-settle { from { transform: scale(1.08); } to { transform: none; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .nw-spin,
+  .nw-wedge,
+  .nw-hub-item,
+  .nw-indicator,
+  .nw-tab,
+  .nw-step,
+  .nw-panel,
+  .nw-cta { transition: none !important; }
+  .nw-hub-item[data-active="true"] { transition-delay: 0s; }
+}

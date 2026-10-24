@@ -1,0 +1,90 @@
+/* Site footer. A Server Component on a full-bleed white band, loaded last.
+   Palette roles: white #FFFFFF, ink #1E140B, secondary #5A4838, ember #A8440F (link hover), hairline #E8D8BF.
+   Radii: 8 only (focus rings). No shadows, no gradients, no motion beyond hover colour/underline.
+   Mobile first: base under 768px, then 768 and 1024. */
+
+.sf {
+  --sf-ink: #1E140B;
+  --sf-soft: #5A4838;
+  --sf-ember: #A8440F;
+  --sf-hair: #E8D8BF;
+  background: #FFFFFF;
+  color: var(--sf-ink);
+  border-top: 1px solid var(--sf-hair);
+  padding: 64px 0 calc(32px + env(safe-area-inset-bottom));
+  font-family: var(--font-figtree), sans-serif;
+}
+
+.sf-wrap { width: min(1240px, calc(100% - 40px)); margin-inline: auto; }
+
+.sf :focus-visible { outline: 2px solid var(--sf-ink); outline-offset: 2px; border-radius: 8px; }
+.sf ul { list-style: none; margin: 0; padding: 0; }
+.sf p { margin: 0; }
+
+/* ---------- Row 1 ---------- */
+.sf-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 40px; }
+
+.sf-logo { display: inline-block; line-height: 0; border-radius: 8px; }
+.sf-logo img { display: block; width: auto; height: 48px; }
+.sf-blurb { margin-top: 16px; max-width: 40ch; font-size: 16px; line-height: 1.6; color: var(--sf-soft); }
+
+.sf-social { display: flex; flex-wrap: wrap; gap: 0 24px; margin-top: 8px; }
+.sf-social-link,
+.sf-link,
+.sf-credit-link,
+.sf-inline {
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  text-underline-offset: 3px;
+  transition: color .2s ease, text-decoration-color .2s ease;
+}
+.sf-social-link { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; font-size: 16px; color: var(--sf-ink); border-radius: 8px; }
+.sf-social-link svg { flex: none; }
+
+.sf-nav { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px 24px; }
+.sf-col { min-width: 0; font-style: normal; }
+.sf-title { margin-bottom: 8px; font-size: 13px; font-weight: 600; line-height: 1.4; letter-spacing: .1em; text-transform: uppercase; color: var(--sf-soft); }
+
+.sf-link { display: flex; align-items: center; min-height: 44px; padding: 4px 0; font-size: 16px; line-height: 1.35; color: var(--sf-ink); border-radius: 8px; overflow-wrap: anywhere; }
+.sf-link[aria-current="page"] { font-weight: 600; }
+.sf-text { display: flex; align-items: center; min-height: 44px; padding: 4px 0; font-size: 16px; line-height: 1.35; color: var(--sf-soft); }
+
+.sf-social-link:hover,
+.sf-link:hover,
+.sf-credit-link:hover,
+.sf-inline:hover { color: var(--sf-ember); text-decoration-color: currentColor; }
+
+/* ---------- Row 2 ---------- */
+.sf-bottom { margin-top: 40px; padding-top: 24px; border-top: 1px solid var(--sf-hair); }
+.sf-note { font-size: 13px; line-height: 1.5; color: var(--sf-soft); }
+.sf-inline { color: var(--sf-ink); text-decoration-color: currentColor; }
+
+.sf-bar { display: flex; flex-direction: column; align-items: flex-start; gap: 0; margin-top: 8px; font-size: 14px; color: var(--sf-soft); }
+.sf-copy { line-height: 1.5; padding: 8px 0; }
+.sf-legal ul { display: flex; flex-wrap: wrap; gap: 0 24px; }
+.sf-link-sm { font-size: 14px; }
+.sf-credit { display: flex; flex-wrap: wrap; align-items: center; column-gap: .3em; min-height: 44px; line-height: 1.5; }
+.sf-credit-link { display: inline-flex; align-items: center; min-height: 44px; color: var(--sf-ink); text-decoration-color: currentColor; border-radius: 8px; }
+
+@media (min-width: 768px) {
+  .sf { padding-top: 72px; }
+  .sf-wrap { width: min(1240px, calc(100% - 64px)); }
+  .sf-grid { gap: 48px; }
+  .sf-nav { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px; }
+  .sf-bottom { margin-top: 48px; }
+  .sf-bar { flex-direction: row; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0 32px; }
+}
+
+@media (min-width: 1024px) {
+  .sf { padding-top: 80px; }
+  .sf-wrap { width: min(1240px, calc(100% - 96px)); }
+  .sf-grid { grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 32px; }
+  .sf-brand { grid-column: 1 / span 4; }
+  .sf-nav { grid-column: 6 / -1; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 32px; }
+  .sf-bar { flex-wrap: nowrap; }
+  .sf-credit { text-align: right; justify-content: flex-end; }
+}
+
+/* ---------- Floating WhatsApp button: step aside while the footer is on screen ---------- */
+.fwa.is-over-footer { opacity: 0; visibility: hidden; transform: translateY(24px); pointer-events: none; transition: opacity .2s ease, transform .2s ease, visibility 0s linear .2s; }
+@media (prefers-reduced-motion: reduce) { .fwa.is-over-footer { transform: none; transition: none; } }

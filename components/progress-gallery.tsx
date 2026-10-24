@@ -1,7 +1,74 @@
-import Image from "next/image";
-import { siteContent } from "@/src/lib/site-content";
+import { WhatsAppLogo } from "@/components/icons";
+import { ProgressViewer } from "@/components/progress-viewer";
+import { Reveal } from "@/components/reveal";
+import { toStoryView } from "@/src/lib/progress-stories";
+import { buildWhatsAppUrl, getVisibleStories, siteContent } from "@/src/lib/site-content";
+
+const { progressStories: copy } = siteContent;
+
+// Wrappers only trigger the reveal; the inner elements carry the motion.
+const OBSERVE = { amount: 0.12, rootMargin: "0px 0px -8% 0px" } as const;
 
 export function ProgressGallery() {
-  if (!siteContent.progressGallery.enabled || (!siteContent.progressGallery.published && !siteContent.draftPreview)) return null;
-  return <section className="section progress-gallery" aria-labelledby="progress-title"><div className="container"><div className="section-intro"><p className="eyebrow">Draft content</p><h2 id="progress-title">Progress stories, when approved.</h2><p>This gallery is a layout-only preview. It stays out of public navigation and indexing until permissioned images, captions, and any approved words are added in the central content configuration.</p></div><div className="progress-grid">{siteContent.progressGallery.stories.map((story) => <article className="progress-story" key={story.id}><div className="progress-pair"><figure><Image src={story.before.src} alt={story.before.alt} width={800} height={600} /><figcaption>{story.beforeCaption}</figcaption></figure><figure><Image src={story.after.src} alt={story.after.alt} width={800} height={600} /><figcaption>{story.afterCaption}</figcaption></figure></div>{story.approvedQuote && <blockquote>{story.approvedQuote}</blockquote>}{story.approvedResult && <p className="progress-result">{story.approvedResult}</p>}<p className="draft-note">Layout-only sample media · not a client result</p></article>)}</div></div></section>;
+  const stories = getVisibleStories().map(toStoryView);
+  const hasStories = stories.length > 0;
+
+  const button = (
+    <a className="button ps-btn" href={buildWhatsAppUrl(copy.cta.message)} target="_blank" rel="noopener noreferrer">
+      <WhatsAppLogo size={24} />
+      <span>{copy.cta.label}</span>
+    </a>
+  );
+
+  return (
+    <section className="ps" aria-labelledby="progress-title">
+      <Reveal className="ps-reveal ps-mark-reveal" {...OBSERVE}>
+        <div className="ps-mark" aria-hidden="true">
+          <span>{copy.effortMark.line1}</span>
+          <span>{copy.effortMark.line2}</span>
+        </div>
+      </Reveal>
+
+      <div className="container ps-inner">
+        <Reveal className="ps-reveal ps-cell-h2" {...OBSERVE}>
+          <h2 id="progress-title" className="ps-h2 ps-rise">
+            {copy.headingBefore}
+            <span className="ps-accent">{copy.headingAccent}</span>
+          </h2>
+        </Reveal>
+
+        <Reveal className="ps-reveal ps-cell-lede" delay={80} {...OBSERVE}>
+          <p className="ps-lede ps-rise">{copy.lede}</p>
+        </Reveal>
+
+        <Reveal className="ps-reveal ps-cell-para" delay={160} {...OBSERVE}>
+          <div className="ps-copy ps-rise">
+            {copy.paragraph.map((text) => (
+              <p key={text}>{text}</p>
+            ))}
+          </div>
+        </Reveal>
+
+        {hasStories ? (
+          <>
+            <div className="ps-cell-viewer">
+              <ProgressViewer stories={stories} labels={copy.labels} />
+            </div>
+            <div className="ps-cell-cta">{button}</div>
+            <p className="ps-cell-disclaimer ps-disclaimer">{copy.disclaimer}</p>
+          </>
+        ) : (
+          <div className="ps-cell-viewer">
+            <div className="ps-empty">
+              <div className="ps-empty-copy">
+                <h3 className="ps-empty-title">{copy.noStories.title}</h3>
+                <p>{copy.noStories.body}</p>
+              </div>
+              {button}
+            </div>
+          </div>
+        )}
+      </div>
+    </section>
+  );
 }

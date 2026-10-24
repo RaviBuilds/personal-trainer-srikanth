@@ -1,4 +1,4 @@
-# Shrikant Personal Training — v0 Mini Master Build Prompt
+# Srikanth Personal Training — v0 Mini Master Build Prompt
 
 **Purpose:** A single master prompt for v0 Mini to build the first complete, polished Next.js website using the canonical project brief, temporary stock/AI-generated imagery, and an intentionally art-directed design system.
 
@@ -18,7 +18,7 @@ You are acting as a senior product designer, art director, SEO-aware content des
 4. Build all requested pages and components now. Do not stop after the homepage. Ensure the homepage and internal routes render correctly.
 5. Use temporary professional stock images or AI-generated images for the first implementation. Do not wait for the trainer's real photos. Make every image easy to replace later through one central asset configuration.
 6. No AI design-test sections, concept comparison screens, alternate mockups, internal review panels, or prototype labels other than clearly marked temporary media placeholders. The live website preview must look like a finished professional website.
-7. Never invent Shrikant's surname, qualifications, certificates, years of experience, exact specialisations, prices, location coverage, customer count, reviews, transformations, languages, medical expertise, or guaranteed outcomes. The visible Instagram screenshot shows the working profile name “Srikanth Gaddam | NASM CPT” and says in-person and online fitness coaching, but details remain to be confirmed. Use one central configuration value for the display name and clearly mark unconfirmed data internally; do not expose technical placeholder text in polished page copy.
+7. Never invent Srikanth's surname, qualifications, certificates, years of experience, exact specialisations, prices, location coverage, customer count, reviews, transformations, languages, medical expertise, or guaranteed outcomes. The visible Instagram screenshot shows the working profile name “Srikanth Gaddam | NASM CPT” and says in-person and online fitness coaching, but details remain to be confirmed. Use one central configuration value for the display name and clearly mark unconfirmed data internally; do not expose technical placeholder text in polished page copy.
 8. Do not fabricate business information to make the design look complete. If a real fact is missing, use natural non-committal copy or hide the relevant field/section until configured.
 9. The user explicitly wants a highly designed visual experience. Content should be composed in a deliberate grid with clear grouping, varied visual treatments, good typography, carefully proportioned cards, images, icons, and meaningful motion. Do not simply place headings and paragraphs on a blank page.
 10. No section numbers or numbered eyebrow labels such as “01”, “02”, “03”. Do not use repeated rows separated by endless horizontal lines as the main design language.
@@ -92,8 +92,8 @@ Preferred workflow:
 4. Create `src/lib/site-assets.ts` (or the equivalent path used by the repository) with all asset paths and their metadata. Components must not scatter image URLs throughout the code.
 5. Use `next/image` where appropriate, set meaningful dimensions/aspect ratios, use responsive sizes, and avoid layout shift. Use an image fallback component when a file is absent.
 6. Keep temporary images visually cohesive: warm neutral grade, natural light, candid coaching moments, real equipment, uncluttered backgrounds, no neon colour grading, no fake logos, no watermarks, no obvious AI artefacts.
-7. Temporary stock/AI-generated people must not be described as Shrikant or presented as actual clients. Use the imagery as illustrative fitness photography, not evidence of his identity or achievements. Later replacement must require changing the central asset map only.
-8. For the hero, use a compelling portrait/action photograph of an Indian personal training scene, preferably a coaching moment or side-angle action. It must look premium and human. A temporary stock/AI image is acceptable for the demo, but never caption it as Shrikant.
+7. Temporary stock/AI-generated people must not be described as Srikanth or presented as actual clients. Use the imagery as illustrative fitness photography, not evidence of his identity or achievements. Later replacement must require changing the central asset map only.
+8. For the hero, use a compelling portrait/action photograph of an Indian personal training scene, preferably a coaching moment or side-angle action. It must look premium and human. A temporary stock/AI image is acceptable for the demo, but never caption it as Srikanth.
 9. For the coach/about section, use a well-composed temporary fitness portrait or candid coaching image. It will be replaced later by the trainer's own photo.
 10. Create image slots for the hero, trainer/about, in-person coaching, online coaching, weight-loss programme (conditional), strength/muscle programme (conditional), method, guide cards, and temporary transformation mockup.
 11. Before/after layout: create a polished, reusable component for future authentic client progress photographs. For the v0 demo, use temporary images only if you can make it clear they are not real client results. Add a visible but tasteful label such as “Demo layout · replace with real client photos before launch”. Do not invent a person's weight loss, measurements, date range, testimonial, or result. Do not imply that two unrelated stock people are the same person. If a realistic same-person before/after cannot be created without misleading imagery, use two neutral demo frames with temporary image placeholders while keeping the layout visually complete.
@@ -104,7 +104,7 @@ Preferred workflow:
 
 Create a central content file such as `src/lib/site-content.ts` containing:
 
-- Working display name: `Shrikant` until confirmed. Store the full name in one configurable field; do not hard-code it separately in headers, metadata, footer, and content.
+- Working display name: `Srikanth` until confirmed. Store the full name in one configurable field; do not hard-code it separately in headers, metadata, footer, and content.
 - Instagram URL: `https://www.instagram.com/_srikanth_goud_350_/`
 - Website/service content.
 - Qualification details, each with a verification state.
@@ -151,7 +151,7 @@ Build their page templates and sample structure so they are ready for future use
 - `/guides/first-month-personal-training/`
 - `/guides/gym-home-online-training/`
 
-Create useful article layouts and initial editorial copy that avoids unverified local fee statistics or fitness claims. Distinguish general educational content from facts about Shrikant. If a guide cannot be completed with useful original content, keep it unpublished rather than filling it with generic filler.
+Create useful article layouts and initial editorial copy that avoids unverified local fee statistics or fitness claims. Distinguish general educational content from facts about Srikanth. If a guide cannot be completed with useful original content, keep it unpublished rather than filling it with generic filler.
 
 **Legal pages**
 
@@ -166,7 +166,7 @@ Build these sections in the following narrative order. Each section must use a d
 
 #### Header and navigation
 
-- Typographic wordmark: “SHRIKANT” with “PERSONAL TRAINING” as a smaller label. It is a working identity; the name must come from the central config.
+- Typographic wordmark: “SRIKANTH” with “PERSONAL TRAINING” as a smaller label. It is a working identity; the name must come from the central config.
 - Desktop navigation anchors: Coach, Coaching, Method, Pricing, FAQs.
 - Primary CTA: “Enquire About Coaching” or another confirmed neutral CTA.
 - Mobile navigation with accessible menu behaviour.
@@ -206,13 +206,13 @@ Build these sections in the following narrative order. Each section must use a d
 - Do not number the stages. Do not make the section a bare list separated by lines.
 - Use an art-directed connected composition such as staggered cards with a restrained curved arc/path detail, transitioning to a clean vertical layout on mobile. Cards must be visually grouped and readable, not floating randomly.
 - Each stage gets a meaningful Lucide icon, a short label, and concise copy. No invented medical screening or specific assessment protocol. Describe generic training-planning steps only where appropriate.
-- A visual “example session log” can be used as a small decorative information panel, but clearly label it as an example, not Shrikant's real training data.
+- A visual “example session log” can be used as a small decorative information panel, but clearly label it as an example, not Srikanth's real training data.
 
 #### Programme/goal section
 
 - Build a visually rich programme section for weight loss, strength/muscle building, and beginner training only as configurable items.
 - Use asymmetrical cards with editorial images, purposeful visual scale, and clear descriptions. Avoid equal three-card grids if a stronger layout is possible.
-- Hide unpublished or unconfirmed specialist programmes from production navigation. In the v0 preview, show the layout with “demo content” only if clearly identified and not presented as a verified Shrikant service.
+- Hide unpublished or unconfirmed specialist programmes from production navigation. In the v0 preview, show the layout with “demo content” only if clearly identified and not presented as a verified Srikanth service.
 - Each published programme must link to a real, substantive service page.
 
 #### Client stories and progress
@@ -226,7 +226,7 @@ Build these sections in the following narrative order. Each section must use a d
 #### Pricing and packages
 
 - Provide a polished pricing area without inventing prices.
-- Default to a refined “Enquire about coaching options” presentation until Shrikant provides actual fees and package details.
+- Default to a refined “Enquire about coaching options” presentation until Srikanth provides actual fees and package details.
 - Prepare reusable pricing-card/table components that can be enabled from config once confirmed.
 - When confirmed, each package should state inclusions, number of sessions, session duration, validity, cancellation terms, and price. Do not invent discounts, crossed-out prices, countdowns, scarcity, or guaranteed results.
 
@@ -364,7 +364,7 @@ NO GENERIC AI DESIGN
 No section numbers (01/02/03), repeated equal three-card grids, icon-in-rounded-square tiles, endless divider rows, centered-everything layouts, glowing effects, glassmorphism, floating decorative cards, fake stats, gradient text, emoji UI, or arbitrary animation. Cards should group meaningful information. Give sections purposeful, varied compositions. Do not make every section a card.
 
 TEMPORARY IMAGERY
-Use professional stock or AI-generated temporary images now. Centralise all image paths and metadata in the site asset config so real photos/videos can replace them later. Do not invent remote URLs. Do not identify stock/AI people as Shrikant or real clients. Before/after imagery is demo-only, clearly labelled and controlled by one config flag; never invent claims/results.
+Use professional stock or AI-generated temporary images now. Centralise all image paths and metadata in the site asset config so real photos/videos can replace them later. Do not invent remote URLs. Do not identify stock/AI people as Srikanth or real clients. Before/after imagery is demo-only, clearly labelled and controlled by one config flag; never invent claims/results.
 
 MOTION
 Use CSS and one lightweight Reveal component if needed. Visible, tasteful hero and scroll animations are expected, but motion must be purposeful, run once, preserve performance and respect prefers-reduced-motion. No parallax, scroll-jacking, loops or page transitions. Essential content must remain visible without JavaScript.

@@ -1,0 +1,241 @@
+/* Homepage "Meet Srikanth" section: one cream card holding the portrait, the bio, the contact
+   links and a static stats panel. Loaded after approach.css.
+   Palette roles: page #FFFBF5, ink #1E140B, secondary #5A4838, muted #7A6755, burnt #D4601E
+   (large headline words only), ember #A8440F (small links), cream #FCF0E1, dark #2B1A0E, hairline
+   #E8D8BF, amber only on the WhatsApp button (shared .button). Radii: 8 / 16 / 28 plus the
+   signature quarter-round on the portrait. No shadows. Mobile first: base under 768px, then 768
+   and 1024. The Approach section above owns the gap before the card, so this section has no top
+   padding; its bottom padding is the one gap after the card. */
+
+.co {
+  --co-ink: #1E140B;
+  --co-soft: #5A4838;
+  --co-muted: #7A6755;
+  --co-burnt: #D4601E;
+  --co-ember: #A8440F;
+  --co-cream: #FCF0E1;
+  --co-dark: #2B1A0E;
+  --co-hair: #E8D8BF;
+  --co-ease: cubic-bezier(.22, 1, .36, 1);
+  --co-ease-clip: cubic-bezier(.65, 0, .35, 1);
+  --co-rise: 16px;
+  --co-chip-rise: 12px;
+  --co-list-base: 0ms;
+  --co-contact-delay: 0ms;
+  background: #FFFBF5;
+  padding: 0 0 72px;
+  scroll-margin-top: var(--header-h, 79px);
+}
+
+.co :focus-visible { outline: 2px solid var(--co-ink); outline-offset: 2px; }
+
+/* Reveal wrappers are only intersection triggers; inner elements carry the motion. */
+.co .reveal.co-reveal { opacity: 1; transform: none; transition: none; min-width: 0; }
+
+.co h2 { margin: 0; font-family: var(--font-archivo), sans-serif; font-weight: 800; color: var(--co-ink); }
+
+/* ---------- Card (mobile: single column) ---------- */
+.co-card {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 20px;
+  border-radius: 28px;
+  background: var(--co-cream);
+  overflow: hidden;
+}
+
+/* ---------- Portrait ---------- */
+.co-photo {
+  position: relative;
+  aspect-ratio: var(--co-aspect, 4 / 5);
+  border-radius: 72px 16px 16px 16px;
+  background: var(--co-hair);
+}
+.co-photo-clip { position: absolute; inset: 0; overflow: hidden; border-radius: inherit; }
+.co-photo-img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: var(--co-focal, 50% 30%); }
+
+/* The chip sits at the bottom edge, below the face (the head is in the top third of the crop). */
+.co-chip {
+  position: absolute;
+  left: 12px;
+  bottom: 12px;
+  max-width: calc(100% - 24px);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  border-radius: 8px;
+  background: var(--co-dark);
+  color: var(--co-cream);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.25;
+}
+.co-chip svg { flex: none; }
+
+/* ---------- Content ---------- */
+.co-content { display: flex; flex-direction: column; gap: 24px; min-width: 0; }
+
+.co-h2 {
+  font-size: 28px;
+  line-height: 1.1;
+  letter-spacing: -.03em;
+  text-wrap: balance;
+}
+.co-h2-accent { color: var(--co-burnt); }
+
+.co-lede {
+  margin: 16px 0 0;
+  max-width: 54ch;
+  color: var(--co-soft);
+  font-size: 17px;
+  line-height: 1.6;
+  text-wrap: pretty;
+}
+
+.co-list { display: flex; flex-direction: column; gap: 24px; margin: 0; padding: 0; list-style: none; }
+.co-principle { display: flex; align-items: flex-start; gap: 12px; }
+.co-principle p { margin: 0; min-width: 0; }
+.co-check { flex: none; margin-top: 2px; color: var(--co-ink); }
+.co-lead { display: block; color: var(--co-ink); font-size: 16px; font-weight: 600; line-height: 1.6; }
+.co-text { display: block; color: var(--co-soft); font-size: 16px; line-height: 1.6; }
+
+/* ---------- Contact ---------- */
+.co-contact { display: flex; flex-direction: column; gap: 16px; }
+.co-actions { display: flex; flex-direction: column; gap: 8px; }
+.co-btn { gap: 10px; width: 100%; min-height: 52px; padding: 0 24px; border-radius: 8px; text-align: center; }
+.co-btn svg { flex: none; }
+.co-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 44px;
+  color: var(--co-ember);
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.3;
+  text-decoration: none;
+}
+.co-link svg { flex: none; }
+.co-link:hover span { text-decoration: underline; text-underline-offset: 4px; text-decoration-thickness: 1.5px; }
+.co-link-arrow { margin-left: -4px; }
+.co-languages { margin: 0; color: var(--co-muted); font-size: 14px; line-height: 1.5; }
+
+/* ---------- Stats panel (2 x 2) ---------- */
+.co-stats { padding: 20px; border-radius: 16px; background: #FFFFFF; }
+.co-stat-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); margin: 0; }
+.co-stat { display: flex; flex-direction: column-reverse; justify-content: flex-end; gap: 6px; min-width: 0; }
+.co-stat:nth-child(odd) { padding-right: 12px; }
+.co-stat:nth-child(even) { padding-left: 12px; border-left: 1px solid var(--co-hair); }
+.co-stat:nth-child(-n+2) { padding-bottom: 12px; }
+.co-stat:nth-child(n+3) { padding-top: 12px; border-top: 1px solid var(--co-hair); }
+.co-stat dt { color: var(--co-soft); font-size: 14px; line-height: 1.3; }
+.co-stat dd {
+  margin: 0;
+  color: var(--co-ink);
+  font-family: var(--font-archivo), sans-serif;
+  font-size: 32px;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -.02em;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+/* ---------- Tablet ---------- */
+@media (min-width: 768px) {
+  .co { padding-bottom: 96px; --co-rise: 24px; --co-chip-rise: 24px; }
+  .co-card { gap: 24px; padding: 32px; }
+  .co-photo { aspect-ratio: 4 / 3; border-radius: 96px 16px 16px 16px; }
+  .co-chip { left: 16px; bottom: 16px; max-width: calc(100% - 32px); }
+  .co-h2 { font-size: 36px; }
+  .co-lede { font-size: 18px; }
+
+  .co-actions { flex-direction: row; flex-wrap: wrap; align-items: center; gap: 8px 24px; }
+  .co-btn { width: auto; }
+
+  .co-stats { padding: 24px; }
+  .co-stat-list { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .co-stat:nth-child(n) { padding: 0 14px; border: 0; border-left: 1px solid var(--co-hair); }
+  .co-stat:first-child { padding-left: 0; border-left: 0; }
+  .co-stat:last-child { padding-right: 0; }
+  .co-stat dd { font-size: 28px; }
+}
+
+/* ---------- Desktop: portrait left, content right, stats row beneath ---------- */
+@media (min-width: 1024px) {
+  .co { --co-list-base: 160ms; --co-contact-delay: 370ms; }
+  .co-card {
+    display: grid;
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    column-gap: 40px;
+    row-gap: 0;
+    padding: 48px;
+  }
+  .co-photo-reveal { grid-column: 1; grid-row: 1; display: flex; min-height: 600px; }
+  .co-photo { flex: 1 1 auto; aspect-ratio: auto; border-radius: 120px 16px 16px 16px; }
+
+  .co-content { grid-column: 2; grid-row: 1; justify-content: center; gap: 32px; }
+  .co-h2 { font-size: clamp(28px, 3.4vw, 44px); }
+
+  .co-stats-reveal { grid-column: 1 / -1; grid-row: 2; margin-top: 40px; }
+  .co-stats { padding: 32px 40px; }
+  .co-stat:nth-child(n) { padding-inline: 24px; border-left: 1px solid var(--co-hair); }
+  .co-stat:first-child { padding-left: 0; border-left: 0; }
+  .co-stat:last-child { padding-right: 0; }
+  .co-stat dd { font-size: 36px; }
+}
+
+@media (min-width: 1200px) {
+  .co-card { column-gap: 48px; }
+  .co-stat:nth-child(n) { padding-inline: 32px; }
+  .co-stat:first-child { padding-left: 0; }
+  .co-stat:last-child { padding-right: 0; }
+  .co-stat dd { font-size: 40px; }
+}
+
+/* ---------- Motion: CSS only (transform, opacity, clip-path). Hidden start states
+   exist only under html.js-motion and no-preference, so visitors without script or
+   with reduced motion always see the final state. ---------- */
+@media (prefers-reduced-motion: no-preference) {
+  /* Card */
+  html.js-motion .co-card-reveal:not(.is-visible) .co-card { opacity: 0; }
+  html.js-motion .co-card-reveal.is-visible .co-card { animation: co-rise 600ms var(--co-ease) backwards; }
+
+  /* Portrait: wipe down, image settles from 1.08, chip follows */
+  html.js-motion .co-photo-reveal:not(.is-visible) .co-photo-clip { clip-path: inset(0 0 100% 0); }
+  html.js-motion .co-photo-reveal:not(.is-visible) .co-photo-img { transform: scale(1.08); }
+  html.js-motion .co-photo-reveal:not(.is-visible) .co-chip { opacity: 0; }
+  html.js-motion .co-photo-reveal.is-visible .co-photo-clip { animation: co-wipe 800ms var(--co-ease-clip) backwards; }
+  html.js-motion .co-photo-reveal.is-visible .co-photo-img { animation: co-settle 800ms var(--co-ease-clip) backwards; }
+  html.js-motion .co-photo-reveal.is-visible .co-chip { animation: co-chip 600ms var(--co-ease) 500ms backwards; }
+
+  /* Heading and lede */
+  html.js-motion .co-head-reveal:not(.is-visible) .co-h2,
+  html.js-motion .co-head-reveal:not(.is-visible) .co-lede { opacity: 0; }
+  html.js-motion .co-head-reveal.is-visible .co-h2 { animation: co-rise 600ms var(--co-ease) backwards; }
+  html.js-motion .co-head-reveal.is-visible .co-lede { animation: co-rise 600ms var(--co-ease) 80ms backwards; }
+
+  /* Principles: 70ms stagger */
+  html.js-motion .co-list-reveal:not(.is-visible) .co-principle { opacity: 0; }
+  html.js-motion .co-list-reveal.is-visible .co-principle {
+    animation: co-rise 600ms var(--co-ease) calc(var(--co-list-base) + var(--i, 0) * 70ms) backwards;
+  }
+
+  /* Contact row, after the principles */
+  html.js-motion .co-contact-reveal:not(.is-visible) .co-contact { opacity: 0; }
+  html.js-motion .co-contact-reveal.is-visible .co-contact { animation: co-rise 600ms var(--co-ease) var(--co-contact-delay) backwards; }
+
+  /* Stats: the panel as one block, then the four figures fade in */
+  html.js-motion .co-stats-reveal:not(.is-visible) .co-stats,
+  html.js-motion .co-stats-reveal:not(.is-visible) .co-stat { opacity: 0; }
+  html.js-motion .co-stats-reveal.is-visible .co-stats { animation: co-rise 600ms var(--co-ease) backwards; }
+  html.js-motion .co-stats-reveal.is-visible .co-stat { animation: co-fade 500ms ease-out calc(150ms + var(--i, 0) * 70ms) backwards; }
+}
+
+@keyframes co-rise { from { opacity: 0; transform: translateY(var(--co-rise)); } to { opacity: 1; transform: none; } }
+@keyframes co-chip { from { opacity: 0; transform: translateY(var(--co-chip-rise)); } to { opacity: 1; transform: none; } }
+@keyframes co-fade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes co-wipe { from { clip-path: inset(0 0 100% 0); } to { clip-path: inset(0 0 0 0); } }
+@keyframes co-settle { from { transform: scale(1.08); } to { transform: none; } }

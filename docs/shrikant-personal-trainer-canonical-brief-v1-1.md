@@ -1,4 +1,4 @@
-# Shrikant | Personal Training in Hyderabad
+# Srikanth | Personal Training in Hyderabad
 
 ## Canonical Website Strategy, Content Architecture, Visual Direction, and v0 Build Brief
 
@@ -6,7 +6,7 @@
 **Version:** 1.1  
 **Prepared:** 24 October 2026 (revised using the supplied Instagram profile screenshot)  
 **Primary use:** Upload this file into the blank Next.js project and provide it to v0 as the source of truth for the website build.  
-**Research basis:** *Hyderabad Personal Trainer SEO Strategy.pdf* (Gemini Deep Research, 103 pages); *Hyderabad Personal Trainer Search-First Website Strategy - Claude AI result.pdf* (36 pages, independent review dated 24 October 2026); and the user-supplied screenshot of Shrikant/Srikanth’s public Instagram profile. Instagram direct-page fetching was throttled during review, so the screenshot is the only profile evidence actually inspected in this revision.
+**Research basis:** *Hyderabad Personal Trainer SEO Strategy.pdf* (Gemini Deep Research, 103 pages); *Hyderabad Personal Trainer Search-First Website Strategy - Claude AI result.pdf* (36 pages, independent review dated 24 October 2026); and the user-supplied screenshot of Srikanth/Srikanth’s public Instagram profile. Instagram direct-page fetching was throttled during review, so the screenshot is the only profile evidence actually inspected in this revision.
 
 ---
 
@@ -19,8 +19,8 @@ Build the complete first-pass website described in this document inside the exis
 1. Follow this brief for strategy, page structure, content, visual direction, and SEO.
 2. Use the existing project configuration and installed packages where possible. Do not replace working project foundations unnecessarily.
 3. Build a complete, responsive, working website, including the homepage and internal routes listed below.
-4. Use polished, appropriate stock photography as temporary visual assets where needed. Centralise image references so Shrikant’s real photographs and videos can replace them later without rewriting layouts.
-5. Do not invent any fact about Shrikant/Srikanth, his qualifications, experience, results, prices, service radius, language fluency, or client history. Instagram bio claims are self-reported until verified.
+4. Use polished, appropriate stock photography as temporary visual assets where needed. Centralise image references so Srikanth’s real photographs and videos can replace them later without rewriting layouts.
+5. Do not invent any fact about Srikanth/Srikanth, his qualifications, experience, results, prices, service radius, language fluency, or client history. Instagram bio claims are self-reported until verified.
 6. Make the design feel individually art-directed and implemented from a considered Figma design. It must not resemble a generic AI-generated landing page.
 7. Before/after content must be visibly marked as a temporary demo placeholder. Never present different stock models as if they were the same person's transformation.
 8. Do not leave visible Lorem ipsum, broken links, dead buttons, dummy review quotes, fake statistics, empty sections, prototype comparisons, design tests, or AI design-test sections.
@@ -41,35 +41,35 @@ Build the complete first-pass website described in this document inside the exis
 
 ## 1. Project summary
 
-Create a premium, conversion-focused website for **Shrikant** (working brand spelling; confirm the exact public name before launch), an independent personal trainer in Hyderabad. The supplied Instagram screenshot describes the coach as “Srikanth Gaddam | NASM CPT” and says “In-Person & Online Fitness Coach”; it also references movement science and posture, but the bio text is cut off. Treat this as profile-supplied/self-reported information, not independently verified credentials. The high-level online and in-person formats are indicated, but the exact session formats, programme specialisations, qualifications, prices, and service localities still need confirmation.
+Create a premium, conversion-focused website for **Srikanth** (working brand spelling; confirm the exact public name before launch), an independent personal trainer in Hyderabad. The supplied Instagram screenshot describes the coach as “Srikanth Gaddam | NASM CPT” and says “In-Person & Online Fitness Coach”; it also references movement science and posture, but the bio text is cut off. Treat this as profile-supplied/self-reported information, not independently verified credentials. The high-level online and in-person formats are indicated, but the exact session formats, programme specialisations, qualifications, prices, and service localities still need confirmation.
 
 This is a **personal trainer's professional brand**, not a gym chain website, gym membership site, fitness directory, or multi-trainer studio site.
 
 ### Primary business objective
 
-Generate relevant enquiries from people looking for personal training in Hyderabad, then help visitors understand the coaching options and contact Shrikant through an enquiry form, phone, or WhatsApp once the real contact details are provided.
+Generate relevant enquiries from people looking for personal training in Hyderabad, then help visitors understand the coaching options and contact Srikanth through an enquiry form, phone, or WhatsApp once the real contact details are provided.
 
 ### Primary SEO objective
 
 Build relevance for:
 
 - `personal trainer in Hyderabad`
-- `best personal trainer in Hyderabad` (a target query to compete for, not an unsupported claim that Shrikant is objectively the best)
+- `best personal trainer in Hyderabad` (a target query to compete for, not an unsupported claim that Srikanth is objectively the best)
 
 ### Secondary SEO themes
 
-- Weight-loss personal training in Hyderabad, if Shrikant actually offers this programme.
-- Strength and muscle-building coaching in Hyderabad, if this is within Shrikant's actual expertise.
+- Weight-loss personal training in Hyderabad, if Srikanth actually offers this programme.
+- Strength and muscle-building coaching in Hyderabad, if this is within Srikanth's actual expertise.
 - Online personal training / online fitness classes.
 - In-person personal training / fitness classes in Hyderabad.
 - Personal training for beginners, if appropriate to the service.
 - Personal trainer fees in Hyderabad, handled with honest, current pricing context.
-- At-home personal training in Hyderabad only if Shrikant truly visits clients at home.
+- At-home personal training in Hyderabad only if Srikanth truly visits clients at home.
 - Nutrition guidance only to the extent supported by verified qualifications and professional scope.
 
 ### Business outcome matters more than ranking claims
 
-The website should help qualified prospects decide whether Shrikant is a suitable trainer and make it easy to enquire. Do not guarantee rankings, weight-loss results, muscle gain, health outcomes, or a date by which Google rankings will be achieved.
+The website should help qualified prospects decide whether Srikanth is a suitable trainer and make it easy to enquire. Do not guarantee rankings, weight-loss results, muscle gain, health outcomes, or a date by which Google rankings will be achieved.
 
 ---
 
@@ -79,7 +79,7 @@ The website should help qualified prospects decide whether Shrikant is a suitabl
 
 Use this provisional identity consistently:
 
-**SHRIKANT**  
+**SRIKANTH**  
 **PERSONAL TRAINING**
 
 Do not invent a surname, business name, certification, award, tagline implying a guarantee, or years of experience. The full public name and any final brand name can be updated after the trainer confirms them.
@@ -103,7 +103,7 @@ The website should communicate:
 - Natural Indian English; avoid awkward keyword repetition.
 - Specific about process and deliverables, not generic claims such as “transform your life,” “unleash your potential,” or “India's No. 1 trainer.”
 - Never guarantee a specific amount of weight loss, body transformation, or time-bound health outcome.
-- Do not use a medical, physiotherapy, rehabilitation, or clinical nutrition claim unless Shrikant's verified qualifications support it.
+- Do not use a medical, physiotherapy, rehabilitation, or clinical nutrition claim unless Srikanth's verified qualifications support it.
 
 ### Suggested provisional message
 
@@ -128,7 +128,7 @@ The two supplied research reports agree on several useful points:
 
 ### Evidence limits
 
-The reports do not provide a verified, comprehensive Google India dataset for search volume, keyword difficulty, personalised rankings, or map-pack positions. Their keyword priorities should be treated as reasoned hypotheses, not measured search-volume findings. Pricing figures in the reports are market context, not Shrikant's prices. Locality interpretations below are not confirmed facts about Shrikant's service area.
+The reports do not provide a verified, comprehensive Google India dataset for search volume, keyword difficulty, personalised rankings, or map-pack positions. Their keyword priorities should be treated as reasoned hypotheses, not measured search-volume findings. Pricing figures in the reports are market context, not Srikanth's prices. Locality interpretations below are not confirmed facts about Srikanth's service area.
 
 ---
 
@@ -146,8 +146,8 @@ The reports do not provide a verified, comprehensive Google India dataset for se
 - The profile describes him as an **“In-Person & Online Fitness Coach.”**
 - The visible bio says he is **“Specializing in movement science, posture, and…”**; the rest of this line is truncated and unknown. Do not complete or guess the missing text.
 - The profile category is shown as **Athlete**.
-- The visible handle is `@_srikanth_goud_350_`, which differs from the surname spelling “Gaddam” shown in the bio. The brand name provided by the project owner is “Shrikant.” Confirm the preferred public spelling and full name before publication; do not silently resolve the discrepancy.
-- The screenshot displays a WhatsApp link as `wa.me/9100434337`. Do **not** wire this link into website CTAs until Shrikant confirms the intended phone number, supplies the correct full WhatsApp URL, and the link is tested. The displayed string may not be a valid complete international-format WhatsApp destination.
+- The visible handle is `@_srikanth_goud_350_`, which differs from the surname spelling “Gaddam” shown in the bio. The brand name provided by the project owner is “Srikanth.” Confirm the preferred public spelling and full name before publication; do not silently resolve the discrepancy.
+- The screenshot displays a WhatsApp link as `wa.me/9100434337`. Do **not** wire this link into website CTAs until Srikanth confirms the intended phone number, supplies the correct full WhatsApp URL, and the link is tested. The displayed string may not be a valid complete international-format WhatsApp destination.
 - A Threads handle shown in the screenshot resembles `_srikanth_goud_350_`; use a Threads link only after verifying its exact public URL.
 - The screenshot shows profile counts of 251 posts, 1,098 followers, and 1,255 following at the time of capture. These are temporary snapshot values; do not place them on the website as trust statistics or hard-code them into the design.
 - Visible Highlight labels include “Trainning”/training (as displayed), “one of my fav…”, travel-related highlights and a partially visible certification highlight. The labels alone do not establish details of qualifications, services, or achievements.
@@ -156,10 +156,10 @@ The reports do not provide a verified, comprehensive Google India dataset for se
 
 1. Use a **named individual-coach identity**, rather than a gym chain or multi-trainer studio identity.
 2. The visual and copy direction may explore **movement-first coaching**, with online and in-person formats, because these are explicitly referenced in the visible bio. Confirm the exact service scope before making stronger claims.
-3. Design a dedicated credential component, but keep it hidden or marked for verification until Shrikant provides evidence of the NASM credential and the exact credential title. Do not present a self-reported bio claim as an independently verified certification.
+3. Design a dedicated credential component, but keep it hidden or marked for verification until Srikanth provides evidence of the NASM credential and the exact credential title. Do not present a self-reported bio claim as an independently verified certification.
 4. Do not assume that “movement science” means physiotherapy, rehabilitation, pain treatment, posture correction, injury diagnosis, or clinical care. Do not use those terms unless the trainer’s qualifications and actual service scope justify them.
 5. Do not assume the trainer offers fat-loss programmes, bodybuilding coaching, nutrition consultancy, group classes, at-home visits, or any other specialised service solely from this screenshot. Keep these offerings conditional until he confirms them.
-6. The screenshot includes personal/travel/cultural imagery in the visible grid. Those images are not automatically appropriate website assets. Later, review the actual feed with Shrikant and select only relevant training content that he owns or has permission to reuse.
+6. The screenshot includes personal/travel/cultural imagery in the visible grid. Those images are not automatically appropriate website assets. Later, review the actual feed with Srikanth and select only relevant training content that he owns or has permission to reuse.
 
 ### Instagram access limitation and v0 instructions
 
@@ -184,7 +184,7 @@ Do not depend on v0 being able to scrape or fully retrieve Instagram. Instagram 
 | P1 if offered | Weight-loss personal trainer in Hyderabad | Dedicated service page | Draft/noindex until confirmed and supported |
 | P1 if offered | Strength and muscle-building coach in Hyderabad | Dedicated service page | Draft/noindex until confirmed and supported |
 | Conditional | Personal trainer at home in Hyderabad | At-home service page | Draft/noindex until home visits and locations are confirmed |
-| P2 | Personal trainer for beginners in Hyderabad | Homepage section and/or supporting guide | Use if consistent with Shrikant's offer |
+| P2 | Personal trainer for beginners in Hyderabad | Homepage section and/or supporting guide | Use if consistent with Srikanth's offer |
 | P2 | Personal trainer fees in Hyderabad | Pricing section and educational guide | Explain pricing honestly; do not invent benchmarks |
 | Conditional | Nutrition consultant / nutritionist / diet plan | Relevant page or section only | Do not use professional titles or clinical claims without verified qualifications |
 | Not targeted | “Katchi Boli” / “Mendi Bhutan” | None | Do not publish these strings as locality targets |
@@ -204,19 +204,19 @@ Use a “Where I coach” section only after confirming the real locations and d
 
 Draft patterns to customise after the domain and service facts are confirmed:
 
-**Homepage title:** `Personal Trainer in Hyderabad | Shrikant – Personal Training` (confirm preferred public name spelling before launch)
+**Homepage title:** `Personal Trainer in Hyderabad | Srikanth – Personal Training` (confirm preferred public name spelling before launch)
 
 **Homepage H1:** `Personal Trainer in Hyderabad for Personalised Fitness Coaching`
 
-**Homepage description:** `Explore personal training in Hyderabad with Shrikant. Compare available online and in-person coaching options and enquire about a programme that fits your goals.` Update this when the confirmed name and service details are final.
+**Homepage description:** `Explore personal training in Hyderabad with Srikanth. Compare available online and in-person coaching options and enquire about a programme that fits your goals.` Update this when the confirmed name and service details are final.
 
-**Online service title:** `Online Personal Training | Shrikant`
+**Online service title:** `Online Personal Training | Srikanth`
 
-**In-person service title:** `Personal Training in Hyderabad | Shrikant`
+**In-person service title:** `Personal Training in Hyderabad | Srikanth`
 
-**Weight-loss page title (conditional):** `Weight-Loss Personal Training in Hyderabad | Shrikant`
+**Weight-loss page title (conditional):** `Weight-Loss Personal Training in Hyderabad | Srikanth`
 
-**Strength/muscle page title (conditional):** `Strength and Muscle-Building Coaching in Hyderabad | Shrikant`
+**Strength/muscle page title (conditional):** `Strength and Muscle-Building Coaching in Hyderabad | Srikanth`
 
 These are starting templates. Avoid keyword stuffing and do not repeat the same phrase unnaturally across all headings. Use a clear H1, ordered H2s/H3s, descriptive anchor/link text, and meaningful alt text for informative images.
 
@@ -237,7 +237,7 @@ These are starting templates. Avoid keyword stuffing and do not repeat the same 
 
 ### 5.5 Structured data
 
-Only add structured data that is accurate and matches visible page content. A `Person` entity may be suitable for Shrikant; `Service` information may be appropriate where factually supported. Only add local-business types/properties when they accurately represent the real operating model and satisfy the relevant requirements. Google LocalBusiness rich-result guidance requires an address property; do not invent or expose a private home address to satisfy markup.
+Only add structured data that is accurate and matches visible page content. A `Person` entity may be suitable for Srikanth; `Service` information may be appropriate where factually supported. Only add local-business types/properties when they accurately represent the real operating model and satisfy the relevant requirements. Google LocalBusiness rich-result guidance requires an address property; do not invent or expose a private home address to satisfy markup.
 
 Do not add fabricated reviews, AggregateRating claims, or self-serving review markup to chase stars. FAQ content should be useful and visible in HTML; do not build the strategy around FAQ rich results.
 
@@ -253,7 +253,7 @@ The homepage should remain a single, polished, continuous landing-page experienc
 2. `/services/in-person-personal-training-hyderabad/` — In-person training details. Confirm whether sessions take place at a partner gym, a client's home, another location, or a combination. Do not invent a venue.
 3. `/services/online-personal-training/` — Online coaching/classes, including format, platform, scheduling, equipment expectations, and enquiry process once confirmed.
 4. `/guides/` — Guides index.
-5. `/guides/personal-trainer-fees-hyderabad/` — Explains factors that affect fees and package comparison; do not publish invented market statistics or Shrikant's pricing.
+5. `/guides/personal-trainer-fees-hyderabad/` — Explains factors that affect fees and package comparison; do not publish invented market statistics or Srikanth's pricing.
 6. `/guides/first-month-personal-training/` — Practical guide explaining what a client can ask and expect from a well-structured first month, without guaranteeing specific results.
 7. `/guides/gym-home-online-training/` — Neutral comparison of training formats and decision criteria.
 8. `/privacy/` — Accurate privacy notice, tailored to actual forms/analytics/data collection before launch.
@@ -261,7 +261,7 @@ The homepage should remain a single, polished, continuous landing-page experienc
 
 ### Specialist routes to build in draft mode
 
-Build the code/page templates, but default them to `noindex`, keep them out of the public nav and sitemap, and label them internally for review until Shrikant confirms the service and provides genuine detail:
+Build the code/page templates, but default them to `noindex`, keep them out of the public nav and sitemap, and label them internally for review until Srikanth confirms the service and provides genuine detail:
 
 - `/weight-loss-personal-trainer-hyderabad/`
 - `/strength-and-muscle-coach-hyderabad/`
@@ -285,10 +285,10 @@ Implement the sections below in this order. Content should be concise but meanin
 
 **Purpose:** Establish the trainer's name and make navigation easy.
 
-- Wordmark: `SHRIKANT / PERSONAL TRAINING` in typographic treatment; no generic dumbbell logo.
+- Wordmark: `SRIKANTH / PERSONAL TRAINING` in typographic treatment; no generic dumbbell logo.
 - Desktop anchor links: Coach, Method, Programmes, Pricing, FAQs.
 - CTA: `Discuss Your Training` or `Enquire About Training`.
-- Do not promise a free consultation or assessment unless Shrikant confirms it.
+- Do not promise a free consultation or assessment unless Srikanth confirms it.
 
 ### 02. Hero: local value proposition
 
@@ -313,17 +313,17 @@ Use an asymmetric editorial layout: text on one side and a strong portrait/actio
 
 **Purpose:** Establish credibility early without fake statistics.
 
-The Instagram bio self-reports NASM CPT, but this is not yet independently verified. Keep a credential badge component available in the design, but do not publish the NASM credential as verified until Shrikant supplies confirmation of the exact qualification. Render verified credentials, experience, languages, or specialisations only after the values are supplied. Until then, use non-claim service descriptors such as `Online Coaching`, `In-Person Sessions`, and `Goal-Led Training` only if accurate. Do not display zeroes, empty counters, or invented client counts.
+The Instagram bio self-reports NASM CPT, but this is not yet independently verified. Keep a credential badge component available in the design, but do not publish the NASM credential as verified until Srikanth supplies confirmation of the exact qualification. Render verified credentials, experience, languages, or specialisations only after the values are supplied. Until then, use non-claim service descriptors such as `Online Coaching`, `In-Person Sessions`, and `Goal-Led Training` only if accurate. Do not display zeroes, empty counters, or invented client counts.
 
 ### 04. Who the coaching may suit
 
 **Purpose:** Help visitors recognise their need.
 
-Use a concise editorial block or bento-like layout with a varied composition, not three identical rounded cards. Potential audience angles include beginners, people returning to exercise, people focused on general fitness, and people interested in strength or weight management. Keep specialised goals hidden/conditional until Shrikant confirms they are part of his service.
+Use a concise editorial block or bento-like layout with a varied composition, not three identical rounded cards. Potential audience angles include beginners, people returning to exercise, people focused on general fitness, and people interested in strength or weight management. Keep specialised goals hidden/conditional until Srikanth confirms they are part of his service.
 
 ### 05. Coaching formats / core services
 
-**Purpose:** Explain the ways people can work with Shrikant.
+**Purpose:** Explain the ways people can work with Srikanth.
 
 Include:
 
@@ -345,9 +345,9 @@ Use a clear four- or five-step editorial timeline:
 4. **Track** — review agreed, relevant progress indicators.
 5. **Adjust** — adapt the plan based on participation and progress.
 
-Do not claim formal movement screening, injury diagnosis, clinical assessment, or specific tracking technology unless Shrikant confirms it. Any sample training log must be labelled as an example, not a real client's record.
+Do not claim formal movement screening, injury diagnosis, clinical assessment, or specific tracking technology unless Srikanth confirms it. Any sample training log must be labelled as an example, not a real client's record.
 
-### 07. About Shrikant
+### 07. About Srikanth
 
 **Purpose:** Make the brand personal and trustworthy.
 
@@ -390,13 +390,13 @@ Package fields should support:
 - Cancellation/rescheduling policy.
 - Payment method/terms.
 
-Until Shrikant supplies exact details, use a clearly marked development placeholder in the code/content configuration and avoid presenting guessed prices as real. Do not use fake crossed-out prices, countdown timers, false scarcity, or “limited slots” unless accurate.
+Until Srikanth supplies exact details, use a clearly marked development placeholder in the code/content configuration and avoid presenting guessed prices as real. Do not use fake crossed-out prices, countdown timers, false scarcity, or “limited slots” unless accurate.
 
 ### 10. Practical lifestyle/nutrition guidance (conditional)
 
 **Purpose:** Address lifestyle fit if this is part of the actual service.
 
-If appropriate and qualified, the section may discuss realistic training routines and familiar Indian meal patterns. Do not call Shrikant a nutritionist or nutrition consultant without verified qualifications. Do not provide medical diet plans or make claims about treating PCOS, thyroid disease, diabetes, injury, or other conditions unless legally and professionally supported. Where needed, say that clinical dietary needs should be handled by a suitably qualified healthcare professional.
+If appropriate and qualified, the section may discuss realistic training routines and familiar Indian meal patterns. Do not call Srikanth a nutritionist or nutrition consultant without verified qualifications. Do not provide medical diet plans or make claims about treating PCOS, thyroid disease, diabetes, injury, or other conditions unless legally and professionally supported. Where needed, say that clinical dietary needs should be handled by a suitably qualified healthcare professional.
 
 If nutrition is not part of the service, omit this section rather than padding the page.
 
@@ -454,7 +454,7 @@ Include the wordmark, relevant internal links, confirmed contact options, public
 - State confirmed service localities only.
 - Describe session format, duration, schedule, inclusions, prices, and cancellation terms only when confirmed.
 - Include useful FAQs, one clear CTA, and internal links to the homepage and online offering.
-- Do not imply Shrikant owns or represents a particular gym unless that is confirmed.
+- Do not imply Srikanth owns or represents a particular gym unless that is confirmed.
 
 ### Online personal training page
 
@@ -471,7 +471,7 @@ If enabled, it should explain who the service is suitable for, programme approac
 
 ### Strength and muscle-building page (draft/noindex until confirmed)
 
-If enabled, explain the training approach, programming principles Shrikant actually uses, suitable starting points, equipment requirements, progress reviews, package details, and FAQs. Avoid claiming specialist credentials or guaranteed muscle gain.
+If enabled, explain the training approach, programming principles Srikanth actually uses, suitable starting points, equipment requirements, progress reviews, package details, and FAQs. Avoid claiming specialist credentials or guaranteed muscle gain.
 
 ### At-home personal training page (draft/noindex until confirmed)
 
@@ -481,9 +481,9 @@ Only enable when home visits genuinely exist. Include confirmed areas, travel li
 
 Start with three human-useful guides:
 
-1. **Personal trainer fees in Hyderabad: what affects the cost?** Explain relevant price factors and questions to ask. Do not invent current market averages or publish Shrikant's price before he confirms it.
+1. **Personal trainer fees in Hyderabad: what affects the cost?** Explain relevant price factors and questions to ask. Do not invent current market averages or publish Srikanth's price before he confirms it.
 2. **What to expect in your first month of personal training.** Explain goal discussion, routine-building, learning exercises, consistency, and review processes without guaranteeing results.
-3. **Gym, home, or online training: which format may suit you?** Offer a balanced comparison and link to only the formats Shrikant genuinely offers.
+3. **Gym, home, or online training: which format may suit you?** Offer a balanced comparison and link to only the formats Srikanth genuinely offers.
 
 These must be genuinely useful and original. Do not mass-generate generic fitness articles for keyword coverage. Include author/reviewer attribution only when it reflects the real author and expertise.
 
@@ -512,7 +512,7 @@ Use editorial hierarchy and deliberate composition rather than decoration. Every
 | Marigold | `#F2A900` | Sparing CTA/focus accent with dark text |
 | Signal green | `#2F7D4F` | Success state only |
 
-Test all actual colour pairs for WCAG contrast. Do not use the accent everywhere. The colours are a proposal to be checked against Shrikant's actual brand assets and training photography. The supplied Instagram screenshot does not establish a formal brand palette or logo.
+Test all actual colour pairs for WCAG contrast. Do not use the accent everywhere. The colours are a proposal to be checked against Srikanth's actual brand assets and training photography. The supplied Instagram screenshot does not establish a formal brand palette or logo.
 
 ### Typography
 
@@ -559,7 +559,7 @@ Use high-quality temporary stock photos that feel documentary and believable:
 - A mix of portrait, coaching action, close details, and wide environment shots.
 - Consistent colour grade/crops across the page.
 
-Prefer genuine photography of Shrikant when supplied, and review the Instagram feed with him for suitable training imagery when accessible. The supplied screenshot alone does not provide enough professional training imagery for the website. Do not generate fake photographs of Shrikant. Do not imply stock models are his clients. Avoid AI-generated people and overprocessed “AI fitness” imagery. Centralise asset paths in one configuration/module so the replacement process is simple.
+Prefer genuine photography of Srikanth when supplied, and review the Instagram feed with him for suitable training imagery when accessible. The supplied screenshot alone does not provide enough professional training imagery for the website. Do not generate fake photographs of Srikanth. Do not imply stock models are his clients. Avoid AI-generated people and overprocessed “AI fitness” imagery. Centralise asset paths in one configuration/module so the replacement process is simple.
 
 ### Avoid these design patterns
 
@@ -579,8 +579,8 @@ Prefer genuine photography of Shrikant when supplied, and review the Instagram f
 
 Create a central file such as `lib/site-content.ts` or `src/lib/site-content.ts` that contains:
 
-- Working brand name and copy values (use `Shrikant` provisionally; add a TODO to confirm whether the public display name should be `Shrikant`, `Srikanth`, or `Srikanth Gaddam`).
-- Contact number/WhatsApp number (empty until Shrikant confirms the correct number and tested URL; do not copy `wa.me/9100434337` into the website unverified).
+- Working brand name and copy values (use `Srikanth` provisionally; add a TODO to confirm whether the public display name should be `Srikanth`, `Srikanth`, or `Srikanth Gaddam`).
+- Contact number/WhatsApp number (empty until Srikanth confirms the correct number and tested URL; do not copy `wa.me/9100434337` into the website unverified).
 - Production domain (environment-configured).
 - Instagram URL: `https://www.instagram.com/_srikanth_goud_350_/` (provided profile link).
 - Instagram bio claims in a draft/reference field only: `NASM CPT`; `In-Person & Online Fitness Coach`; `movement science, posture, and…` (last phrase truncated). These must not become public factual claims until confirmed.
@@ -657,8 +657,8 @@ For the contact form, provide client-side validation and accessible field labels
 Do not create or configure a Google Business Profile until the real operating model is known.
 
 - Google says eligible businesses must make in-person contact with customers during stated hours; online-only businesses are not eligible.
-- If Shrikant visits clients, investigate service-area business eligibility and hide a private address when applicable.
-- Do not claim the address of a gym or class venue unless Shrikant has authority to represent the business at that location.
+- If Srikanth visits clients, investigate service-area business eligibility and hide a private address when applicable.
+- Do not claim the address of a gym or class venue unless Srikanth has authority to represent the business at that location.
 - Use only the real-world business name, accurate category, true service details, real contact information, and genuine photographs.
 - Do not stuff the business name with “best personal trainer in Hyderabad.”
 - Invite genuine clients to leave honest feedback without incentives, review gating, or instructions to include particular keywords/localities.
@@ -692,10 +692,10 @@ Do not promise first-page rankings or set an arbitrary review count as a ranking
 
 ## 15. Launch checklist and unresolved facts
 
-### Must be confirmed with Shrikant before public launch
+### Must be confirmed with Srikanth before public launch
 
-- [ ] Full public/professional name and whether “Shrikant” alone is the brand name.
-- [ ] Confirm that `https://www.instagram.com/_srikanth_goud_350_/` is the right public profile for the project and confirm exact public name spelling (`Shrikant` vs `Srikanth Gaddam`).
+- [ ] Full public/professional name and whether “Srikanth” alone is the brand name.
+- [ ] Confirm that `https://www.instagram.com/_srikanth_goud_350_/` is the right public profile for the project and confirm exact public name spelling (`Srikanth` vs `Srikanth Gaddam`).
 - [ ] Verify the Instagram bio’s self-reported `NASM CPT` claim, exact credential title, issuer, status, and permission to display it.
 - [ ] Years of experience, if to be claimed.
 - [ ] Actual specialisations.
@@ -710,14 +710,14 @@ Do not promise first-page rankings or set an arbitrary review count as a ranking
 - [ ] Whether an existing Google Business Profile exists and whether the business is eligible.
 - [ ] Real testimonials and documented permission.
 - [ ] Real before/after images of the same client, with permission, or remove the section.
-- [ ] Ownership/permission for every image and video used; review suitable public training posts/reels with Shrikant before reuse.
+- [ ] Ownership/permission for every image and video used; review suitable public training posts/reels with Srikanth before reuse.
 - [ ] Actual website domain for canonical URLs and metadata.
 - [ ] Privacy/data handling details and analytics setup.
 
 ### Do not publish until verified
 
 - Any certificate, award, years-of-experience number, client count, rating, testimonial, transformation result, price, physical address, operating hours, service radius, language, nutrition credential, medical claim, or guarantee that is not confirmed.
-- Specialist service pages that do not match Shrikant's actual offer.
+- Specialist service pages that do not match Srikanth's actual offer.
 - Locality targets inferred from “Katchi Boli” or “Mendi Bhutan.”
 - Placeholder imagery that could be mistaken for real client results.
 
@@ -733,7 +733,7 @@ The v0 build is ready for review when:
 4. The guides index and three initial guide pages are implemented with useful, non-fabricated content.
 5. Privacy and disclaimer routes exist as clearly documented scaffolds awaiting final business/data details.
 6. The visual direction is editorial and custom, with purposeful layout variation, not a generic repeated-card template.
-7. Stock images are visually appropriate, centrally configured, and easy to replace. No AI-generated fake Shrikant portrait.
+7. Stock images are visually appropriate, centrally configured, and easy to replace. No AI-generated fake Srikanth portrait.
 8. The before/after layout is visibly marked as demo/placeholder and cannot be mistaken for a verified result.
 9. No fake testimonials, statistics, credentials, business reviews, prices, localities, or outcomes appear as facts.
 10. Navigation, anchors, buttons, service links, accordions, and form validation work. Unconfigured submission destinations are clearly documented; no false success messages are shown.
@@ -766,10 +766,10 @@ The v0 build is ready for review when:
 
 ### Evidence discipline
 
-When sources disagree, do not silently convert a hypothesis into fact. Clearly distinguish verified business details, direct observations from the reference pages, strategic inferences, and assumptions that require trainer confirmation. Prefer current official Google guidance for Google policies. The website must be built around Shrikant's real offer, not around what competitors happen to claim. Instagram data is partial: the screenshot is reviewable, but the live profile fetch was blocked/throttled; do not claim that all Instagram posts or highlights have been reviewed.
+When sources disagree, do not silently convert a hypothesis into fact. Clearly distinguish verified business details, direct observations from the reference pages, strategic inferences, and assumptions that require trainer confirmation. Prefer current official Google guidance for Google policies. The website must be built around Srikanth's real offer, not around what competitors happen to claim. Instagram data is partial: the screenshot is reviewable, but the live profile fetch was blocked/throttled; do not claim that all Instagram posts or highlights have been reviewed.
 
 ---
 
 ## Final instruction
 
-Build the best first-pass implementation that this brief supports. Make the visual work polished and purposeful now; use temporary stock assets where necessary; centralise replaceable content and assets; and explicitly document every business fact that still needs confirmation. Do not pause the build to hunt for perfect photographs or to invent missing details. The real Shrikant imagery, videos, final copy, prices, and credentials can be swapped in during the refinement phase.
+Build the best first-pass implementation that this brief supports. Make the visual work polished and purposeful now; use temporary stock assets where necessary; centralise replaceable content and assets; and explicitly document every business fact that still needs confirmation. Do not pause the build to hunt for perfect photographs or to invent missing details. The real Srikanth imagery, videos, final copy, prices, and credentials can be swapped in during the refinement phase.

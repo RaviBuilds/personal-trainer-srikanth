@@ -1,0 +1,271 @@
+/* Homepage approach section: headline, a rising staircase of four step cards joined by a
+   thin path with nodes, and a closing call to action. Loaded after pricing.css.
+   Palette roles: page #FFFBF5, ink #1E140B, secondary #5A4838, muted #7A6755, burnt #D4601E
+   (large headline words and the path only), ember #A8440F (small links), cream #FCF0E1.
+   Radii: 8 / 16 / 28 only. No shadows here. Mobile first: base under 768px, then 768,
+   1024 and 1280. The stacked layout (under 1024px) uses a plain CSS rail; the staircase
+   path is an SVG measured from the node elements by approach-path.tsx. */
+
+.ap {
+  --ap-page: #FFFBF5;
+  --ap-ink: #1E140B;
+  --ap-soft: #5A4838;
+  --ap-muted: #7A6755;
+  --ap-burnt: #D4601E;
+  --ap-ember: #A8440F;
+  --ap-cream: #FCF0E1;
+  --ap-hair: rgba(30, 20, 11, .12);
+  --ap-ease: cubic-bezier(.22, 1, .36, 1);
+  --ap-ease-clip: cubic-bezier(.65, 0, .35, 1);
+  --ap-indent: 32px;
+  background: var(--ap-page);
+  /* One padding between adjacent sections on this background: the pricing section above ends at 0. */
+  padding: 72px 0;
+  scroll-margin-top: var(--header-h, 79px);
+}
+
+.ap :focus-visible { outline: 2px solid var(--ap-ink); outline-offset: 2px; }
+
+/* Reveal wrappers are only intersection triggers; inner elements carry the motion. */
+.ap .reveal.ap-reveal { opacity: 1; transform: none; transition: none; min-width: 0; }
+
+.ap h2, .ap h3 { margin: 0; font-family: var(--font-archivo), sans-serif; font-weight: 800; color: var(--ap-ink); }
+
+/* ---------- Headline ---------- */
+.ap-h2 {
+  font-size: clamp(30px, 8.4vw, 36px);
+  line-height: 1.08;
+  letter-spacing: -.03em;
+  text-wrap: balance;
+}
+.ap-h2-accent { color: var(--ap-burnt); }
+
+/* ---------- Stage (stacked layout first) ---------- */
+.ap-stage { position: relative; margin-top: 32px; }
+
+.ap-lede {
+  margin: 0 0 32px;
+  max-width: 54ch;
+  color: var(--ap-soft);
+  font-size: 18px;
+  line-height: 1.6;
+}
+
+.ap-list {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  margin: 0;
+  padding: 0 0 0 var(--ap-indent);
+  list-style: none;
+}
+/* The rail: a 2px line 12px from the left edge of the stack. */
+.ap-list::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 12px;
+  width: 2px;
+  background: var(--ap-burnt);
+}
+
+.ap-step { display: flex; min-width: 0; }
+.ap-card-reveal { display: flex; flex: 1 1 auto; }
+
+.ap-card {
+  position: relative;
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  min-width: 0;
+  padding: 28px;
+  border-radius: 16px;
+  background: var(--ap-cream);
+}
+/* Text sits above the path; the node sits above both. */
+.ap-card > :not(.ap-node) { position: relative; z-index: 2; }
+
+/* Node: 14px ink dot with a 4px page-colour ring, centred on the card's top edge. */
+.ap-node {
+  position: absolute;
+  z-index: 3;
+  top: -11px;
+  left: calc(13px - var(--ap-indent) - 11px);
+  box-sizing: content-box;
+  width: 14px;
+  height: 14px;
+  border: 4px solid var(--ap-page);
+  border-radius: 50%;
+  background: var(--ap-ink);
+}
+
+.ap-card-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
+.ap-timing { margin: 0; padding-top: 2px; color: var(--ap-muted); font-size: 14px; line-height: 1.4; }
+.ap-icon { flex: none; color: var(--ap-ink); }
+
+.ap-h3 { margin-top: 16px; font-size: 28px; line-height: 1.08; letter-spacing: -.02em; }
+.ap-body { margin: 12px 0 0; color: var(--ap-soft); font-size: 16px; line-height: 1.6; }
+.ap-link { color: var(--ap-ember); text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1.5px; }
+
+.ap-comfort {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin: 24px 0 0;
+  padding-top: 20px;
+  border-top: 1px solid var(--ap-hair);
+  color: var(--ap-ink);
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.5;
+}
+.ap-check { flex: none; margin-top: 3px; color: var(--ap-ink); }
+
+/* ---------- Closing call to action ---------- */
+.ap-cta-reveal { margin-top: 40px; }
+.ap-cta-title { font-size: 24px; line-height: 1.15; letter-spacing: -.02em; }
+.ap-cta-body { margin: 12px 0 0; max-width: 48ch; color: var(--ap-soft); font-size: 16px; line-height: 1.6; }
+.ap-btn { gap: 10px; width: 100%; min-height: 48px; margin-top: 24px; padding: 0 20px; text-align: center; }
+.ap-btn svg { flex: none; }
+.ap-call {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  margin-top: 8px;
+  color: var(--ap-ember);
+  font-size: 15px;
+  font-weight: 600;
+  text-decoration: none;
+  text-underline-offset: 4px;
+  text-decoration-thickness: 1.5px;
+}
+.ap-call:hover { text-decoration: underline; }
+
+/* The staircase path only exists in the wide layout. */
+.ap-path { display: none; }
+
+/* ---------- Tablet ---------- */
+@media (min-width: 768px) {
+  .ap { --ap-indent: 40px; padding: 96px 0; }
+  .ap-h2 { font-size: 40px; }
+  .ap-stage { margin-top: 40px; }
+  .ap-cta-reveal { margin-top: 48px; }
+  .ap-btn { width: 100%; }
+}
+
+/* ---------- Desktop: 12-column staircase ---------- */
+@media (min-width: 1024px) {
+  .ap {
+    --ap-o1: 200px; --ap-o2: 104px; --ap-o3: 40px; --ap-o4: 0px;
+    --ap-minh: 380px;
+  }
+  .ap-h2 { max-width: calc(75% - 8px); font-size: 44px; }
+
+  .ap-stage {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    grid-template-rows: auto auto minmax(var(--ap-o1), auto);
+    column-gap: 32px;
+    margin-top: 48px;
+  }
+
+  .ap-lede-reveal { grid-column: 1 / span 6; grid-row: 1; }
+  .ap-lede { margin: 0; }
+
+  .ap-list {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: 32px;
+    padding: 0;
+  }
+  .ap-list::before { display: none; }
+
+  /* Equal-height cards in one row; each is lowered by its offset without changing layout. */
+  .ap-step { grid-column: span 3; position: relative; top: var(--ap-off, 0px); min-height: var(--ap-minh); }
+  .ap-step:nth-child(1) { --ap-off: var(--ap-o1); }
+  .ap-step:nth-child(2) { --ap-off: var(--ap-o2); }
+  .ap-step:nth-child(3) { --ap-off: var(--ap-o3); }
+  .ap-step:nth-child(4) { --ap-off: var(--ap-o4); }
+
+  .ap-node { left: 17px; }
+  /* The shared container is capped at 1024px below 1280px, so the cards stay narrow here:
+     26px at 1024 rising to 30px by 1088 keeps "Understand" inside its card. */
+  .ap-h3 { font-size: clamp(26px, calc(26px + (100vw - 1024px) * .0625), 30px); }
+  .ap-body { margin-bottom: 24px; }
+  .ap-comfort { margin-top: auto; }
+
+  .ap-cta-reveal { grid-column: 10 / -1; grid-row: 3; align-self: start; margin-top: 32px; }
+
+  .ap-path {
+    display: block;
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+    pointer-events: none;
+  }
+  .ap-path-line { fill: none; stroke: var(--ap-burnt); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+}
+
+@media (min-width: 1280px) {
+  .ap {
+    --ap-o1: 264px; --ap-o2: 136px; --ap-o3: 56px; --ap-o4: 0px;
+    --ap-minh: 360px;
+  }
+  .ap-h3 { font-size: 32px; }
+}
+
+/* ---------- Motion: CSS only (transform, opacity, clip-path). Hidden start states
+   exist only under html.js-motion and no-preference, so visitors without script or
+   with reduced motion always see the final state. ---------- */
+@media (prefers-reduced-motion: no-preference) {
+  /* Headline and lede, every width. */
+  html.js-motion .ap-head-reveal:not(.is-visible) .ap-h2,
+  html.js-motion .ap-lede-reveal:not(.is-visible) .ap-lede { opacity: 0; }
+  html.js-motion .ap-head-reveal.is-visible .ap-h2 { animation: ap-rise-16 600ms var(--ap-ease) backwards; }
+  html.js-motion .ap-lede-reveal.is-visible .ap-lede { animation: ap-rise-16 600ms var(--ap-ease) 80ms backwards; }
+}
+
+/* Stacked layout: the rail wipes once; each card and the CTA reveal on their own. */
+@media (prefers-reduced-motion: no-preference) and (max-width: 1023.98px) {
+  html.js-motion .ap-stage:not(.is-visible) .ap-list::before { clip-path: inset(0 0 100% 0); }
+  html.js-motion .ap-stage.is-visible .ap-list::before { animation: ap-wipe-y 800ms var(--ap-ease-clip) backwards; }
+
+  html.js-motion .ap-card-reveal:not(.is-visible) .ap-card,
+  html.js-motion .ap-cta-reveal:not(.is-visible) .ap-cta { opacity: 0; }
+  html.js-motion .ap-card-reveal:not(.is-visible) .ap-node { opacity: 0; transform: scale(.6); }
+  html.js-motion .ap-card-reveal.is-visible .ap-card { animation: ap-rise-24 600ms var(--ap-ease) backwards; }
+  html.js-motion .ap-card-reveal.is-visible .ap-node { animation: ap-node 300ms var(--ap-ease) backwards; }
+  html.js-motion .ap-cta-reveal.is-visible .ap-cta { animation: ap-rise-16 600ms var(--ap-ease) backwards; }
+}
+
+/* Wide layout: the stage plays once. Path, nodes and cards go in order; the CTA follows. */
+@media (prefers-reduced-motion: no-preference) and (min-width: 1024px) {
+  html.js-motion .ap-stage:not(.is-visible) .ap-path { clip-path: inset(0 100% 0 0); }
+  html.js-motion .ap-stage:not(.is-visible) .ap-card,
+  html.js-motion .ap-stage:not(.is-visible) .ap-cta { opacity: 0; }
+  html.js-motion .ap-stage:not(.is-visible) .ap-node { opacity: 0; transform: scale(.6); }
+
+  html.js-motion .ap-stage.is-visible .ap-path { animation: ap-wipe-x 800ms var(--ap-ease-clip) backwards; }
+  html.js-motion .ap-stage.is-visible .ap-card {
+    animation: ap-rise-24 600ms var(--ap-ease) backwards;
+    animation-delay: calc(var(--i, 0) * 180ms);
+  }
+  html.js-motion .ap-stage.is-visible .ap-node {
+    animation: ap-node 300ms var(--ap-ease) backwards;
+    animation-delay: calc(var(--i, 0) * 180ms);
+  }
+  html.js-motion .ap-stage.is-visible .ap-cta { animation: ap-rise-16 600ms var(--ap-ease) 700ms backwards; }
+}
+
+@keyframes ap-rise-16 { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+@keyframes ap-rise-24 { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: none; } }
+@keyframes ap-node { from { opacity: 0; transform: scale(.6); } to { opacity: 1; transform: none; } }
+@keyframes ap-wipe-x { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0 0 0 0); } }
+@keyframes ap-wipe-y { from { clip-path: inset(0 0 100% 0); } to { clip-path: inset(0 0 0 0); } }

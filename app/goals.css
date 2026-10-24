@@ -1,0 +1,513 @@
+/* "Training directions" (Goals) section: the goal explorer.
+   Loaded after formats.css. Palette roles: page #FFFBF5, cream #FCF0E1,
+   ink #1E140B, soft #5A4838, muted #7A6755, amber #F2AC50 (button only),
+   burnt #D4601E (large display text and graphics), ember #A8440F (small
+   accent text), ring #8A7660, border #E8D8BF. No gradients.
+   Mobile first: base = under 640px, then 640px, then 1024px and up. */
+
+.goals-v2 {
+  --g-page: #FFFBF5;
+  --g-cream: #FCF0E1;
+  --g-ink: #1E140B;
+  --g-soft: #5A4838;
+  --g-muted: #7A6755;
+  --g-amber: #F2AC50;
+  --g-burnt: #D4601E;
+  --g-ember: #A8440F;
+  --g-ring: #8A7660;
+  --g-border: #E8D8BF;
+  --g-ease: cubic-bezier(.22, 1, .36, 1);
+  --g-ease-clip: cubic-bezier(.65, 0, .35, 1);
+  background: var(--g-page);
+  padding: 72px 0;
+}
+
+.goals-v2 :focus-visible { outline: 3px solid var(--g-ink); outline-offset: 2px; }
+
+/* The Reveal wrapper is only an intersection trigger; inner elements carry motion. */
+.goals-panel-reveal.reveal { opacity: 1; transform: none; transition: none; }
+
+/* ---------- Panel shell (mobile): header above, cream panel behind list + preview ---------- */
+.goals-panel {
+  position: relative;
+  isolation: isolate;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  /* Entrance and switch timing (overridden once the visitor changes goal). */
+  --g-text: 700ms;
+  --g-img: 500ms;
+  --g-img-dur: 900ms;
+}
+.goals-panel[data-switched="true"] {
+  --g-text: 60ms;
+  --g-img: 0ms;
+  --g-img-dur: 600ms;
+}
+.goals-panel::before {
+  content: "";
+  grid-column: 1;
+  grid-row: 2 / span 3;
+  z-index: -1;
+  background: var(--g-cream);
+  border-radius: 20px;
+}
+
+.goal-left { display: contents; }
+
+/* ---------- Header ---------- */
+.goals-head { grid-row: 1; grid-column: 1; margin-bottom: 32px; }
+.goals-eyebrow {
+  margin: 0 0 16px;
+  color: var(--g-ember);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: .06em;
+}
+.goals-h2 {
+  margin: 0;
+  color: var(--g-ink);
+  font-family: var(--font-archivo), sans-serif;
+  font-weight: 800;
+  letter-spacing: -.04em;
+  text-wrap: balance;
+  font-size: clamp(2.25rem, 9vw, 2.75rem);
+  line-height: 1.02;
+}
+.goals-h2-accent { color: var(--g-burnt); }
+.goals-lead {
+  margin: 20px 0 0;
+  color: var(--g-soft);
+  font-size: 16.5px;
+  line-height: 1.6;
+  max-width: 50ch;
+}
+
+/* ---------- Goal list: tab strip on small screens ---------- */
+.goal-list-wrap { grid-row: 2; grid-column: 1; margin: 20px 20px 0; min-width: 0; }
+.goal-tablist {
+  position: relative;
+  display: flex;
+  gap: 8px;
+  padding: 5px;
+  margin: -5px;
+  overflow-x: auto;
+  scroll-snap-type: x proximity;
+  scrollbar-width: thin;
+  scrollbar-color: var(--g-ring) transparent;
+}
+.goal-indicator { display: none; }
+.goal-tab {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 0 14px;
+  border: 1.5px solid var(--g-border);
+  border-radius: 8px;
+  background: #fff;
+  color: var(--g-ink);
+  font-family: var(--font-figtree), sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1;
+  white-space: nowrap;
+  cursor: pointer;
+  scroll-snap-align: start;
+  transition: color 150ms ease, background-color 150ms ease, border-color 150ms ease;
+}
+.goal-tab-icon { flex: none; width: 18px; height: 18px; }
+.goal-tab[data-active="true"] {
+  background: var(--g-ink);
+  border-color: var(--g-ink);
+  color: var(--g-cream);
+}
+
+.goals-note {
+  grid-row: 3;
+  grid-column: 1;
+  margin: 14px 20px 0;
+  color: var(--g-muted);
+  font-size: 13.5px;
+  line-height: 1.5;
+}
+
+/* ---------- Preview panels: one grid cell, so nothing jumps ---------- */
+.goal-panels {
+  grid-row: 4;
+  grid-column: 1;
+  display: grid;
+  margin: 20px;
+  min-width: 0;
+}
+.goal-panel {
+  grid-area: 1 / 1;
+  min-width: 0;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 250ms ease, visibility 0s linear 250ms;
+}
+.goal-panel[data-active="true"] {
+  position: relative;
+  z-index: 1;
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transition: none;
+}
+
+.goal-panel-media {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  border-radius: 16px;
+  overflow: hidden;
+  background: var(--g-cream);
+}
+.goal-panel-media img { object-fit: cover; }
+.goal-chip {
+  position: absolute;
+  left: 12px;
+  bottom: 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px;
+  background: #fff;
+  border-radius: 8px;
+  color: var(--g-ink);
+  line-height: 1;
+}
+.goal-chip svg { flex: none; }
+.goal-chip-label { font-size: 13px; font-weight: 600; letter-spacing: -.01em; }
+
+.goal-panel-title {
+  margin: 24px 0 0;
+  color: var(--g-ink);
+  font-family: var(--font-archivo), sans-serif;
+  font-weight: 800;
+  letter-spacing: -.03em;
+  font-size: 30px;
+  line-height: 1.05;
+  text-wrap: balance;
+}
+.goal-panel-promise {
+  margin: 8px 0 0;
+  color: var(--g-ink);
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1.4;
+}
+.goal-panel-desc {
+  margin: 12px 0 0;
+  max-width: 54ch;
+  color: var(--g-soft);
+  font-size: 15.5px;
+  line-height: 1.6;
+}
+
+.goal-panel-detail {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 28px;
+  margin-top: 28px;
+}
+.goal-mini-label {
+  margin: 0 0 12px;
+  color: var(--g-soft);
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.2;
+}
+.goal-includes-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 10px;
+}
+.goal-includes-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  color: var(--g-ink);
+  font-size: 15px;
+  line-height: 1.45;
+}
+.goal-includes-icon { flex: none; margin-top: 2px; color: var(--g-ink); }
+
+/* Week: seven day circles */
+.goal-week-row {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: space-between;
+  gap: 4px;
+}
+.goal-day { position: relative; display: block; flex: none; }
+.goal-day-dot {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1;
+}
+.goal-day[data-state="session"] .goal-day-dot { background: var(--g-ink); color: var(--g-cream); }
+.goal-day[data-state="light"] .goal-day-dot { border: 1.5px solid var(--g-ring); color: var(--g-ink); }
+.goal-day[data-state="rest"] .goal-day-dot { border: 1.5px dotted var(--g-ring); color: var(--g-muted); }
+.goal-day-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+.goal-week-legend {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 12px 0 0;
+  color: var(--g-muted);
+  font-size: 12px;
+  line-height: 1.3;
+}
+.goal-swatch { flex: none; width: 12px; height: 12px; border-radius: 50%; }
+.goal-swatch-session { background: var(--g-ink); }
+.goal-swatch-light { border: 1.5px solid var(--g-ring); }
+.goal-swatch-rest { border: 1.5px dotted var(--g-ring); }
+.goal-week-legend-text { margin-left: 2px; }
+
+/* CTA row */
+.goal-cta-row {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 8px;
+  margin-top: 32px;
+}
+.goal-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 48px;
+  padding: 0 24px;
+  border-radius: 8px;
+  background: var(--g-amber);
+  color: var(--g-ink);
+  font-family: var(--font-figtree), sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  transition: transform .2s var(--g-ease), background-color .2s ease;
+}
+.goal-cta svg { flex: none; }
+@media (hover: hover) {
+  .goal-cta:hover { background: var(--amber-hover, #e99d3d); transform: translateY(-2px); }
+}
+.goal-learnmore {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 44px;
+  color: var(--g-ink);
+  font-size: 15px;
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  text-decoration-thickness: 1.5px;
+}
+.goal-learnmore-arrow { display: inline-block; transition: transform .2s var(--g-ease); }
+@media (hover: hover) {
+  .goal-learnmore:hover .goal-learnmore-arrow { transform: translateX(3px); }
+}
+
+/* ---------- Tablet (640 to 1023px) ---------- */
+@media (min-width: 640px) {
+  .goals-v2 { padding: 96px 0; }
+  .goals-panel::before { border-radius: 28px; }
+  .goals-lead { font-size: 18px; }
+  .goal-list-wrap { margin: 28px 28px 0; }
+  .goals-note { margin: 14px 28px 0; }
+  .goal-panels { margin: 24px 28px 28px; }
+  .goal-panel-media { aspect-ratio: 16 / 9; }
+  .goal-panel-title { font-size: 34px; }
+  .goal-panel-promise { font-size: 20px; }
+  .goal-panel-desc { font-size: 16px; }
+  .goal-panel-detail { grid-template-columns: minmax(0, 1fr) auto; gap: 32px; }
+  .goal-week-row { justify-content: flex-start; gap: 8px; }
+  .goal-day-dot { width: 32px; height: 32px; }
+  .goal-cta-row { flex-direction: row; align-items: center; gap: 28px; }
+  .goal-cta { min-width: 240px; }
+}
+
+/* ---------- Desktop (1024px and up): the goal explorer ---------- */
+@media (min-width: 1024px) {
+  .goals-v2 { padding: 120px 0; }
+
+  .goals-panel {
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    column-gap: 56px;
+    align-items: start;
+    padding: 40px;
+  }
+  .goals-panel::before {
+    position: absolute;
+    inset: 0;
+    grid-area: auto;
+  }
+
+  .goal-left {
+    display: block;
+    grid-column: 1;
+    grid-row: 1;
+    position: sticky;
+    top: calc(var(--header-h, 79px) + 24px);
+    align-self: start;
+  }
+  .goals-head { margin-bottom: 0; }
+  .goals-eyebrow { margin-bottom: 20px; }
+  .goals-h2 { font-size: clamp(2.25rem, 4.4vw, 4rem); line-height: 1.02; text-wrap: wrap; }
+  .goals-lead { margin-top: 24px; font-size: clamp(18px, 1.3vw, 19px); }
+
+  .goal-list-wrap { margin: 40px 0 0; }
+  .goal-tablist {
+    flex-direction: column;
+    gap: 0;
+    padding: 0 0 0 20px;
+    margin: 0;
+    overflow: visible;
+    scroll-snap-type: none;
+  }
+  .goal-indicator {
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 4px;
+    height: 52px;
+    background: var(--g-burnt);
+    transition: transform 350ms var(--g-ease);
+  }
+  .goal-tab {
+    gap: 14px;
+    min-height: 44px;
+    padding: 10px 0;
+    border: 0;
+    border-radius: 0;
+    background: none;
+    color: var(--g-muted);
+    font-family: var(--font-archivo), sans-serif;
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: -.02em;
+    line-height: 1.15;
+    text-align: left;
+    white-space: normal;
+    transition: color 150ms ease;
+  }
+  .goal-tab-icon { width: 24px; height: 24px; }
+  .goal-tab[data-active="true"] { background: none; color: var(--g-ink); }
+  .goal-tab[data-active="true"] .goal-tab-icon { color: var(--g-burnt); }
+  @media (hover: hover) {
+    .goal-tab[data-active="false"]:hover { color: var(--g-soft); }
+  }
+
+  .goals-note { margin: 24px 0 0; grid-row: auto; }
+
+  .goal-panels { grid-column: 2; grid-row: 1; margin: 0; }
+  .goal-panel-media { aspect-ratio: 16 / 10; }
+  .goal-panel-title { font-size: 34px; }
+  .goal-panel-promise { font-size: 20px; }
+  .goal-panel-detail { grid-template-columns: minmax(0, 1fr) auto; gap: 40px; }
+  .goal-cta-row { gap: 28px; }
+}
+
+@media (min-width: 1280px) {
+  .goals-panel { padding: 56px; }
+  .goal-panel-title { font-size: 40px; }
+}
+
+/* ---------- Motion (script available, motion allowed). Hidden start states
+   exist only before the section is revealed and only under html.js-motion, so
+   no-script and reduced-motion visitors always see the final state. ---------- */
+@media (prefers-reduced-motion: no-preference) {
+  /* Before reveal */
+  html.js-motion .goals-panel-reveal:not(.is-visible) .goals-eyebrow,
+  html.js-motion .goals-panel-reveal:not(.is-visible) .goals-h2,
+  html.js-motion .goals-panel-reveal:not(.is-visible) .goals-lead,
+  html.js-motion .goals-panel-reveal:not(.is-visible) .goals-note,
+  html.js-motion .goals-panel-reveal:not(.is-visible) .goal-tab,
+  html.js-motion .goals-panel-reveal:not(.is-visible) .goal-panel-title,
+  html.js-motion .goals-panel-reveal:not(.is-visible) .goal-panel-promise,
+  html.js-motion .goals-panel-reveal:not(.is-visible) .goal-panel-desc,
+  html.js-motion .goals-panel-reveal:not(.is-visible) .goal-panel-detail,
+  html.js-motion .goals-panel-reveal:not(.is-visible) .goal-cta-row,
+  html.js-motion .goals-panel-reveal:not(.is-visible) .goal-day,
+  html.js-motion .goals-panel-reveal:not(.is-visible) .goals-panel::before { opacity: 0; }
+  html.js-motion .goals-panel-reveal:not(.is-visible) .goal-panel-media {
+    clip-path: inset(0 100% 0 0 round 16px);
+  }
+
+  /* On-scroll entrance */
+  html.js-motion .goals-panel-reveal.is-visible .goals-eyebrow { animation: goal-fade 400ms var(--g-ease) both; }
+  html.js-motion .goals-panel-reveal.is-visible .goals-h2 { animation: goal-rise-28 700ms var(--g-ease) 80ms both; }
+  html.js-motion .goals-panel-reveal.is-visible .goals-lead { animation: goal-rise-20 700ms var(--g-ease) 180ms both; }
+  html.js-motion .goals-panel-reveal.is-visible .goals-panel::before { animation: goal-rise-40 800ms var(--g-ease) 150ms both; }
+  html.js-motion .goals-panel-reveal.is-visible .goal-tab {
+    animation: goal-rise-14 500ms var(--g-ease) calc(450ms + var(--i, 0) * 60ms) both;
+  }
+  html.js-motion .goals-panel-reveal.is-visible .goals-note { animation: goal-fade 500ms var(--g-ease) 850ms both; }
+
+  /* Active panel: entrance and every later switch (delays come from --g-text / --g-img) */
+  html.js-motion .goals-panel-reveal.is-visible .goal-panel[data-active="true"] .goal-panel-media {
+    animation: goal-wipe var(--g-img-dur) var(--g-ease-clip) var(--g-img) both;
+  }
+  html.js-motion .goals-panel-reveal.is-visible .goal-panel[data-active="true"] .goal-panel-title {
+    animation: goal-rise-12 350ms var(--g-ease) calc(var(--g-text) + 0ms) both;
+  }
+  html.js-motion .goals-panel-reveal.is-visible .goal-panel[data-active="true"] .goal-panel-promise {
+    animation: goal-rise-12 350ms var(--g-ease) calc(var(--g-text) + 80ms) both;
+  }
+  html.js-motion .goals-panel-reveal.is-visible .goal-panel[data-active="true"] .goal-panel-desc {
+    animation: goal-rise-12 350ms var(--g-ease) calc(var(--g-text) + 160ms) both;
+  }
+  html.js-motion .goals-panel-reveal.is-visible .goal-panel[data-active="true"] .goal-panel-detail {
+    animation: goal-rise-12 350ms var(--g-ease) calc(var(--g-text) + 240ms) both;
+  }
+  html.js-motion .goals-panel-reveal.is-visible .goal-panel[data-active="true"] .goal-cta-row {
+    animation: goal-rise-12 350ms var(--g-ease) calc(var(--g-text) + 320ms) both;
+  }
+  html.js-motion .goals-panel-reveal.is-visible .goal-panel[data-active="true"] .goal-day {
+    animation: goal-pop 300ms var(--g-ease) calc(var(--g-text) + 300ms + var(--i, 0) * 40ms) both;
+  }
+}
+
+@keyframes goal-fade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes goal-rise-12 { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+@keyframes goal-rise-14 { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+@keyframes goal-rise-20 { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: none; } }
+@keyframes goal-rise-28 { from { opacity: 0; transform: translateY(28px); } to { opacity: 1; transform: none; } }
+@keyframes goal-rise-40 { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: none; } }
+@keyframes goal-pop { from { opacity: 0; transform: scale(.6); } to { opacity: 1; transform: none; } }
+@keyframes goal-wipe {
+  from { clip-path: inset(0 100% 0 0 round 16px); }
+  to   { clip-path: inset(0 round 16px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .goal-indicator,
+  .goal-panel,
+  .goal-tab,
+  .goal-cta { transition: none; }
+}

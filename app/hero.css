@@ -1,0 +1,209 @@
+/* Hero, header call-to-action and floating WhatsApp button.
+   Loaded after globals.css so these rules win where they overlap. */
+
+:root {
+  --header-h: 79px;
+  --shadow-card: 0 1px 2px rgba(30,20,11,.06), 0 8px 24px -12px rgba(30,20,11,.18);
+  --shadow-float: 0 2px 4px rgba(30,20,11,.12), 0 12px 28px -10px rgba(30,20,11,.38);
+  --amber-hover: #e99d3d;
+  --ease-out: cubic-bezier(.22,1,.36,1);
+}
+@media (max-width:800px) { :root { --header-h: 65px; } }
+
+/* ---------- Header additions ---------- */
+.header-phone { display: none; font-size: 14px; font-weight: 600; color: var(--ink); white-space: nowrap; padding: 12px 0; margin-right: -6px; }
+.header-phone:hover { color: var(--orange); }
+@media (min-width:1100px) { .header-phone { display: inline-block; } }
+.header-wa { gap: 8px; border-radius: 12px; }
+.header-wa-icon { display: none; width: 44px; height: 44px; flex: none; align-items: center; justify-content: center; border-radius: 12px; background: var(--amber); color: var(--ink); transition: background-color .15s ease, transform .15s ease; }
+.header-wa-icon:hover { background: var(--amber-hover); transform: translateY(-1px); }
+.header-wa-icon:active { transform: scale(.98); }
+@media (max-width:800px) {
+  .header-wa-icon { display: none; }
+  .header-inner { width: min(100% - 48px, 720px); }
+}
+@media (max-width:639px) { .header-inner { width: min(100% - 40px, 720px); } }
+.header-cta:focus-visible, .header-wa-icon:focus-visible { outline: 3px solid var(--ink); outline-offset: 2px; }
+
+/* ---------- Hero: shared ---------- */
+.hero { --h1: clamp(2rem, 10vw, 3rem); --photo-r: 20px 72px 20px 20px; position: relative; overflow: hidden; min-height: calc(100svh - var(--header-h)); display: flex; flex-direction: column; }
+.hero-inner { position: relative; flex: 1; display: flex; flex-direction: column; }
+.hero a:focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; }
+
+.hx-eyebrow { font-size: 13px; line-height: 16px; margin: 0 0 20px; }
+.hx-h1 { position: relative; z-index: 3; width: max-content; max-width: none; margin: 0; font-size: var(--h1); line-height: 1; }
+.hx-line { display: block; overflow: hidden; white-space: nowrap; padding-bottom: .14em; margin-bottom: -.14em; }
+.hx-line-in { display: block; }
+.hx-hl { position: relative; display: inline-block; isolation: isolate; padding: 0 .14em; color: var(--ink); }
+.hx-hl::before { content: ""; position: absolute; z-index: -1; left: 0; right: 0; top: .1em; bottom: -.12em; background: var(--amber); border-radius: .1em; transform-origin: left center; }
+
+.hx-lead { margin: 0; color: var(--muted); line-height: 1.45; }
+.hx-paths { list-style: none; margin: 0; padding: 0; display: flex; }
+.hx-path { position: relative; display: inline-flex; align-items: center; gap: 6px; min-height: 44px; font-weight: 600; color: var(--ink); white-space: nowrap; }
+.hx-path::after { content: ""; position: absolute; left: 0; right: 0; bottom: 9px; height: 1.5px; background: currentColor; transform: scaleX(0); transform-origin: left; transition: transform .25s var(--ease-out); }
+.hx-path:hover::after, .hx-path:focus-visible::after { transform: scaleX(1); }
+.hx-path:hover { color: var(--ember); }
+.hx-path svg { flex: none; }
+.hx-path-arrow { display: none; transition: transform .2s var(--ease-out); }
+.hx-path:hover .hx-path-arrow { transform: translate(3px, -3px); }
+
+.hx-ctas { display: flex; gap: 10px; }
+.hx-btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 48px; padding: 0 14px; border-radius: 12px; font-weight: 700; font-size: 14px; white-space: nowrap; border: 1.5px solid transparent; transition: background-color .15s ease, border-color .15s ease, transform .15s ease; }
+.hx-btn:hover { transform: translateY(-1px); }
+.hx-btn:active { transform: scale(.98); }
+.hx-btn svg { flex: none; }
+.hx-btn-primary { flex: 1.3 1 0; background: var(--amber); color: var(--ink); }
+.hx-btn-primary:hover { background: var(--amber-hover); }
+.hx-btn-secondary { flex: 1 1 0; background: transparent; color: var(--ink); border-color: var(--ink); }
+.hx-btn-secondary:hover { background: var(--cream); }
+.hx-call-number { display: none; }
+@media (min-width:380px) { .hx-call-number { display: inline; } }
+
+.hx-proof { display: flex; align-items: center; gap: 6px; margin: 0; font-size: 13px; color: var(--muted); }
+.hx-proof strong { color: var(--ink); font-weight: 700; }
+.hx-stars { display: inline-flex; gap: 2px; margin-right: 2px; color: var(--ember); }
+
+.hero-media { position: relative; z-index: 1; }
+.hero-arc { position: absolute; z-index: 0; border-radius: 50%; background: linear-gradient(135deg, var(--amber), var(--orange)); }
+.hero-photo { position: absolute; inset: 0; z-index: 1; overflow: hidden; border-radius: var(--photo-r); background: var(--cream); }
+.hero-photo img { object-fit: cover; object-position: 55% 30%; }
+@media (min-width:1024px) { .hero-photo img { object-position: 55% 48%; } }
+.hero-chip { position: absolute; z-index: 2; display: flex; align-items: center; gap: 8px; background: var(--dark); color: var(--paper); font-size: 12px; font-weight: 600; line-height: 1.2; }
+.hero-chip svg { flex: none; }
+.hero-region { display: none; }
+
+.hero-stats { position: relative; z-index: 4; background: #fff; border: 1px solid var(--line); box-shadow: var(--shadow-card); }
+.hero-stats ul { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); height: 100%; }
+.hero-stats li { display: flex; flex-direction: column; justify-content: center; min-width: 0; }
+.hx-stat-top { display: flex; align-items: center; }
+.hx-stat-icon { flex: none; color: var(--ink); }
+.hx-stat-value { font-family: var(--font-archivo), sans-serif; font-weight: 800; line-height: 1; letter-spacing: -.02em; font-variant-numeric: tabular-nums; color: var(--ink); white-space: nowrap; }
+.hx-stat-label { color: var(--muted); }
+
+/* ---------- Hero: mobile and tablet (< 1024px) ---------- */
+@media (max-width:1023px) {
+  .hero-inner { width: min(100% - 40px, 720px); margin-inline: auto; padding: 14px 0 16px; }
+  .hero-copy { display: contents; }
+  .hx-eyebrow { order: 1; margin-bottom: 8px; font-size: 12px; }
+  .hx-h1 { order: 2; }
+  .hero-media { order: 3; flex: 1 1 0; min-height: 190px; max-height: 45svh; margin-top: calc(var(--h1) * -.14); }
+  .hero-stats { order: 4; margin-top: -28px; min-height: 76px; border-radius: 20px; }
+  .hx-lead { order: 5; margin-top: 14px; font-size: clamp(14.5px, 4vw, 16px); }
+  .hx-paths { order: 6; justify-content: space-between; gap: 6px; margin-top: 4px; }
+  .hx-path { font-size: clamp(12px, 3.3vw, 14px); gap: 5px; }
+  .hx-path svg:first-child { width: 16px; height: 16px; }
+  .hx-ctas { order: 7; margin-top: 6px; }
+  .hx-proof { order: 8; margin-top: 12px; }
+
+  .hero-arc { width: 150px; height: 150px; right: -30px; top: 6px; }
+  .hero-chip { left: 12px; bottom: calc(28px + 12px); padding: 8px 12px; border-radius: 14px; font-size: 12px; }
+  .hero-chip svg { width: 16px; height: 16px; }
+
+  .hero-stats li { align-items: center; justify-content: flex-start; text-align: center; gap: 4px; padding: 14px 4px 8px; }
+  .hx-stat-icon { display: none; }
+  .hx-stat-value { font-size: 22px; }
+  .hx-stat-label { font-size: 11px; line-height: 1.2; }
+}
+@media (max-width:479px) {
+  .hx-btn { padding: 0 10px; gap: 6px; font-size: 13px; }
+  .hx-btn svg:not(.wa-logo) { width: 17px; height: 17px; }
+}
+@media (max-width:1023px) and (max-height:699px) { .hx-proof { display: none; } }
+@media (min-width:480px) and (max-width:1023px) { .hx-path-arrow { display: block; } }
+
+@media (min-width:640px) and (max-width:1023px) {
+  .hero { --h1: clamp(3rem, 8vw, 4.5rem); }
+  .hero-inner { width: min(100% - 48px, 720px); padding-top: 24px; }
+  .hx-eyebrow { font-size: 13px; margin-bottom: 12px; }
+  .hero-media { max-height: min(45svh, calc(min(100vw - 48px, 720px) * .625)); --photo-r: 28px 96px 28px 28px; }
+  .hero-stats { min-height: 92px; margin-top: -40px; border-radius: 24px; }
+  .hero-chip { left: 16px; bottom: calc(40px + 16px); }
+  .hero-arc { width: 220px; height: 220px; right: -40px; top: -30px; }
+  .hx-lead { font-size: 17px; margin-top: 18px; max-width: 34em; }
+  .hx-paths { justify-content: flex-start; gap: 32px; }
+  .hx-path { font-size: 15px; }
+  .hx-ctas { margin-top: 8px; max-width: 520px; }
+  .hx-btn { font-size: 15px; padding: 0 18px; }
+  .hx-proof { font-size: 14px; }
+  .hero-stats li { flex-direction: column; gap: 6px; padding-top: 22px; }
+  .hx-stat-top { gap: 10px; }
+  .hx-stat-icon { display: block; width: 20px; height: 20px; }
+  .hx-stat-value { font-size: 28px; }
+  .hx-stat-label { font-size: 12px; }
+}
+
+/* ---------- Hero: desktop (>= 1024px) ---------- */
+@media (min-width:1024px) {
+  .hero { --h1: clamp(3.25rem, calc(2.67rem + 2.86vw), 5rem); --photo-r: 28px 120px 28px 28px; --pull: 5.95; }
+  .hero-inner { width: min(1240px, calc(100% - 64px)); margin-inline: auto; display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 32px; grid-template-rows: auto auto; align-content: center; padding: clamp(10px, 1.8svh, 28px) 0 2px; }
+  .hx-eyebrow { margin-bottom: 16px; }
+
+  .hero-copy { grid-column: 1 / span 7; grid-row: 1; position: relative; z-index: 3; display: flex; flex-direction: column; align-items: flex-start; padding-bottom: calc(56px + 20px); }
+  .hx-h1 { margin-bottom: clamp(12px, 2svh, 24px); }
+  .hx-lead { font-size: clamp(16px, 1.45vw, 18px); max-width: calc(var(--h1) * var(--pull) - 36px); margin-bottom: clamp(10px, 1.6svh, 18px); }
+  .hx-paths { gap: clamp(10px, 1.5vw, 20px); margin-bottom: clamp(6px, 1.2svh, 14px); }
+  .hx-path { font-size: clamp(14px, 1.15vw, 15px); }
+  .hx-path-arrow { display: block; }
+  .hx-ctas { gap: 12px; }
+  .hx-btn { flex: none; min-height: 52px; padding: 0 clamp(14px, 1.7vw, 22px); font-size: clamp(14px, 1.2vw, 15px); }
+  .hx-proof { margin-top: clamp(8px, 1.5svh, 18px); font-size: 14px; }
+
+  .hero-media { grid-column: 1 / -1; grid-row: 1; justify-self: end; width: calc(100% - var(--h1) * var(--pull)); margin-top: calc(32px + 96px); }
+  .hero-arc { width: 480px; height: 480px; right: -216px; top: -216px; }
+  .hero-chip { left: -24px; bottom: calc(56px + 20px); padding: 12px 16px; border-radius: 16px; font-size: 13px; }
+
+  .hero-stats { grid-column: 1 / -1; grid-row: 2; margin-top: -56px; min-height: 112px; border-radius: 28px; }
+  .hero-stats li { gap: 8px; padding: 0 clamp(16px, 2.4vw, 32px); align-items: flex-start; }
+  .hx-stat-top { gap: 12px; }
+  .hx-stat-value { font-size: clamp(32px, 3.3vw, 44px); }
+  .hx-stat-label { font-size: 13px; line-height: 1.2; }
+}
+@media (min-width:1024px) and (max-width:1179px) { .hero-chip { left: -10px; } }
+@media (min-width:1280px) {
+  .hero-region { display: block; position: absolute; z-index: 2; left: calc(100% + 12px); bottom: calc(56px + 8px); writing-mode: vertical-rl; transform: rotate(180deg); font-size: 12px; line-height: 1; letter-spacing: .12em; text-transform: uppercase; color: var(--ink); white-space: nowrap; }
+}
+
+/* ---------- Floating WhatsApp button ---------- */
+.fwa { position: fixed; z-index: 15; right: max(16px, env(safe-area-inset-right)); bottom: max(16px, env(safe-area-inset-bottom)); display: flex; align-items: center; justify-content: center; width: 56px; height: 56px; border-radius: 50%; background: var(--wa-green); color: white; box-shadow: var(--shadow-float); transition: opacity .4s ease, transform .4s var(--ease-out), box-shadow .2s ease, visibility 0s; }
+.fwa:hover { box-shadow: 0 4px 8px rgba(30,20,11,.14), 0 18px 34px -10px rgba(30,20,11,.45); }
+.fwa:focus-visible { outline: 3px solid var(--ink); outline-offset: 2px; }
+.fwa-icon { position: relative; z-index: 2; display: grid; place-items: center; width: 56px; height: 56px; border-radius: 50%; background: var(--wa-green); }
+.fwa-label, .fwa-ring { display: none; }
+@media (max-width:1023px) {
+  html.js-motion .fwa.cta-in-view { opacity: 0; visibility: hidden; transform: translateY(24px); transition: opacity .4s ease, transform .4s var(--ease-out), visibility 0s linear .4s; }
+}
+/* Hidden at every width while the contact card is on screen. */
+html.js-motion .fwa.card-in-view { opacity: 0; visibility: hidden; transform: translateY(24px); transition: opacity .4s ease, transform .4s var(--ease-out), visibility 0s linear .4s; }
+@media (min-width:1024px) and (hover:hover) {
+  .fwa-label { display: flex; align-items: center; position: absolute; z-index: 1; right: 28px; top: 0; height: 56px; padding: 0 40px 0 22px; border-radius: 28px; background: var(--wa-green); color: var(--wa-on-green); font-size: 14px; font-weight: 700; white-space: nowrap; opacity: 0; transform: translateX(12px); clip-path: inset(0 0 0 100% round 28px); transition: clip-path .2s ease, opacity .2s ease, transform .2s ease; }
+  .fwa:hover .fwa-label, .fwa:focus-visible .fwa-label { opacity: 1; transform: none; clip-path: inset(0 round 28px); }
+}
+
+/* ---------- Motion (only with script available and no reduced-motion preference) ---------- */
+@media (prefers-reduced-motion:no-preference) {
+  html.js-motion .hx-rise { --rise: 16px; animation: hx-rise 500ms var(--ease-out) var(--d, 0ms) both; }
+  html.js-motion .hx-rise-sm { --rise: 12px; }
+  html.js-motion .hx-fade { animation: hx-fade 400ms ease-out var(--d, 0ms) both; }
+  html.js-motion .hx-line-in { animation: hx-line 700ms var(--ease-out) var(--d, 0ms) both; }
+  html.js-motion .hx-hl::before { animation: hx-hl 600ms var(--ease-out) 750ms both; }
+  html.js-motion .hero-arc { animation: hx-arc 1000ms var(--ease-out) both; }
+  html.js-motion .hero-photo { animation: hx-photo 1000ms cubic-bezier(.65,0,.35,1) both; }
+  html.js-motion .hero-photo img { animation: hx-photo-img 1000ms cubic-bezier(.65,0,.35,1) both; }
+  html.js-motion .hx-slide { animation: hx-slide 500ms var(--ease-out) var(--d, 0ms) both; }
+  html.js-motion .hx-panel { animation: hx-panel 700ms var(--ease-out) var(--d, 0ms) both; }
+
+  html.js-motion .fwa:not(.is-ready) { opacity: 0; visibility: hidden; transform: translateY(24px); transition: opacity .4s ease, transform .4s var(--ease-out), visibility 0s linear .4s; }
+  @media (min-width:1024px) {
+    html.js-motion .fwa.is-ready .fwa-ring { display: block; position: absolute; inset: 0; z-index: 0; border-radius: 50%; border: 2px solid var(--wa-green); pointer-events: none; animation: fwa-ring 1100ms ease-out 450ms 1 both; }
+  }
+}
+@keyframes hx-rise { from { opacity: 0; transform: translateY(var(--rise)); } to { opacity: 1; transform: none; } }
+@keyframes hx-fade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes hx-line { from { transform: translateY(115%); } to { transform: none; } }
+@keyframes hx-hl { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+@keyframes hx-arc { from { opacity: 0; transform: scale(.9) rotate(-8deg); } to { opacity: 1; transform: none; } }
+@keyframes hx-photo { from { clip-path: inset(8% 8% 8% 8% round var(--photo-r)); } to { clip-path: inset(0 round var(--photo-r)); } }
+@keyframes hx-photo-img { from { transform: scale(1.08); } to { transform: none; } }
+@keyframes hx-slide { from { opacity: 0; transform: translateX(-24px); } to { opacity: 1; transform: none; } }
+@keyframes hx-panel { from { opacity: 0; transform: translateY(32px); } to { opacity: 1; transform: none; } }
+@keyframes fwa-ring { from { opacity: .6; transform: scale(1); } to { opacity: 0; transform: scale(1.9); } }

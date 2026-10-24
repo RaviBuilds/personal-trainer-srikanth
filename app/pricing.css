@@ -1,0 +1,367 @@
+/* Pricing section (after Nutrition).
+   Loaded after nutrition.css. Palette roles: page #FFFBF5, ink #1E140B,
+   secondary #5A4838, muted #7A6755, amber #F2AC50 (actions and the one tag),
+   burnt #D4601E (large display text only), ember #A8440F (small links),
+   border #E8D8BF, cream #FCF0E1, dark #2B1A0E.
+   Radii: 8 / 16 / 28 only. Shadows: card and hover lift only. No gradients.
+   Mobile first: base under 768px, then 768, 1024 and 1200 and up. */
+
+.pr {
+  --pr-page: #FFFBF5;
+  --pr-ink: #1E140B;
+  --pr-soft: #5A4838;
+  --pr-muted: #7A6755;
+  --pr-burnt: #D4601E;
+  --pr-ember: #A8440F;
+  --pr-border: #E8D8BF;
+  --pr-cream: #FCF0E1;
+  --pr-dark: #2B1A0E;
+  --pr-ease: cubic-bezier(.22, 1, .36, 1);
+  --pr-ease-clip: cubic-bezier(.65, 0, .35, 1);
+  background: var(--pr-page);
+  /* No bottom padding: the approach section that follows on the same background supplies the gap. */
+  padding: 72px 0 0;
+}
+
+.pr :focus-visible { outline: 2px solid var(--pr-ink); outline-offset: 2px; }
+.pr .pr-panel--dark :focus-visible { outline-color: var(--pr-cream); }
+
+/* Reveal wrappers are only intersection triggers; inner elements carry the motion. */
+.pr .reveal.pr-reveal { opacity: 1; transform: none; transition: none; min-width: 0; }
+
+.pr h2, .pr h3 { font-family: var(--font-archivo), sans-serif; font-weight: 800; letter-spacing: -.03em; }
+
+/* ---------- Header band: photo, headline panel, jump index ---------- */
+.pr-band {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+}
+.pr-photo-reveal { position: relative; }
+.pr-photo {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  border-radius: 28px;
+  background: var(--pr-cream);
+}
+.pr-photo-clip { position: absolute; inset: 0; }
+.pr-photo-img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform-origin: var(--pr-focal, 50% 50%);
+}
+
+.pr-head-reveal { position: relative; z-index: 2; margin: -48px 16px 0; }
+.pr-head {
+  padding: 24px;
+  border: 1px solid var(--pr-border);
+  border-radius: 28px;
+  background: #fff;
+  box-shadow: var(--shadow-card);
+}
+.pr-h2 {
+  margin: 0;
+  color: var(--pr-ink);
+  font-size: 28px;
+  line-height: 1.08;
+  text-wrap: balance;
+}
+.pr-h2-accent { color: var(--pr-burnt); }
+.pr-lede {
+  margin: 16px 0 0;
+  max-width: 54ch;
+  color: var(--pr-soft);
+  font-size: 18px;
+  line-height: 1.6;
+}
+
+.pr-index-reveal { margin-top: 24px; }
+.pr-index { margin: 0; padding: 0; list-style: none; border-bottom: 1px solid var(--pr-border); }
+.pr-index-item { border-top: 1px solid var(--pr-border); }
+.pr-index-link {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  min-height: 64px;
+  padding: 16px 0;
+  color: var(--pr-ink);
+}
+.pr-index-name { flex: 1 1 auto; min-width: 0; font-size: 18px; font-weight: 600; line-height: 1.3; }
+.pr-index-price {
+  flex: none;
+  color: var(--pr-ink);
+  font-family: var(--font-archivo), sans-serif;
+  font-size: 24px;
+  font-weight: 800;
+  letter-spacing: -.03em;
+  line-height: 1;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+.pr-index-from,
+.pr-index-per {
+  color: var(--pr-soft);
+  font-family: var(--font-figtree), sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: 0;
+}
+.pr-arrow { flex: none; transition: transform 200ms ease; }
+.pr-index-link .pr-arrow { color: var(--pr-ember); }
+@media (hover: hover) {
+  .pr-index-link:hover .pr-arrow,
+  .pr-ask:hover .pr-arrow { transform: translateX(4px); }
+}
+
+/* ---------- Rate card ---------- */
+.pr-card { display: flex; flex-direction: column; gap: 24px; margin-top: 64px; }
+
+.pr-panel {
+  --pr-text: var(--pr-ink);
+  --pr-text-soft: var(--pr-soft);
+  --pr-line: var(--pr-border);
+  --pr-link: var(--pr-ember);
+  padding: 24px;
+  border-radius: 28px;
+  background: #fff;
+  color: var(--pr-text);
+  scroll-margin-top: calc(var(--header-h, 79px) + 16px);
+}
+.pr-panel--white { border: 1px solid var(--pr-border); box-shadow: var(--shadow-card); }
+.pr-panel--cream { --pr-line: rgba(30, 20, 11, .16); background: var(--pr-cream); }
+.pr-panel--dark {
+  --pr-text: #FCF0E1;
+  --pr-text-soft: rgba(252, 240, 225, .78);
+  --pr-line: rgba(252, 240, 225, .16);
+  --pr-link: #FCF0E1;
+  background: var(--pr-dark);
+}
+
+.pr-rail { min-width: 0; margin-bottom: 24px; }
+.pr-tag {
+  display: inline-block;
+  margin-bottom: 16px;
+  padding: 6px 10px;
+  border-radius: 8px;
+  background: var(--amber);
+  color: var(--pr-ink);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: .1em;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+.pr-h3 { margin: 0; color: var(--pr-text); font-size: 26px; line-height: 1.1; }
+.pr-desc { margin: 12px 0 0; max-width: 56ch; color: var(--pr-text-soft); font-size: 17px; line-height: 1.55; }
+.pr-btn { gap: 10px; min-height: 48px; padding: 0 20px; text-align: center; }
+.pr-btn svg { flex: none; }
+.pr-rail .pr-btn { width: 100%; margin-top: 24px; }
+
+/* Table: native table semantics (explicit roles are set in the markup), laid out with grid
+   so every panel shares one column template and the numbers line up vertically. */
+.pr-table-wrap { min-width: 0; container-type: inline-size; }
+.pr-table { display: block; width: 100%; margin: 0; border: 0; }
+.pr-table thead,
+.pr-table tbody { display: block; }
+.pr-table tr {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  column-gap: 8px;
+}
+.pr-table th,
+.pr-table td { display: block; min-width: 0; margin: 0; padding: 0; text-align: left; font-weight: 400; }
+
+/* Column labels stay in the accessibility tree; on mobile each value carries its own label. */
+.pr-table thead {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+.pr-table tbody tr { padding: 24px 0; }
+.pr-table tbody tr + tr { border-top: 1px solid var(--pr-line); }
+.pr-table tbody tr:first-child { padding-top: 0; }
+
+.pr-plan { grid-column: 1 / -1; }
+.pr-plan-name { display: block; color: var(--pr-text); font-size: 18px; font-weight: 600; line-height: 1.3; }
+.pr-plan-meta { display: block; margin-top: 4px; color: var(--pr-text-soft); font-size: 15px; line-height: 1.45; }
+.pr-ask {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 44px;
+  margin-top: 4px;
+  color: var(--pr-link);
+  font-size: 15px;
+  font-weight: 600;
+}
+.pr-panel--dark .pr-ask { text-decoration: underline; text-underline-offset: 4px; text-decoration-thickness: 1.5px; }
+
+.pr-monthly { grid-column: 1 / -1; margin-top: 8px; white-space: nowrap; }
+.pr-price {
+  color: var(--pr-text);
+  font-family: var(--font-archivo), sans-serif;
+  font-size: 28px;
+  font-weight: 800;
+  letter-spacing: -.03em;
+  line-height: 1;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+.pr-per { margin-left: 6px; color: var(--pr-text-soft); font-size: 14px; }
+
+.pr-term {
+  margin-top: 16px;
+  color: var(--pr-text-soft);
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.3;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+.pr-term::before {
+  content: attr(data-label);
+  display: block;
+  margin-bottom: 4px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+/* ---------- Help row ---------- */
+.pr-help { display: grid; grid-template-columns: minmax(0, 1fr); row-gap: 24px; margin-top: 48px; }
+.pr-help-title { margin: 0; color: var(--pr-ink); font-size: 28px; line-height: 1.1; }
+.pr-help-body { margin: 12px 0 0; max-width: 48ch; color: var(--pr-soft); font-size: 17px; line-height: 1.55; }
+.pr-help-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 24px; }
+.pr-help-actions .pr-btn { width: 100%; }
+.pr-call {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  color: var(--pr-ember);
+  font-size: 16px;
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  text-decoration-thickness: 1.5px;
+  white-space: nowrap;
+}
+.pr-notes { max-width: 66ch; }
+.pr-notes p { margin: 0; color: var(--pr-muted); font-size: 14px; line-height: 1.55; }
+.pr-notes p + p { margin-top: 8px; }
+.pr-notes-link { color: var(--pr-ember); text-decoration: underline; text-underline-offset: 3px; }
+
+/* ---------- Tablet ---------- */
+@media (min-width: 768px) {
+  .pr { padding: 96px 0 0; }
+
+  .pr-band { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 24px; }
+  .pr-photo-reveal { grid-column: 1 / -1; }
+  .pr-photo { aspect-ratio: 16 / 10; }
+  .pr-head-reveal { grid-column: 1 / span 10; margin: -96px 0 0; }
+  .pr-head { padding: 32px; }
+  .pr-h2 { font-size: 36px; }
+  .pr-index-reveal { grid-column: 1 / -1; margin-top: 32px; }
+
+  .pr-card { gap: 32px; margin-top: 96px; }
+  .pr-panel { padding: 32px; }
+  .pr-rail { margin-bottom: 32px; }
+  .pr-h3 { font-size: 32px; }
+  .pr-rail .pr-btn { width: auto; }
+
+  /* Shared column template: Plan | Per month | 3 | 6 | 12 months */
+  .pr-table thead { position: static; width: auto; height: auto; overflow: visible; clip-path: none; white-space: normal; }
+  .pr-table tr { grid-template-columns: minmax(0, 2.4fr) minmax(0, 1.1fr) repeat(3, minmax(0, 1fr)); column-gap: 12px; }
+  .pr-table thead tr { padding-bottom: 12px; border-bottom: 1px solid var(--pr-line); }
+  .pr-table thead th {
+    color: var(--pr-text-soft);
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: .08em;
+    line-height: 1.3;
+    text-transform: uppercase;
+  }
+  .pr-table tbody tr:first-child { padding-top: 24px; }
+  .pr-table tbody tr { align-items: baseline; }
+  .pr-plan { grid-column: auto; }
+  .pr-monthly { grid-column: auto; margin-top: 0; }
+  .pr-price { display: block; font-size: clamp(20px, 3.9cqw, 32px); }
+  .pr-per { display: block; margin: 6px 0 0; }
+  .pr-term {
+    margin-top: 0;
+    font-size: clamp(14px, 2.2cqw, 16px);
+    line-height: 1.3;
+  }
+  .pr-term::before { display: none; }
+
+  .pr-help { row-gap: 32px; margin-top: 64px; }
+  .pr-help-actions .pr-btn { width: auto; }
+}
+
+@media (min-width: 1024px) {
+  .pr { padding: 120px 0 0; }
+  .pr-h2 { font-size: 44px; }
+}
+
+/* ---------- Desktop: 4/8 split inside each panel ---------- */
+@media (min-width: 1200px) {
+  .pr-band { column-gap: 32px; }
+  .pr-photo { aspect-ratio: var(--pr-aspect, 21 / 9); }
+  .pr-head-reveal { grid-column: 1 / span 6; margin-top: -168px; }
+  .pr-head { padding: 48px; }
+  .pr-index-reveal { grid-column: 8 / -1; margin-top: 40px; }
+
+  .pr-panel {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: 32px;
+    align-items: start;
+    padding: 48px;
+  }
+  .pr-rail { grid-column: 1 / span 4; margin-bottom: 0; }
+  .pr-table-wrap { grid-column: 5 / -1; }
+  .pr-rail .pr-btn { width: 100%; }
+
+  .pr-help {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: 32px;
+    row-gap: 16px;
+    align-items: baseline;
+  }
+  .pr-help-copy { grid-column: 1 / span 7; }
+  .pr-help-actions { grid-column: 8 / -1; }
+  .pr-notes { grid-column: 1 / span 8; max-width: none; }
+}
+
+/* ---------- Motion: CSS only (transform, opacity, clip-path). Hidden start states
+   exist only under html.js-motion and no-preference, so visitors without script or
+   with reduced motion always see the final state. ---------- */
+@media (prefers-reduced-motion: no-preference) {
+  html.js-motion .pr-photo-reveal:not(.is-visible) .pr-photo-clip { clip-path: inset(0 100% 0 0); }
+  html.js-motion .pr-head-reveal:not(.is-visible) .pr-head,
+  html.js-motion .pr-index-reveal:not(.is-visible) .pr-index-item,
+  html.js-motion .pr-panel-reveal:not(.is-visible) .pr-panel { opacity: 0; }
+
+  html.js-motion .pr-photo-reveal.is-visible .pr-photo-clip { animation: pr-wipe 800ms var(--pr-ease-clip) backwards; }
+  html.js-motion .pr-photo-reveal.is-visible .pr-photo-img { animation: pr-settle 800ms var(--pr-ease-clip) backwards; }
+  html.js-motion .pr-head-reveal.is-visible .pr-head { animation: pr-rise 600ms var(--pr-ease) backwards; }
+  html.js-motion .pr-index-reveal.is-visible .pr-index-item {
+    animation: pr-rise-sm 500ms var(--pr-ease) backwards;
+    animation-delay: calc(var(--i, 0) * 70ms);
+  }
+  html.js-motion .pr-panel-reveal.is-visible .pr-panel { animation: pr-rise 600ms var(--pr-ease) backwards; }
+}
+
+@keyframes pr-wipe { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0 0 0 0); } }
+@keyframes pr-settle { from { transform: scale(1.08); } to { transform: none; } }
+@keyframes pr-rise { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: none; } }
+@keyframes pr-rise-sm { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .pr-arrow { transition: none; }
+}

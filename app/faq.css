@@ -1,0 +1,252 @@
+/* Homepage FAQ section (after Instagram, before the contact card).
+   Loaded after instagram.css. Palette roles: page #FFFBF5, ink #1E140B, secondary #5A4838, burnt #D4601E
+   (the large H2 phrase only), ember #A8440F (small links and the toggle glyph), cream #FCF0E1,
+   border #E8D8BF, control border #8A7660, amber only on the shared WhatsApp .button.
+   Radii: 8 / 16 / 28. Shadows: --shadow-card and --shadow-float only. No gradients.
+   Mobile first: base under 768px, then 768 and 1024 and up. */
+
+.faq {
+  --faq-page: #FFFBF5;
+  --faq-ink: #1E140B;
+  --faq-soft: #5A4838;
+  --faq-burnt: #D4601E;
+  --faq-ember: #A8440F;
+  --faq-cream: #FCF0E1;
+  --faq-border: #E8D8BF;
+  --faq-control: #8A7660;
+  --faq-ease: cubic-bezier(.22, 1, .36, 1);
+  background: var(--faq-page);
+  padding: 72px 0;
+  scroll-margin-top: var(--header-h, 79px);
+}
+
+.faq :focus-visible { outline: 2px solid var(--faq-ink); outline-offset: 2px; }
+
+/* Reveal wrappers are only intersection triggers; inner elements carry the motion. */
+.faq .reveal.faq-reveal,
+.faq .reveal.faq-chips-reveal { opacity: 1; transform: none; transition: none; min-width: 0; }
+
+.faq h2, .faq h3 { margin: 0; font-family: var(--font-archivo), sans-serif; font-weight: 800; color: var(--faq-ink); }
+
+/* ---------- Header band ---------- */
+.faq-header { display: flex; flex-direction: column; gap: 24px; }
+.faq-h2 {
+  letter-spacing: -.04em;
+  text-wrap: balance;
+  font-size: clamp(2.25rem, 9vw, 2.75rem);
+  line-height: 1.02;
+}
+.faq-h2-accent { color: var(--faq-burnt); }
+.faq-lead {
+  margin: 0;
+  max-width: 54ch;
+  color: var(--faq-soft);
+  font-size: 17px;
+  line-height: 1.6;
+  text-wrap: pretty;
+}
+
+/* ---------- Jump links ---------- */
+.faq-chips-wrap { margin-top: 32px; }
+.faq-chips {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 8px;
+  margin: -4px -20px;
+  padding: 4px 20px;
+  list-style: none;
+  overflow-x: auto;
+  scroll-snap-type: x proximity;
+  scroll-padding-inline: 20px;
+  scrollbar-width: none;
+}
+.faq-chips::-webkit-scrollbar { display: none; }
+.faq-chip-item { flex: none; scroll-snap-align: start; }
+.faq-chip {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 16px;
+  border: 1px solid var(--faq-border);
+  border-radius: 8px;
+  background: #fff;
+  color: var(--faq-ink);
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.2;
+  white-space: nowrap;
+  transition: border-color 150ms ease;
+}
+@media (hover: hover) {
+  .faq-chip:hover { border-color: var(--faq-ink); }
+}
+
+/* ---------- Groups ---------- */
+.faq-groups { display: flex; flex-direction: column; gap: 56px; margin-top: 56px; }
+.faq-group {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  scroll-margin-top: calc(var(--header-h, 79px) + 16px);
+}
+
+.faq-group-icon { display: block; color: var(--faq-ink); }
+.faq-h3 { margin-top: 16px; font-size: 24px; line-height: 28px; letter-spacing: -.03em; }
+.faq-descriptor { margin: 8px 0 0; max-width: 28ch; color: var(--faq-soft); font-size: 15px; line-height: 1.5; }
+
+/* ---------- Question cards ---------- */
+.faq-cards { display: flex; flex-direction: column; gap: 12px; margin: 0; padding: 0; list-style: none; min-width: 0; }
+.faq-card-item { min-width: 0; }
+
+.faq-card {
+  background: #fff;
+  border: 1px solid var(--faq-border);
+  border-radius: 16px;
+  box-shadow: var(--shadow-card);
+  transition: border-color 200ms ease, box-shadow 200ms ease, background-color 200ms ease;
+}
+.faq-card[open] { background: var(--faq-cream); }
+@media (hover: hover) {
+  .faq-card:hover { border-color: var(--faq-control); box-shadow: var(--shadow-float); }
+}
+
+.faq-summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  min-height: 56px;
+  padding: 20px;
+  border-radius: 16px;
+  cursor: pointer;
+  list-style: none;
+}
+.faq-summary::-webkit-details-marker { display: none; }
+.faq-summary::marker { content: ""; }
+.faq-q {
+  min-width: 0;
+  color: var(--faq-ink);
+  font-size: 17px;
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+.faq-toggle {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border: 1px solid var(--faq-border);
+  border-radius: 50%;
+  background: transparent;
+  color: var(--faq-ember);
+  transition: background-color 200ms ease, border-color 200ms ease, color 200ms ease;
+}
+.faq-toggle svg { transition: transform 200ms var(--faq-ease); }
+.faq-card[open] .faq-toggle { border-color: var(--faq-ink); background: var(--faq-ink); color: var(--faq-cream); }
+.faq-card[open] .faq-toggle svg { transform: rotate(45deg); }
+
+.faq-answer { padding: 0 20px 20px; }
+.faq-a-lead,
+.faq-a-body { max-width: 62ch; margin: 0; font-size: 16px; }
+.faq-a-lead { color: var(--faq-ink); font-weight: 600; line-height: 1.55; }
+.faq-a-body { margin-top: 8px; color: var(--faq-soft); font-weight: 400; line-height: 1.6; }
+
+.faq-link {
+  padding-block: 9px;
+  color: var(--faq-ember);
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 3px;
+}
+.faq-link:hover { color: var(--faq-ink); }
+
+/* Height ease for the open and close, as progressive enhancement only. Without support the answer just appears. */
+@media (prefers-reduced-motion: no-preference) {
+  @supports (interpolate-size: allow-keywords) {
+    .faq-card { interpolate-size: allow-keywords; }
+    .faq-card::details-content {
+      block-size: 0;
+      overflow: clip;
+      transition: block-size 280ms cubic-bezier(.22, 1, .36, 1), content-visibility 280ms allow-discrete;
+    }
+    .faq-card[open]::details-content { block-size: auto; }
+  }
+}
+
+/* ---------- Tablet (768px and up) ---------- */
+@media (min-width: 768px) {
+  .faq { padding: 96px 0; }
+  .faq-lead { font-size: 18px; }
+
+  /* Enough room for every chip: wrap instead of scrolling. */
+  .faq-chips { flex-wrap: wrap; margin: 0; padding: 0; overflow: visible; }
+
+  .faq-groups { gap: 64px; margin-top: 64px; }
+  .faq-summary { padding: 24px; }
+  .faq-q { font-size: 19px; }
+  .faq-answer { padding: 0 24px 24px; }
+  .faq-a-lead,
+  .faq-a-body { font-size: 17px; }
+}
+
+/* ---------- Desktop (1024px and up) ---------- */
+@media (min-width: 1024px) {
+  .faq { padding: 120px 0; }
+
+  .faq-header {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: 32px;
+    align-items: end;
+  }
+  .faq-h2-wrap { grid-column: 1 / span 7; }
+  .faq-h2 { font-size: clamp(2.25rem, 4.4vw, 4rem); }
+  .faq-lead-wrap { grid-column: 8 / span 5; margin-bottom: 4px; }
+  .faq-lead { font-size: clamp(18px, 1.3vw, 19px); }
+
+  .faq-groups { gap: 72px; }
+  .faq-group {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: 32px;
+    align-items: start;
+  }
+  .faq-group-head { grid-column: 1 / span 4; }
+  .faq-cards { grid-column: 5 / span 8; }
+  .faq-h3 { font-size: 28px; line-height: 32px; }
+}
+
+/* The group heading stays in view while its own cards scroll past, and never leaves its row. */
+@media (min-width: 1024px) and (min-height: 700px) {
+  .faq-group-head {
+    position: sticky;
+    top: calc(var(--header-h, 79px) + 24px);
+    align-self: start;
+  }
+}
+
+/* ---------- Motion (script available, motion allowed) ----------
+   Hidden start states live only under html.js-motion, so the content is fully visible with scripts off
+   or with reduced motion. Only transform and opacity animate; the answer text is never animated. */
+@media (prefers-reduced-motion: no-preference) {
+  html.js-motion .faq-reveal > * { opacity: 0; }
+  html.js-motion .faq-reveal.is-visible > * {
+    animation: faq-rise var(--dur, 600ms) var(--faq-ease) var(--reveal-delay, 0ms) both;
+  }
+
+  /* Chips stagger by 70ms from one trigger, so chips scrolled off to the side are never left hidden. */
+  html.js-motion .faq-chips-reveal .faq-chip-item { opacity: 0; }
+  html.js-motion .faq-chips-reveal.is-visible .faq-chip-item {
+    --rise: 12px;
+    animation: faq-rise 500ms var(--faq-ease) calc(var(--i, 0) * 70ms) both;
+  }
+}
+
+@keyframes faq-rise {
+  from { opacity: 0; transform: translateY(var(--rise, 16px)); }
+  to { opacity: 1; transform: none; }
+}

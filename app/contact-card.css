@@ -1,0 +1,230 @@
+/* Homepage contact card (after the FAQ, before the footer): a dark card on the page background with the trainer's
+   photo and a WhatsApp composer. Loaded after faq.css.
+   Palette: page #FFFBF5, card #2B1A0E, cream text #FFFBF5, soft text #E9DCCB, dim text #C9B79F, field #3A2616,
+   field border #8A7660 (3:1 on the card), error #FFB3AB, burnt #D4601E (large H2 phrase only, 4.5:1 on the card).
+   Radii 8 / 16 / 28. Shadow: --shadow-card. The FAQ above owns the gap before the card (its bottom padding), so this
+   section has no top padding; its bottom padding is the one gap before the footer. Mobile first: base under 768px,
+   then 768 and 1024. Only transform, opacity and clip-path animate. */
+
+.cc {
+  --cc-page: #FFFBF5;
+  --cc-card: #2B1A0E;
+  --cc-cream: #FFFBF5;
+  --cc-soft: #E9DCCB;
+  --cc-dim: #C9B79F;
+  --cc-field: #3A2616;
+  --cc-control: #8A7660;
+  --cc-error: #FFB3AB;
+  --cc-burnt: #D4601E;
+  --cc-ease: cubic-bezier(.22, 1, .36, 1);
+  --cc-ease-clip: cubic-bezier(.65, 0, .35, 1);
+  background: var(--cc-page);
+  padding: 0 0 72px;
+  scroll-margin-top: var(--header-h, 79px);
+}
+
+.cc :focus-visible { outline: 2px solid var(--cc-cream); outline-offset: 2px; }
+
+/* Reveal wrappers are only intersection triggers; inner elements carry the motion. */
+.cc .reveal.cc-reveal { opacity: 1; transform: none; transition: none; min-width: 0; }
+
+.cc h2 { margin: 0; font-family: var(--font-archivo), sans-serif; font-weight: 800; color: var(--cc-cream); }
+
+/* ---------- Card (mobile: stacked, photo on top) ---------- */
+.cc-card {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border-radius: 28px;
+  background: var(--cc-card);
+  box-shadow: var(--shadow-card);
+  color: var(--cc-cream);
+}
+
+/* ---------- Photo ---------- */
+.cc-photo {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  max-height: 240px;
+  background: var(--cc-field);
+}
+.cc-photo-clip { position: absolute; inset: 0; overflow: hidden; }
+.cc-photo-img { display: block; width: 100%; height: 100%; object-fit: cover; }
+
+.cc-photo-chip {
+  position: absolute;
+  left: 12px;
+  bottom: 12px;
+  max-width: calc(100% - 24px);
+  margin: 0;
+  padding: 8px 12px;
+  border: 1px solid rgba(255, 251, 245, .25);
+  border-radius: 8px;
+  background: var(--cc-card);
+  color: var(--cc-cream);
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+/* ---------- Content ---------- */
+.cc-content { display: flex; flex-direction: column; justify-content: center; min-width: 0; padding: 24px; }
+
+.cc-h2 {
+  font-size: 28px;
+  line-height: 1.1;
+  letter-spacing: -.03em;
+  text-wrap: balance;
+}
+.cc-h2-accent { color: var(--cc-burnt); }
+
+.cc-lede {
+  margin: 16px 0 0;
+  max-width: 54ch;
+  color: var(--cc-soft);
+  font-size: 17px;
+  line-height: 1.6;
+  text-wrap: pretty;
+}
+
+/* ---------- Composer ---------- */
+.cc-form { display: flex; flex-direction: column; gap: 24px; margin-top: 32px; }
+.cc-content noscript .cc-submit { margin-top: 32px; }
+
+.cc-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.cc-chip {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 16px;
+  border: 1px solid rgba(255, 251, 245, .28);
+  border-radius: 8px;
+  background: transparent;
+  color: var(--cc-cream);
+  font: inherit;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.2;
+  cursor: pointer;
+  transition: border-color 150ms ease;
+}
+@media (hover: hover) {
+  .cc-chip:hover { border-color: var(--cc-cream); }
+}
+
+.cc-fields { display: flex; flex-direction: column; gap: 8px; }
+.cc-field label { display: block; margin-bottom: 8px; color: var(--cc-cream); font-size: 15px; font-weight: 600; line-height: 1.3; }
+.cc-input {
+  display: block;
+  width: 100%;
+  min-height: 52px;
+  padding: 0 16px;
+  border: 1px solid var(--cc-control);
+  border-radius: 8px;
+  background: var(--cc-field);
+  color: var(--cc-cream);
+  font: inherit;
+  font-size: 16px;
+  line-height: 1.5;
+}
+.cc-input::placeholder { color: var(--cc-dim); opacity: 1; }
+.cc-input[aria-invalid="true"] { border-color: var(--cc-error); }
+.cc-textarea { min-height: 120px; padding-block: 14px; resize: vertical; }
+
+/* The error line always takes 20px, so showing an error never moves the page. */
+.cc-error { min-height: 20px; margin-top: 4px; }
+.cc-error p { margin: 0; color: var(--cc-error); font-size: 14px; line-height: 20px; }
+
+.cc-actions { display: flex; flex-direction: column; align-items: stretch; }
+.cc-helper { margin: 16px 0 0; color: var(--cc-soft); font-size: 14px; line-height: 1.5; }
+.cc-call {
+  display: inline-flex;
+  align-items: center;
+  align-self: flex-start;
+  min-height: 44px;
+  color: var(--cc-cream);
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.3;
+  text-decoration: underline;
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 4px;
+}
+.cc-status:not(:empty) { margin-top: 8px; }
+.cc-status p { margin: 0; color: var(--cc-cream); font-size: 14px; line-height: 1.5; }
+.cc-status a { color: var(--cc-cream); font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
+.cc-note { margin: 8px 0 0; color: var(--cc-dim); font-size: 13px; line-height: 1.5; }
+
+/* Without script the form cannot work, so only the plain WhatsApp link is shown. */
+html:not(.js-motion) .cc-form { display: none; }
+
+/* ---------- WhatsApp button variant (the --wa-* tokens; label colour is the 8.6:1 on-green) ---------- */
+.button.button--whatsapp {
+  gap: 10px;
+  width: 100%;
+  min-height: 56px;
+  padding: 0 24px;
+  border: 0;
+  background: var(--wa-green);
+  color: var(--wa-on-green);
+  font: inherit;
+  font-size: 17px;
+  font-weight: 700;
+  line-height: 1.2;
+  text-align: center;
+  cursor: pointer;
+  transition: transform 150ms ease, background-color 150ms ease;
+}
+.button.button--whatsapp svg { flex: none; }
+.button.button--whatsapp:hover { background: var(--wa-green-hover); transform: translateY(-1px); }
+.button.button--whatsapp:active { transform: scale(.98); }
+
+/* ---------- Tablet (768px and up): still stacked ---------- */
+@media (min-width: 768px) {
+  .cc { padding-bottom: 96px; }
+  .cc-photo { aspect-ratio: 16 / 9; max-height: 320px; }
+  .cc-photo-chip { left: 16px; bottom: 16px; max-width: calc(100% - 32px); font-size: 13px; }
+  .cc-content { padding: 40px; }
+  .cc-h2 { font-size: 36px; }
+  .cc-lede { font-size: 18px; }
+  .cc-actions { align-items: flex-start; }
+  .button.button--whatsapp { width: auto; min-width: 260px; }
+}
+
+/* ---------- Desktop (1024px and up): photo 5 / content 7 ---------- */
+@media (min-width: 1024px) {
+  .cc { padding-bottom: 120px; }
+  .cc-card { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); }
+  .cc-photo-reveal { display: flex; min-height: 600px; }
+  .cc-photo { flex: 1 1 auto; aspect-ratio: auto; max-height: none; }
+  .cc-content { padding: 56px 64px; }
+  .cc-h2 { font-size: clamp(28px, 3.4vw, 44px); }
+  .cc-textarea { min-height: 128px; }
+}
+
+/* ---------- Motion (script available, motion allowed) ----------
+   Hidden start states live only under html.js-motion and no-preference, so visitors without script or with reduced
+   motion always see the final state, including the photo. */
+@media (prefers-reduced-motion: no-preference) {
+  html.js-motion .cc-card-reveal:not(.is-visible) .cc-card { opacity: 0; }
+  html.js-motion .cc-card-reveal.is-visible .cc-card { --cc-rise: 24px; animation: cc-rise 700ms var(--cc-ease) backwards; }
+
+  html.js-motion .cc-photo-reveal:not(.is-visible) .cc-photo-clip { clip-path: inset(0 0 100% 0); }
+  html.js-motion .cc-photo-reveal:not(.is-visible) .cc-photo-img { transform: scale(1.08); }
+  html.js-motion .cc-photo-reveal:not(.is-visible) .cc-photo-chip { opacity: 0; }
+  html.js-motion .cc-photo-reveal.is-visible .cc-photo-clip { animation: cc-wipe 800ms var(--cc-ease-clip) backwards; }
+  html.js-motion .cc-photo-reveal.is-visible .cc-photo-img { animation: cc-settle 800ms var(--cc-ease-clip) backwards; }
+  html.js-motion .cc-photo-reveal.is-visible .cc-photo-chip { --cc-rise: 12px; animation: cc-rise 600ms var(--cc-ease) 500ms backwards; }
+
+  /* Heading, description, chips, fields and button: 70ms stagger */
+  html.js-motion .cc-body-reveal:not(.is-visible) .cc-step { opacity: 0; }
+  html.js-motion .cc-body-reveal.is-visible .cc-step {
+    --cc-rise: 16px;
+    animation: cc-rise 600ms var(--cc-ease) calc(var(--i, 0) * 70ms) backwards;
+  }
+}
+
+@keyframes cc-rise { from { opacity: 0; transform: translateY(var(--cc-rise, 16px)); } to { opacity: 1; transform: none; } }
+@keyframes cc-wipe { from { clip-path: inset(0 0 100% 0); } to { clip-path: inset(0 0 0 0); } }
+@keyframes cc-settle { from { transform: scale(1.08); } to { transform: none; } }

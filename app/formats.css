@@ -1,0 +1,447 @@
+/* "Three ways to train" (Formats) section — the session-pass cards.
+   Loaded after starting-point.css. Section-local palette roles mirror the
+   design system: page #FFFBF5, cream #FCF0E1, card #FFFFFF, ink #1E140B,
+   soft #5A4838, burnt #D4601E, ember #A8440F, border #E8D8BF. No gradients. */
+
+.fmt {
+  --fmt-cream: #FCF0E1;
+  --fmt-card: #FFFFFF;
+  --fmt-ink: #1E140B;
+  --fmt-soft: #5A4838;
+  --fmt-burnt: #D4601E;
+  --fmt-ember: #A8440F;
+  --fmt-border: #E8D8BF;
+  --fmt-ease: cubic-bezier(.22, 1, .36, 1);
+  --fmt-ease-clip: cubic-bezier(.65, 0, .35, 1);
+  background: var(--fmt-cream);
+  padding: 72px 0;
+}
+
+.fmt-container { position: relative; }
+
+/* The Reveal wrappers are intersection triggers; inner elements carry motion. */
+.fmt-header-reveal.reveal,
+.fmt-card-reveal.reveal,
+.fmt-helper-reveal.reveal { opacity: 1; transform: none; transition: none; }
+
+/* ---------- Header ---------- */
+.fmt-header { display: flex; flex-direction: column; gap: 20px; margin-bottom: 40px; }
+.fmt-eyebrow {
+  margin: 0 0 16px;
+  color: var(--fmt-ember);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: .06em;
+}
+.fmt-h2 {
+  margin: 0;
+  color: var(--fmt-ink);
+  font-family: var(--font-archivo), sans-serif;
+  font-weight: 800;
+  letter-spacing: -.04em;
+  text-wrap: balance;
+  font-size: clamp(2.25rem, 9vw, 2.75rem);
+  line-height: 1.02;
+}
+.fmt-h2-accent { color: var(--fmt-burnt); }
+.fmt-lead {
+  margin: 0;
+  color: var(--fmt-soft);
+  font-size: 16.5px;
+  line-height: 1.6;
+  max-width: 54ch;
+}
+
+/* ---------- Card grid ---------- */
+.fmt-grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+}
+.fmt-item { display: flex; min-width: 0; }
+.fmt-card-reveal { display: flex; width: 100%; }
+
+/* ---------- Card ---------- */
+.fmt-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  background: var(--fmt-card);
+  border-radius: 28px;
+  box-shadow: var(--shadow-card);
+  padding: 12px;
+  transition: transform .2s var(--fmt-ease), box-shadow .2s var(--fmt-ease);
+}
+
+/* Whole-card hover lift */
+@media (hover: hover) {
+  .fmt-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-card-hover, 0 24px 48px -20px rgba(30, 20, 11, .28)); }
+}
+
+/* Image frame */
+.fmt-image {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  border-radius: 16px;
+  overflow: hidden;
+  background: var(--fmt-cream);
+}
+.fmt-image img {
+  object-fit: cover;
+  transition: transform .6s var(--fmt-ease);
+}
+@media (hover: hover) {
+  .fmt-card:hover .fmt-image img { transform: scale(1.04); }
+}
+
+/* Chip anchored bottom-left of the image */
+.fmt-chip {
+  position: absolute;
+  left: 12px;
+  bottom: 12px;
+  pointer-events: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px;
+  background: var(--fmt-card);
+  border-radius: 8px;
+  color: var(--fmt-ink);
+  line-height: 1;
+}
+.fmt-chip svg { flex: none; color: var(--fmt-ink); }
+.fmt-chip-label { font-size: 13px; font-weight: 600; letter-spacing: -.01em; }
+
+/* Text block */
+.fmt-head { padding: 20px 12px 0; }
+.fmt-title {
+  margin: 0;
+  color: var(--fmt-ink);
+  font-family: var(--font-archivo), sans-serif;
+  font-weight: 700;
+  letter-spacing: -.03em;
+  font-size: 24px;
+  line-height: 1.15;
+  text-wrap: balance;
+}
+.fmt-summary {
+  margin: 10px 0 0;
+  color: var(--fmt-soft);
+  font-size: 15.5px;
+  line-height: 1.5;
+}
+
+/* Perforation — the signature session-pass detail */
+.fmt-perf {
+  position: relative;
+  height: 0;
+  margin: 24px 20px 0;
+}
+.fmt-line {
+  display: block;
+  height: 0;
+  border-top: 1.5px dashed var(--fmt-border);
+  transform-origin: left center;
+}
+.fmt-notch {
+  position: absolute;
+  top: 50%;
+  width: 20px;
+  height: 20px;
+  margin-top: -10px;
+  border-radius: 50%;
+  background: var(--fmt-cream);
+}
+/* Notches sit half outside the card. Card padding is 12px, perf inset is 20px,
+   so from the card edge the notch centre is at -10px. */
+.fmt-notch-left { left: -30px; }
+.fmt-notch-right { right: -30px; }
+
+/* Stub: facts, best-for, have-ready, CTA */
+.fmt-stub {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding: 24px 12px 12px;
+}
+.fmt-facts {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+.fmt-fact { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.fmt-fact-value { display: flex; align-items: baseline; gap: 4px; white-space: nowrap; }
+.fmt-num-mask {
+  display: inline-block;
+  overflow: hidden;
+  padding-bottom: .12em;
+  line-height: 1;
+}
+.fmt-num {
+  display: inline-block;
+  color: var(--fmt-ink);
+  font-family: var(--font-archivo), sans-serif;
+  font-weight: 800;
+  letter-spacing: -.03em;
+  font-size: 24px;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+.fmt-fact-unit { color: var(--fmt-soft); font-size: 13px; line-height: 1; }
+.fmt-fact-label { color: var(--fmt-soft); font-size: 12px; line-height: 1.3; }
+
+.fmt-bestfor { margin: 20px 0 0; font-size: 14px; line-height: 1.5; }
+.fmt-bestfor-key { color: var(--fmt-ink); font-weight: 600; }
+.fmt-bestfor-items { color: var(--fmt-soft); }
+
+.fmt-ready {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin: 14px 0 0;
+  color: var(--fmt-soft);
+  font-size: 14px;
+  line-height: 1.5;
+}
+.fmt-ready-icon { flex: none; color: var(--fmt-ink); margin-top: 1px; }
+
+/* CTA — pinned to the bottom, stretched link over the whole card */
+.fmt-cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: auto;
+  padding-top: 0;
+  min-height: 48px;
+  margin-block-start: 24px;
+  border: 1.5px solid var(--fmt-ink);
+  border-radius: 8px;
+  color: var(--fmt-ink);
+  font-family: var(--font-figtree), sans-serif;
+  font-weight: 700;
+  font-size: 15px;
+  background: transparent;
+  transition: background-color .2s var(--fmt-ease);
+}
+.fmt-cta svg { flex: none; }
+.fmt-cta-arrow { transition: transform .2s var(--fmt-ease); }
+/* Stretched link: the overlay is positioned against .fmt-card (the nearest
+   positioned ancestor), so the whole card is clickable through this one link. */
+.fmt-cta::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  border-radius: 28px;
+}
+@media (hover: hover) {
+  .fmt-card:hover .fmt-cta { background: var(--fmt-cream); }
+  .fmt-card:hover .fmt-cta-arrow { transform: translateX(4px); }
+}
+
+/* Keyboard focus draws an outline around the whole card */
+.fmt-card:has(.fmt-cta:focus-visible) {
+  outline: 3px solid var(--fmt-ink);
+  outline-offset: 2px;
+}
+.fmt-cta:focus-visible { outline: none; }
+
+/* ---------- Helper row ---------- */
+.fmt-helper-reveal { margin-top: 40px; }
+.fmt-helper {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  color: var(--fmt-soft);
+  font-size: 16px;
+  line-height: 1.5;
+}
+.fmt-helper-text { color: var(--fmt-soft); }
+.fmt-helper-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  min-height: 44px;
+  color: var(--fmt-ember);
+  font-weight: 600;
+}
+.fmt-helper-link svg { flex: none; }
+.fmt-helper-link:hover { text-decoration: underline; }
+.fmt-helper-link:hover { color: var(--fmt-burnt); }
+.fmt-helper-arrow { transition: transform .2s var(--fmt-ease); }
+.fmt-helper-link:hover .fmt-helper-arrow { transform: translate(2px, -2px); }
+
+/* ---------- Narrow phones (under 400px): keep the three facts on one line ---------- */
+@media (max-width: 399px) {
+  .fmt-facts { gap: 10px; }
+  .fmt-num { font-size: 22px; }
+  .fmt-fact-unit { font-size: 12px; }
+}
+
+/* ---------- Tablet (640–1023px) ---------- */
+@media (min-width: 640px) {
+  .fmt { padding: 96px 0; }
+  .fmt-grid {
+    grid-template-columns: 1fr;
+    max-width: 720px;
+    margin-inline: auto;
+  }
+  .fmt-image { aspect-ratio: 16 / 10; }
+}
+
+/* ---------- Desktop (1024px and up) ---------- */
+@media (min-width: 1024px) {
+  .fmt { padding: 120px 0; }
+
+  .fmt-header {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: 32px;
+    align-items: end;
+    margin-bottom: 64px;
+  }
+  .fmt-header-intro { grid-column: 1 / span 8; }
+  .fmt-h2 {
+    font-size: clamp(2.25rem, 4.4vw, 4rem);
+    line-height: 1.02;
+  }
+  .fmt-lead {
+    grid-column: 9 / span 4;
+    margin-bottom: 4px;
+    font-size: clamp(18px, 1.3vw, 19px);
+  }
+
+  .fmt-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 32px;
+    max-width: none;
+    margin-inline: 0;
+    align-items: stretch;
+  }
+  .fmt-image { aspect-ratio: 4 / 3; }
+
+  /* Reserve equal text-block height so the perforation lines up across cards. */
+  .fmt-head { min-height: 148px; }
+}
+
+@media (min-width: 1280px) {
+  .fmt-title { font-size: 26px; }
+  .fmt-num { font-size: 28px; }
+  .fmt-head { min-height: 156px; }
+}
+
+/* ---------- Motion (script available, motion allowed). Hidden start states
+   live only under html.js-motion; final state renders with JS off or reduced
+   motion. Per-card stagger via --card-delay on the card reveal wrapper. ---------- */
+@media (prefers-reduced-motion: no-preference) {
+  html.js-motion .fmt-header-reveal .fmt-eyebrow,
+  html.js-motion .fmt-header-reveal .fmt-h2,
+  html.js-motion .fmt-header-reveal .fmt-lead { opacity: 0; }
+
+  html.js-motion .fmt-header-reveal.is-visible .fmt-eyebrow {
+    animation: fmt-rise-14 500ms var(--fmt-ease) both;
+  }
+  html.js-motion .fmt-header-reveal.is-visible .fmt-h2 {
+    animation: fmt-rise-blur 780ms var(--fmt-ease) 90ms both;
+  }
+  html.js-motion .fmt-header-reveal.is-visible .fmt-lead {
+    animation: fmt-rise-20 720ms var(--fmt-ease) 220ms both;
+  }
+
+  /* Card entrance — a clear lift with a soft scale so it reads on scroll. */
+  html.js-motion .fmt-card-reveal .fmt-card { opacity: 0; }
+  html.js-motion .fmt-card-reveal.is-visible .fmt-card {
+    animation: fmt-card-in 760ms var(--fmt-ease) calc(80ms + var(--card-delay, 0ms)) both;
+  }
+
+  /* Image clip + inner scale, right behind the card lift. */
+  html.js-motion .fmt-card-reveal .fmt-image {
+    clip-path: inset(100% 0 0 0 round 16px);
+    will-change: clip-path;
+  }
+  html.js-motion .fmt-card-reveal .fmt-image img { transform: scale(1.12); }
+  html.js-motion .fmt-card-reveal.is-visible .fmt-image {
+    animation: fmt-clip 820ms var(--fmt-ease-clip) calc(180ms + var(--card-delay, 0ms)) both;
+  }
+  html.js-motion .fmt-card-reveal.is-visible .fmt-image img {
+    animation: fmt-img-scale 1000ms var(--fmt-ease) calc(180ms + var(--card-delay, 0ms)) both;
+  }
+
+  /* Chip */
+  html.js-motion .fmt-card-reveal .fmt-chip { opacity: 0; }
+  html.js-motion .fmt-card-reveal.is-visible .fmt-chip {
+    animation: fmt-chip-in 440ms var(--fmt-ease) calc(440ms + var(--card-delay, 0ms)) both;
+  }
+
+  /* Perforation */
+  html.js-motion .fmt-card-reveal .fmt-line { transform: scaleX(0); }
+  html.js-motion .fmt-card-reveal .fmt-notch { opacity: 0; }
+  html.js-motion .fmt-card-reveal.is-visible .fmt-line {
+    animation: fmt-line 560ms var(--fmt-ease) calc(520ms + var(--card-delay, 0ms)) both;
+  }
+  html.js-motion .fmt-card-reveal.is-visible .fmt-notch {
+    animation: fmt-fade 520ms var(--fmt-ease) calc(560ms + var(--card-delay, 0ms)) both;
+  }
+
+  /* Numbers slide up inside their mask */
+  html.js-motion .fmt-card-reveal .fmt-num { transform: translateY(110%); }
+  html.js-motion .fmt-card-reveal.is-visible .fmt-fact:nth-child(1) .fmt-num {
+    animation: fmt-num-up 560ms var(--fmt-ease) calc(600ms + var(--card-delay, 0ms)) both;
+  }
+  html.js-motion .fmt-card-reveal.is-visible .fmt-fact:nth-child(2) .fmt-num {
+    animation: fmt-num-up 560ms var(--fmt-ease) calc(660ms + var(--card-delay, 0ms)) both;
+  }
+  html.js-motion .fmt-card-reveal.is-visible .fmt-fact:nth-child(3) .fmt-num {
+    animation: fmt-num-up 560ms var(--fmt-ease) calc(720ms + var(--card-delay, 0ms)) both;
+  }
+
+  /* Best for, have ready, CTA */
+  html.js-motion .fmt-card-reveal .fmt-bestfor,
+  html.js-motion .fmt-card-reveal .fmt-ready,
+  html.js-motion .fmt-card-reveal .fmt-cta { opacity: 0; }
+  html.js-motion .fmt-card-reveal.is-visible .fmt-bestfor {
+    animation: fmt-rise-12 440ms var(--fmt-ease) calc(760ms + var(--card-delay, 0ms)) both;
+  }
+  html.js-motion .fmt-card-reveal.is-visible .fmt-ready {
+    animation: fmt-rise-12 440ms var(--fmt-ease) calc(820ms + var(--card-delay, 0ms)) both;
+  }
+  html.js-motion .fmt-card-reveal.is-visible .fmt-cta {
+    animation: fmt-rise-12 440ms var(--fmt-ease) calc(880ms + var(--card-delay, 0ms)) both;
+  }
+
+  /* Helper row */
+  html.js-motion .fmt-helper-reveal .fmt-helper { opacity: 0; }
+  html.js-motion .fmt-helper-reveal.is-visible .fmt-helper {
+    animation: fmt-rise-16 520ms var(--fmt-ease) both;
+  }
+}
+
+@keyframes fmt-fade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes fmt-rise-12 { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+@keyframes fmt-rise-14 { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+@keyframes fmt-rise-16 { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+@keyframes fmt-rise-20 { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: none; } }
+@keyframes fmt-rise-blur {
+  from { opacity: 0; transform: translateY(30px); filter: blur(10px); }
+  60%  { opacity: 1; filter: blur(0); }
+  to   { opacity: 1; transform: none; filter: blur(0); }
+}
+@keyframes fmt-card-in {
+  from { opacity: 0; transform: translateY(48px) scale(.965); }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes fmt-chip-in { from { opacity: 0; transform: translateX(-12px); } to { opacity: 1; transform: none; } }
+@keyframes fmt-line { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+@keyframes fmt-img-scale { from { transform: scale(1.12); } to { transform: none; } }
+@keyframes fmt-clip { from { clip-path: inset(100% 0 0 0 round 16px); } to { clip-path: inset(0 round 16px); } }
+@keyframes fmt-num-up { from { transform: translateY(110%); } to { transform: none; } }

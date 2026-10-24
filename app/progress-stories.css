@@ -1,0 +1,400 @@
+/* Homepage progress stories: header zone, "100% effort" background mark and the story viewer.
+   Loaded after coach.css. Mobile first: base under 768px, then 768 and 1024.
+   Palette roles: page #FFFBF5, ink #1E140B, secondary #5A4838, muted #7A6755, burnt #D4601E (large
+   display text and graphics only), ember #A8440F (small accent text), hairline #E8D8BF, control
+   #8A7660, amber only on the WhatsApp button (shared .button). Radii: 8 / 16 / 28. Shadow: the shared
+   --shadow-card. The Meet section above owns the gap before this section (its bottom padding), so this
+   section has no top padding of its own. */
+
+.ps {
+  --ps-ink: #1E140B;
+  --ps-soft: #5A4838;
+  --ps-muted: #7A6755;
+  --ps-burnt: #D4601E;
+  --ps-ember: #A8440F;
+  --ps-hair: #E8D8BF;
+  --ps-control: #8A7660;
+  --ps-ease: cubic-bezier(.22, 1, .36, 1);
+  --ps-ease-clip: cubic-bezier(.65, 0, .35, 1);
+  --ps-rise: 16px;
+  /* Distance from the container edge to the viewport edge below 768px, so the track can bleed out. */
+  --ps-gutter: max(20px, calc((100vw - 620px) / 2));
+  position: relative;
+  overflow-x: clip;
+  background: #FFFBF5;
+  padding: 0 0 72px;
+}
+
+.ps :focus-visible { outline: 2px solid var(--ps-ink); outline-offset: 2px; }
+
+/* Reveal wrappers are only intersection triggers; inner elements carry the motion. */
+.ps .reveal.ps-reveal { opacity: 1; transform: none; transition: none; min-width: 0; }
+
+.ps-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ---------- Background mark ---------- */
+.ps-mark-reveal {
+  position: absolute;
+  top: 24px;
+  right: clamp(-120px, -6vw, -16px);
+  z-index: 0;
+  pointer-events: none;
+  user-select: none;
+}
+.ps-mark {
+  font-family: var(--font-archivo), sans-serif;
+  font-weight: 800;
+  font-size: 40vw;
+  line-height: .82;
+  letter-spacing: -.04em;
+  text-align: right;
+  color: transparent;
+  -webkit-text-stroke: 1px #E8D8BF;
+  user-select: none;
+  pointer-events: none;
+}
+.ps-mark span { display: block; }
+
+/* ---------- Layout (mobile: one column, reordered with `order`) ---------- */
+.ps-inner { position: relative; z-index: 1; display: grid; grid-template-columns: minmax(0, 1fr); }
+.ps-cell-h2 { order: 1; }
+.ps-cell-lede { order: 2; margin-top: 16px; }
+.ps-cell-viewer { order: 3; margin-top: 32px; min-width: 0; }
+.ps-cell-cta { order: 4; margin-top: 24px; }
+.ps-cell-para { order: 5; margin-top: 32px; }
+.ps-cell-disclaimer { order: 6; margin-top: 24px; }
+
+.ps-h2 {
+  margin: 0;
+  font-family: var(--font-archivo), sans-serif;
+  font-weight: 800;
+  font-size: 28px;
+  line-height: 1.1;
+  letter-spacing: -.03em;
+  color: var(--ps-ink);
+  text-wrap: balance;
+}
+.ps-accent { color: var(--ps-burnt); }
+.ps-lede { margin: 0; max-width: 46ch; font-size: 17px; line-height: 1.5; color: var(--ps-ink); text-wrap: pretty; }
+.ps-copy p { margin: 0; max-width: 66ch; font-size: 16px; line-height: 1.6; color: var(--ps-soft); }
+.ps-copy p + p { margin-top: 16px; }
+.ps-disclaimer { margin: 24px 0 0; max-width: 62ch; font-size: 14px; line-height: 1.5; color: var(--ps-muted); }
+.ps-btn { gap: 10px; width: 100%; min-height: 52px; padding: 0 24px; border-radius: 8px; text-align: center; }
+.ps-btn svg { flex: none; }
+
+/* ---------- Viewer (mobile: no outer panel; track, then dots + arrows) ---------- */
+.ps-viewer { display: flex; flex-direction: column; min-width: 0; }
+
+.ps-track {
+  order: 1;
+  position: relative;
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  overscroll-behavior-x: contain;
+  scrollbar-width: none;
+  /* Bleed to the viewport edges; vertical padding keeps the card shadow from being clipped. */
+  margin: -8px calc(var(--ps-gutter) * -1) -28px;
+  padding: 8px var(--ps-gutter) 28px;
+  scroll-padding-inline: var(--ps-gutter);
+}
+.ps-track::-webkit-scrollbar { display: none; }
+
+.ps-slide { flex: 0 0 min(86vw, 480px); min-width: 0; scroll-snap-align: start; }
+
+.ps-card {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  height: 100%;
+  padding: 16px;
+  background: #FFFFFF;
+  border: 1px solid var(--ps-hair);
+  border-radius: 28px;
+  box-shadow: var(--shadow-card);
+}
+
+.ps-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 4px 12px; }
+.ps-goal { margin: 0; font-size: 13px; font-weight: 600; line-height: 1.3; letter-spacing: .1em; text-transform: uppercase; color: var(--ps-ember); }
+.ps-client { margin: 0; font-size: 17px; font-weight: 600; line-height: 1.3; color: var(--ps-ink); }
+
+/* Diptych: two photos side by side, delta block straddling the seam. */
+.ps-photos { position: relative; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+.ps-photo { position: relative; aspect-ratio: 4 / 5; overflow: hidden; border-radius: 16px; background: var(--ps-hair); }
+.ps-img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.ps-captions { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; margin-top: 8px; font-size: 14px; line-height: 1.3; color: var(--ps-muted); }
+
+.ps-delta {
+  position: absolute;
+  left: 50%;
+  bottom: 12px;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 8px 16px;
+  background: #FFFFFF;
+  border-radius: 16px;
+  box-shadow: var(--shadow-card);
+  text-align: center;
+  white-space: nowrap;
+}
+.ps-delta-value {
+  font-family: var(--font-archivo), sans-serif;
+  font-weight: 800;
+  font-size: 36px;
+  line-height: 1;
+  letter-spacing: -.02em;
+  color: var(--ps-burnt);
+  font-variant-numeric: tabular-nums;
+}
+.ps-delta-label { margin-top: 4px; font-size: 12px; line-height: 1.2; color: var(--ps-soft); }
+
+/* Story column */
+.ps-story { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+.ps-title {
+  margin: 0;
+  font-family: var(--font-archivo), sans-serif;
+  font-weight: 800;
+  font-size: 24px;
+  line-height: 1.15;
+  letter-spacing: -.02em;
+  color: var(--ps-ink);
+  text-wrap: balance;
+}
+.ps-metrics { margin: 0; }
+.ps-metric { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; column-gap: 12px; padding: 14px 0; }
+.ps-metric + .ps-metric { border-top: 1px solid var(--ps-hair); }
+.ps-metric dt { margin: 0; font-size: 15px; line-height: 1.3; color: var(--ps-soft); }
+.ps-metric dd { position: relative; display: flex; align-items: center; gap: 8px; margin: 0; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.ps-from { font-size: 16px; color: var(--ps-muted); }
+.ps-to-arrow { flex: none; color: var(--ps-muted); }
+.ps-to { font-family: var(--font-archivo), sans-serif; font-weight: 800; font-size: 20px; line-height: 1; color: var(--ps-ink); }
+.ps-unit { margin-left: -4px; font-size: 14px; color: var(--ps-muted); }
+.ps-meta { margin: 0; font-size: 15px; line-height: 1.4; color: var(--ps-soft); }
+.ps-quote { margin: 0; }
+.ps-quote p { margin: 0; max-width: 44ch; font-size: 17px; font-weight: 500; line-height: 1.5; color: var(--ps-ink); }
+
+/* Dots + arrows row (mobile: below the track) */
+.ps-nav { order: 2; display: flex; align-items: center; justify-content: space-between; margin-top: 16px; }
+.ps-tabs { position: relative; display: flex; }
+.ps-tab {
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  display: grid;
+  place-items: center;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+.ps-tab::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  border-radius: 8px;
+  background: var(--ps-hair);
+  transition: width 250ms var(--ps-ease), background-color 150ms ease;
+}
+.ps-tab[aria-selected="true"]::before { width: 24px; background: var(--ps-ink); }
+.ps-tab-text {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+.ps-underline { display: none; }
+
+.ps-arrows { display: flex; gap: 8px; }
+.ps-arrow-btn {
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  display: grid;
+  place-items: center;
+  background: #FFFFFF;
+  border: 1px solid var(--ps-control);
+  border-radius: 8px;
+  color: var(--ps-ink);
+  cursor: pointer;
+  transition: border-color 150ms ease, color 150ms ease, background-color 150ms ease;
+}
+.ps-arrow-btn:hover { border-color: var(--ps-ink); }
+.ps-arrow-btn[aria-disabled="true"] { border-color: var(--ps-hair); color: #B3A18A; cursor: default; }
+.ps-arrow-btn[aria-disabled="true"]:hover { border-color: var(--ps-hair); }
+
+/* No-story state: stands in for the viewer. */
+.ps-empty {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 24px;
+  background: #FFFFFF;
+  border: 1px solid var(--ps-hair);
+  border-radius: 28px;
+  box-shadow: var(--shadow-card);
+}
+.ps-empty-title { margin: 0 0 8px; font-family: var(--font-archivo), sans-serif; font-weight: 800; font-size: 24px; line-height: 1.15; letter-spacing: -.02em; color: var(--ps-ink); text-wrap: balance; }
+.ps-empty-copy p { margin: 0; max-width: 52ch; font-size: 17px; line-height: 1.5; color: var(--ps-soft); }
+
+/* ---------- Tablet ---------- */
+@media (min-width: 768px) {
+  .ps { padding-bottom: 96px; --ps-rise: 24px; }
+  .ps-mark { font-size: clamp(132px, 22vw, 320px); -webkit-text-stroke: 1.5px #E8D8BF; }
+
+  .ps-inner { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 24px; }
+  .ps-cell-h2, .ps-cell-lede, .ps-cell-para, .ps-cell-viewer, .ps-cell-cta, .ps-cell-disclaimer { order: 0; }
+  .ps-cell-h2 { grid-column: 1 / -1; grid-row: 1; max-width: 640px; }
+  .ps-cell-lede { grid-column: 1 / -1; grid-row: 2; margin-top: 24px; max-width: 640px; }
+  .ps-cell-para { grid-column: 1 / -1; grid-row: 3; margin-top: 16px; max-width: 640px; }
+  .ps-cell-viewer { grid-column: 1 / -1; grid-row: 4; margin-top: 56px; }
+  .ps-cell-disclaimer { grid-column: 1 / span 7; grid-row: 5; margin-top: 32px; }
+  .ps-cell-cta { grid-column: 8 / -1; grid-row: 5; justify-self: end; margin-top: 32px; }
+
+  .ps-h2 { font-size: 36px; }
+  .ps-lede { font-size: 18px; }
+  .ps-copy p { font-size: 17px; }
+  .ps-btn { width: auto; }
+
+  /* Panel */
+  .ps-viewer { padding: 32px; background: #FFFFFF; border: 1px solid var(--ps-hair); border-radius: 28px; box-shadow: var(--shadow-card); }
+
+  /* Tab row above the track */
+  .ps-nav { order: 0; display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: stretch; column-gap: 16px; margin-top: 0; border-bottom: 1px solid var(--ps-hair); }
+  .ps-tabs { display: grid; grid-template-columns: repeat(var(--n), minmax(0, 1fr)); }
+  .ps-tab {
+    width: auto;
+    height: auto;
+    min-height: 72px;
+    padding: 12px 8px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    text-align: left;
+  }
+  .ps-tab::before { display: none; }
+  .ps-tab-text { position: static; width: auto; height: auto; margin: 0; overflow: visible; clip-path: none; white-space: normal; display: flex; flex-direction: column; gap: 4px; }
+  .ps-tab-goal { font-size: 15px; font-weight: 600; line-height: 1.25; color: var(--ps-soft); transition: color 150ms ease; }
+  .ps-tab:hover .ps-tab-goal, .ps-tab[aria-selected="true"] .ps-tab-goal { color: var(--ps-ink); }
+  .ps-tab-delta { font-family: var(--font-archivo), sans-serif; font-weight: 800; font-size: 22px; line-height: 1.1; color: var(--ps-ink); font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .ps-underline {
+    display: block;
+    position: absolute;
+    left: 0;
+    bottom: -1px;
+    width: calc(100% / var(--n));
+    height: 3px;
+    background: var(--ps-burnt);
+    transform: translateX(calc(var(--i) * 100%));
+    transition: transform 250ms var(--ps-ease);
+  }
+  .ps-arrows { align-self: center; }
+
+  /* Track: one slide at a time */
+  .ps-track { order: 0; gap: 0; margin: 32px 0 0; padding: 0; scroll-padding-inline: 0; }
+  .ps-slide { flex: 0 0 100%; }
+
+  /* Slide: stacked, diptych then story */
+  .ps-card { max-width: 680px; margin-inline: auto; height: auto; padding: 0; background: none; border: 0; border-radius: 0; box-shadow: none; gap: 16px; }
+  .ps-visual { order: 0; margin-bottom: 8px; }
+  .ps-head { order: 1; flex-direction: column; flex-wrap: nowrap; align-items: flex-start; justify-content: flex-start; gap: 16px; }
+  .ps-story { order: 2; }
+
+  .ps-photos { gap: 12px; }
+  .ps-captions { gap: 12px; margin-top: 12px; }
+  .ps-delta { bottom: 16px; padding: 12px 24px; }
+  .ps-delta-value { font-size: 56px; }
+  .ps-delta-label { font-size: 13px; }
+  .ps-title { font-size: 28px; }
+  .ps-to { font-size: 22px; }
+
+  .ps-empty { flex-direction: row; align-items: center; justify-content: space-between; gap: 32px; padding: 32px 40px; }
+  .ps-empty-title { font-size: 28px; }
+}
+
+/* ---------- Desktop ---------- */
+@media (min-width: 1024px) {
+  .ps-inner { column-gap: 32px; }
+  .ps-cell-h2 { grid-column: 1 / span 8; max-width: none; }
+  .ps-cell-lede { grid-column: 1 / span 5; grid-row: 2; margin-top: 32px; max-width: none; }
+  .ps-cell-para { grid-column: 7 / -1; grid-row: 2; margin-top: 32px; max-width: none; }
+  .ps-cell-viewer { grid-row: 3; margin-top: 72px; }
+  .ps-cell-disclaimer { grid-row: 4; }
+  .ps-cell-cta { grid-column: 9 / -1; grid-row: 4; }
+
+  .ps-h2 { font-size: clamp(28px, 3.4vw, 44px); }
+  .ps-lede { font-size: 20px; }
+
+  .ps-viewer { padding: 40px; }
+  .ps-tab { padding: 12px 16px; }
+  .ps-tab-goal { font-size: 16px; }
+
+  .ps-card {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    grid-template-rows: auto 1fr;
+    column-gap: 32px;
+    row-gap: 16px;
+    max-width: none;
+    margin-inline: 0;
+  }
+  .ps-visual { grid-column: 1 / span 7; grid-row: 1 / span 2; order: 0; margin-bottom: 0; }
+  .ps-head { grid-column: 8 / -1; grid-row: 1; order: 0; align-self: start; }
+  .ps-story { grid-column: 8 / -1; grid-row: 2; order: 0; align-self: start; }
+}
+
+/* ---------- Motion: CSS only (transform, opacity, clip-path). Hidden start states exist only under
+   html.js-motion and no-preference, so visitors without script or with reduced motion always see the
+   final state. ---------- */
+@media (prefers-reduced-motion: no-preference) {
+  /* Header: heading, lede, paragraph (the delay comes from each Reveal) */
+  html.js-motion .ps-reveal:not(.is-visible) > .ps-rise { opacity: 0; }
+  html.js-motion .ps-reveal.is-visible > .ps-rise { animation: ps-rise 600ms var(--ps-ease) var(--reveal-delay, 0ms) backwards; }
+
+  /* Background mark: wipes in once, never moves with scroll */
+  html.js-motion .ps-mark-reveal:not(.is-visible) .ps-mark { clip-path: inset(0 0 0 100%); }
+  html.js-motion .ps-mark-reveal.is-visible .ps-mark { animation: ps-wipe 1000ms var(--ps-ease-clip) backwards; }
+
+  /* Viewer panel (desktop) / cards (mobile) */
+  html.js-motion .ps-viewer:not([data-inview]) { opacity: 0; }
+  html.js-motion .ps-viewer[data-inview] { animation: ps-rise 600ms var(--ps-ease) backwards; }
+
+  /* Slides: first time each becomes active */
+  html.js-motion .ps-slide:not([data-seen]) .ps-photo { clip-path: inset(0 0 0 100%); }
+  html.js-motion .ps-slide:not([data-seen]) .ps-img { transform: scale(1.08); }
+  html.js-motion .ps-slide:not([data-seen]) .ps-delta,
+  html.js-motion .ps-slide:not([data-seen]) .ps-head,
+  html.js-motion .ps-slide:not([data-seen]) .ps-story,
+  html.js-motion .ps-slide:not([data-seen]) .ps-metric { opacity: 0; }
+
+  html.js-motion .ps-slide[data-seen] .ps-photo--before { animation: ps-wipe 600ms var(--ps-ease-clip) backwards; }
+  html.js-motion .ps-slide[data-seen] .ps-photo--after { animation: ps-wipe 600ms var(--ps-ease-clip) 220ms backwards; }
+  html.js-motion .ps-slide[data-seen] .ps-photo--before .ps-img { animation: ps-settle 600ms var(--ps-ease-clip) backwards; }
+  html.js-motion .ps-slide[data-seen] .ps-photo--after .ps-img { animation: ps-settle 600ms var(--ps-ease-clip) 220ms backwards; }
+  html.js-motion .ps-slide[data-seen] .ps-delta { animation: ps-delta 400ms var(--ps-ease) 520ms backwards; }
+  html.js-motion .ps-slide[data-seen] .ps-head { animation: ps-fade-rise 250ms var(--ps-ease) 100ms backwards; }
+  html.js-motion .ps-slide[data-seen] .ps-story { animation: ps-fade-rise 250ms var(--ps-ease) 150ms backwards; }
+  html.js-motion .ps-slide[data-seen] .ps-metric { animation: ps-fade-rise 250ms var(--ps-ease) calc(250ms + var(--m, 0) * 70ms) backwards; }
+}
+
+@keyframes ps-rise { from { opacity: 0; transform: translateY(var(--ps-rise)); } to { opacity: 1; transform: none; } }
+@keyframes ps-fade-rise { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+@keyframes ps-wipe { from { clip-path: inset(0 0 0 100%); } to { clip-path: inset(0 0 0 0); } }
+@keyframes ps-settle { from { transform: scale(1.08); } to { transform: none; } }
+@keyframes ps-delta { from { opacity: 0; transform: translate(-50%, 12px); } to { opacity: 1; transform: translate(-50%, 0); } }

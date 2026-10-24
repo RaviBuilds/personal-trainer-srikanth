@@ -1,0 +1,403 @@
+/* Homepage Instagram reels section, between Results and FAQs. Loaded after progress-stories.css.
+   Mobile first: base under 768px, then 768 and 1024.
+   Palette roles: surface #FCF0E1 (Results above is #FFFBF5, FAQs below is white), ink #1E140B,
+   secondary #5A4838, muted #7A6755, ember #A8440F (small links), hairline #E8D8BF, dark #2B1A0E.
+   Radii: 8 / 16 / 28 (the avatar and the 56px play button are circles). Shadows: the shared
+   --shadow-card and --shadow-float. The Instagram brand gradients are used for exactly three things
+   in this section: the Follow button, the avatar ring and the Instagram glyph in the stage strip. */
+
+.ig {
+  --ig-ink: #1E140B;
+  --ig-soft: #5A4838;
+  --ig-muted: #7A6755;
+  --ig-ember: #A8440F;
+  --ig-burnt: #D4601E;
+  --ig-hair: #E8D8BF;
+  --ig-cream: #FCF0E1;
+  --ig-dark: #2B1A0E;
+  --ig-ring: linear-gradient(45deg, #FEDA75 0%, #FA7E1E 25%, #D62976 50%, #962FBF 75%, #4F5BD5 100%);
+  --ig-follow: linear-gradient(45deg, #D62976 0%, #962FBF 60%, #4F5BD5 100%);
+  --ig-ease: cubic-bezier(.22, 1, .36, 1);
+  --ig-ease-clip: cubic-bezier(.65, 0, .35, 1);
+  /* Distance from the container edge to the viewport edge below 768px, so the rail can bleed out. */
+  --ig-gutter: max(20px, calc((100vw - 620px) / 2));
+  --ig-reel-cap: min(560px, 62svh);
+  --ig-gap: 12px;
+  --ig-pad: 0px;
+  --ig-step: 0px;
+  --ig-strip: 44px;
+  position: relative;
+  overflow-x: clip;
+  background: var(--ig-cream);
+  padding: 72px 0;
+  scroll-margin-top: var(--header-h, 79px);
+}
+
+.ig :focus-visible { outline: 2px solid var(--ig-ink); outline-offset: 2px; }
+
+/* Reveal wrappers are only intersection triggers; inner elements carry the motion. */
+.ig .reveal.ig-reveal { opacity: 1; transform: none; transition: none; min-width: 0; }
+
+/* ---------- Layout (mobile: head, rail, profile) ---------- */
+.ig-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-areas: "head" "stage" "profile";
+  gap: 32px;
+}
+.ig-head-reveal { grid-area: head; }
+.ig-stage { grid-area: stage; min-width: 0; container-type: inline-size; }
+.ig-profile-reveal { grid-area: profile; }
+
+/* ---------- Head ---------- */
+/* Same display heading as the Formats, Goals and Starting point sections. */
+.ig-h2 {
+  margin: 0;
+  color: var(--ig-ink);
+  font-family: var(--font-archivo), sans-serif;
+  font-weight: 800;
+  letter-spacing: -.04em;
+  text-wrap: balance;
+  font-size: clamp(2.25rem, 9vw, 2.75rem);
+  line-height: 1.02;
+}
+.ig-h2-accent { color: var(--ig-burnt); }
+.ig-lede { margin: 20px 0 0; max-width: 54ch; font-size: 17px; line-height: 1.6; color: var(--ig-soft); text-wrap: pretty; }
+
+/* ---------- Reels: mobile rail ---------- */
+.ig-board { position: relative; display: flex; flex-direction: column; }
+.ig-reels {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: flex-start;
+  gap: var(--ig-gap);
+  margin: -8px calc(var(--ig-gutter) * -1) -16px;
+  padding: 8px var(--ig-gutter) 24px;
+  list-style: none;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: var(--ig-gutter);
+  overscroll-behavior-x: contain;
+  scrollbar-width: none;
+}
+.ig-reels::-webkit-scrollbar { display: none; }
+
+.ig-slot { display: grid; flex: 0 0 min(62%, 280px); aspect-ratio: 9 / 16; scroll-snap-align: start; }
+.ig .reveal.ig-reel-reveal { display: grid; }
+
+.ig-reel { position: relative; display: block; border-radius: 16px; background: var(--ig-dark); box-shadow: var(--shadow-card); color: #fff; }
+.ig-reel-frame { position: absolute; inset: 0; overflow: hidden; border-radius: 16px; background: var(--ig-dark); }
+.ig-reel-video { display: block; width: 100%; height: 100%; object-fit: cover; background: var(--ig-dark); }
+
+/* One button covers the card: it starts, pauses and resumes the reel. */
+.ig-toggle {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  border: 0;
+  border-radius: 16px;
+  background: transparent;
+  color: var(--ig-ink);
+  cursor: pointer;
+}
+.ig-toggle:disabled { cursor: default; }
+
+.ig-play {
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  border: 1px solid var(--ig-hair);
+  border-radius: 28px;
+  background: #fff;
+  color: var(--ig-ink);
+  box-shadow: var(--shadow-float);
+  transition: opacity .2s ease, transform .3s var(--ig-ease);
+}
+.ig-play svg { margin-left: 3px; }
+.ig-reel[data-state="playing"] .ig-play { opacity: 0; }
+.ig-reel[data-failed] .ig-play { opacity: .5; }
+
+.ig-chip {
+  position: absolute;
+  z-index: 2;
+  left: 12px;
+  bottom: 12px;
+  max-width: calc(100% - 24px);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px;
+  border-radius: 8px;
+  background: var(--ig-dark);
+  color: var(--ig-cream);
+  font-size: 12.5px;
+  font-weight: 600;
+  line-height: 1.2;
+  pointer-events: none;
+  transition: opacity .2s ease;
+}
+.ig-chip svg { flex: none; }
+.ig-reel:not([data-state="idle"]) .ig-chip { opacity: 0; }
+
+.ig-mute {
+  position: absolute;
+  z-index: 3;
+  top: 8px;
+  right: 8px;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 1px solid var(--ig-hair);
+  border-radius: 28px;
+  background: #fff;
+  color: var(--ig-ink);
+  cursor: pointer;
+}
+.ig-mute:active { transform: scale(.96); }
+
+.ig-progress {
+  position: absolute;
+  z-index: 2;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 3px;
+  overflow: hidden;
+  border-radius: 0 0 16px 16px;
+  background: rgba(255, 251, 245, .35);
+  opacity: 0;
+  pointer-events: none;
+}
+.ig-reel:not([data-state="idle"]) .ig-progress { opacity: 1; }
+.ig-progress-fill { display: block; height: 100%; background: #FFFBF5; transform: scaleX(0); transform-origin: left; transition: transform .25s linear; }
+
+.ig-toggle:focus-visible { outline: 2px solid var(--ig-ink); outline-offset: 2px; }
+.ig-mute:focus-visible { outline-offset: 2px; }
+
+/* Hover and focus: the preview frame and the play button grow a touch. Not under reduced motion. */
+@media (prefers-reduced-motion: no-preference) {
+  .ig-reel-video { transition: transform .5s var(--ig-ease); }
+  .ig-reel:not([data-failed]):has(.ig-toggle:focus-visible) .ig-play { transform: scale(1.06); }
+  .ig-reel[data-state="idle"]:not([data-failed]):has(.ig-toggle:focus-visible) .ig-reel-video { transform: scale(1.04); }
+}
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .ig-reel:not([data-failed]):hover .ig-play { transform: scale(1.06); }
+  .ig-reel[data-state="idle"]:not([data-failed]):hover .ig-reel-video { transform: scale(1.04); }
+}
+
+/* ---------- Mobile rail buttons ---------- */
+.ig-nav { position: relative; z-index: 1; display: flex; align-items: center; justify-content: center; gap: 16px; margin-top: 8px; }
+.ig-nav-btn {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 1px solid var(--ig-hair);
+  border-radius: 50%;
+  background: #fff;
+  color: var(--ig-ink);
+  box-shadow: var(--shadow-card);
+  cursor: pointer;
+  transition: transform .2s var(--ig-ease), opacity .2s ease;
+}
+.ig-nav-btn:active:not(:disabled) { transform: scale(.96); }
+.ig-nav-btn:disabled { opacity: .4; cursor: default; box-shadow: none; }
+.ig-nav-count { margin: 0; min-width: 9ch; color: var(--ig-soft); font-size: 14px; font-weight: 600; line-height: 1.3; text-align: center; font-variant-numeric: tabular-nums; }
+
+/* ---------- Panel strip ---------- */
+.ig-panel-reveal { margin-top: 8px; }
+.ig-strip { display: flex; align-items: center; justify-content: flex-start; min-height: var(--ig-strip); width: 100%; }
+.ig-strip-handle { display: none; margin: 0; align-items: center; gap: 10px; min-width: 0; color: var(--ig-ink); font-size: 15px; font-weight: 600; }
+.ig-strip-handle svg { flex: none; }
+.ig-strip-handle span { overflow-wrap: anywhere; }
+.ig-strip-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 44px;
+  font-size: 15px;
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 5px;
+  transition: text-decoration-color .2s ease;
+}
+.ig-strip-link { color: var(--ig-ink); }
+.ig-strip-link:hover { text-decoration-color: var(--ig-ember); }
+.ig-strip-link svg { flex: none; transition: transform .25s var(--ig-ease); }
+.ig-strip-link:hover svg { transform: translate(2px, -2px); }
+
+/* ---------- Profile ---------- */
+.ig-profile {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px;
+  border: 1px solid var(--ig-hair);
+  border-radius: 16px;
+  background: #fff;
+  box-shadow: var(--shadow-card);
+}
+.ig-profile-id { display: flex; align-items: center; gap: 16px; min-width: 0; }
+.ig-avatar { flex: none; display: block; padding: 3px; border-radius: 50%; background: var(--ig-ring); }
+.ig-avatar-gap { display: block; padding: 3px; border-radius: 50%; background: #fff; line-height: 0; }
+.ig-avatar-img { display: block; width: 64px; height: 64px; border-radius: 50%; object-fit: cover; }
+.ig-profile-text { min-width: 0; }
+.ig-name { margin: 0; font-family: var(--font-archivo), sans-serif; font-size: 18px; font-weight: 700; line-height: 1.25; letter-spacing: -.02em; color: var(--ig-ink); }
+.ig-handle {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  margin-block: -12px;
+  color: var(--ig-ember);
+  font-size: 15px;
+  font-weight: 600;
+  overflow-wrap: anywhere;
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 4px;
+  transition: text-decoration-color .2s ease;
+}
+.ig-handle:hover { text-decoration-color: var(--ig-ember); }
+.ig-bio { margin: 0; font-size: 14px; line-height: 1.45; color: var(--ig-muted); }
+.ig-follow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  min-height: 48px;
+  padding: 0 20px;
+  border-radius: 8px;
+  background: var(--ig-follow);
+  color: #fff;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.2;
+  text-align: center;
+  transition: transform .2s var(--ig-ease);
+}
+.ig-follow svg { flex: none; }
+.ig-follow:hover { filter: brightness(.94); transform: translateY(-1px); }
+.ig-follow:active { transform: scale(.98); }
+.ig-follow:focus-visible { outline-offset: 3px; }
+
+.ig-benefits { display: none; margin: 0; padding: 0; list-style: none; }
+.ig-benefits li { display: flex; align-items: center; gap: 12px; color: var(--ig-ink); font-size: 16px; font-weight: 500; line-height: 1.4; }
+.ig-benefits svg { flex: none; }
+
+/* ---------- Tablet: 768 to 1023 ---------- */
+@media (min-width: 768px) {
+  .ig { --ig-gap: 16px; --ig-pad: 24px; --ig-step: 12px; padding: 96px 0; }
+  .ig-lede { margin-top: 24px; font-size: 18px; }
+
+  /* All three reels are visible side by side, so the rail buttons are not needed. */
+  .ig-nav { display: none; }
+
+  .ig-stage { padding-top: calc(var(--ig-step) * 2); }
+  .ig-board {
+    display: block;
+    --ig-reel-w: min(calc((100cqw - 2 * var(--ig-pad) - 2 * var(--ig-gap)) / 3), calc(var(--ig-reel-cap) * 9 / 16));
+    --ig-reel-h: calc(var(--ig-reel-w) * 16 / 9);
+    padding: 0 var(--ig-pad) calc(24px + var(--ig-strip) + var(--ig-pad));
+  }
+  .ig-reels {
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+    overflow: visible;
+    scroll-snap-type: none;
+  }
+  .ig-slot {
+    flex: 1 1 0;
+    min-width: 0;
+    max-width: calc(var(--ig-reel-cap) * 9 / 16);
+    transform: translateY(calc(var(--n) * var(--ig-step) * -1));
+  }
+
+  .ig-panel-reveal { position: absolute; inset: calc(var(--ig-reel-h) * .25) 0 0 0; margin: 0; }
+  .ig-panel {
+    display: flex;
+    align-items: flex-end;
+    height: 100%;
+    padding: 0 var(--ig-pad) var(--ig-pad);
+    border: 1px solid var(--ig-hair);
+    border-radius: 28px;
+    background: #fff;
+    box-shadow: var(--shadow-card);
+  }
+  .ig-strip { justify-content: space-between; gap: 16px; }
+  .ig-strip-handle { display: flex; }
+
+  .ig-profile { flex-direction: row; align-items: center; justify-content: space-between; gap: 24px; padding: 20px 24px; }
+  .ig-follow { width: auto; flex: none; padding: 0 24px; }
+  .ig-benefits { display: flex; flex-wrap: wrap; gap: 12px 32px; margin-top: 24px; }
+}
+
+/* ---------- Desktop: 1024 and up ---------- */
+@media (min-width: 1024px) {
+  .ig { --ig-pad: 32px; --ig-step: 24px; padding: 120px 0; }
+  .ig-h2 { font-size: clamp(2.25rem, 4.4vw, 4rem); }
+  .ig-lede { font-size: clamp(18px, 1.3vw, 19px); }
+
+  .ig-grid {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    grid-template-rows: 1fr auto auto 1fr;
+    grid-template-areas:
+      ". . . . . stage stage stage stage stage stage stage"
+      "head head head head head stage stage stage stage stage stage stage"
+      "profile profile profile profile profile stage stage stage stage stage stage stage"
+      ". . . . . stage stage stage stage stage stage stage";
+    column-gap: 32px;
+    row-gap: 0;
+  }
+  .ig-stage { align-self: center; }
+  .ig-profile-reveal { margin-top: 32px; }
+
+  .ig-profile { flex-direction: column; align-items: stretch; justify-content: flex-start; gap: 20px; padding: 20px; }
+  .ig-follow { width: 100%; padding: 0 20px; }
+  .ig-benefits { flex-direction: column; flex-wrap: nowrap; gap: 12px; margin-top: 24px; }
+}
+
+/* ---------- Motion: CSS only (transform, opacity, clip-path). Hidden start states exist only under
+   html.js-motion and no-preference, so visitors without script or with reduced motion always see the
+   final state. ---------- */
+@media (prefers-reduced-motion: no-preference) {
+  /* Heading, then lede */
+  html.js-motion .ig-head-reveal:not(.is-visible) .ig-h2,
+  html.js-motion .ig-head-reveal:not(.is-visible) .ig-lede { opacity: 0; }
+  html.js-motion .ig-head-reveal.is-visible .ig-h2 { animation: ig-rise-24 700ms var(--ig-ease) backwards; }
+  html.js-motion .ig-head-reveal.is-visible .ig-lede { animation: ig-rise-24 700ms var(--ig-ease) 80ms backwards; }
+
+  /* Profile card, then the benefit lines */
+  html.js-motion .ig-profile-reveal:not(.is-visible) .ig-profile,
+  html.js-motion .ig-profile-reveal:not(.is-visible) .ig-benefits { opacity: 0; }
+  html.js-motion .ig-profile-reveal.is-visible .ig-profile { animation: ig-rise-16 600ms var(--ig-ease) backwards; }
+  html.js-motion .ig-profile-reveal.is-visible .ig-benefits { animation: ig-rise-16 600ms var(--ig-ease) 120ms backwards; }
+
+  /* Stage panel wipes up from its base */
+  html.js-motion .ig-panel-reveal:not(.is-visible) .ig-panel { clip-path: inset(100% 0 0 0); }
+  html.js-motion .ig-panel-reveal.is-visible .ig-panel { animation: ig-wipe 800ms var(--ig-ease-clip) backwards; }
+
+  /* Reel cards rise 24px with a 70ms stagger; the staircase offset lives on the slot, so the two never fight */
+  html.js-motion .ig-reel-reveal:not(.is-visible) .ig-reel { opacity: 0; }
+  html.js-motion .ig-reel-reveal.is-visible .ig-reel { animation: ig-rise-24 700ms var(--ig-ease) var(--reveal-delay, 0ms) backwards; }
+  html.js-motion .ig-slot:has(> .ig-reel-reveal.is-visible) { animation: ig-stair 900ms var(--ig-ease) var(--d, 0ms) backwards; }
+}
+
+@keyframes ig-rise-24 { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: none; } }
+@keyframes ig-rise-16 { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+@keyframes ig-wipe { from { clip-path: inset(100% 0 0 0); } to { clip-path: inset(0 0 0 0); } }
+@keyframes ig-stair { from { transform: translateY(0); } }

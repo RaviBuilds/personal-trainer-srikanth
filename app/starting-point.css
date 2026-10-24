@@ -1,0 +1,373 @@
+/* "Starting point" section — the first section after the hero.
+   Loaded after hero.css so these rules win where they overlap.
+   Palette (section-local roles, from the design system):
+   page #FFFBF5, cream #FCF0E1, card #FFFFFF, ink #1E140B, soft #5A4838,
+   amber #F2AC50, burnt #D4601E, ember #A8440F, dark #2B1A0E, border #E8D8BF. */
+
+.sp {
+  --sp-page: #FFFBF5;
+  --sp-card: #FFFFFF;
+  --sp-ink: #1E140B;
+  --sp-soft: #5A4838;
+  --sp-amber: #F2AC50;
+  --sp-amber-hover: #ec9f3a;
+  --sp-burnt: #D4601E;
+  --sp-ember: #A8440F;
+  --sp-dark: #2B1A0E;
+  --sp-cream: #FCF0E1;
+  --sp-border: #E8D8BF;
+  --sp-ease: cubic-bezier(.22, 1, .36, 1);
+  background: var(--sp-page);
+  padding: 72px 0;
+}
+
+.sp-container { position: relative; }
+
+/* The Reveal wrappers are used only as intersection triggers here; the inner
+   elements carry the motion, so neutralize the wrappers' own fade/transform. */
+.sp-intro-reveal.reveal,
+.sp-photo-reveal.reveal,
+.sp-card-reveal.reveal,
+.sp-hook-reveal.reveal { opacity: 1; transform: none; transition: none; }
+
+/* ---------- Shared buttons ---------- */
+.sp-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 48px;
+  padding: 0 20px;
+  border-radius: 8px;
+  font-family: var(--font-figtree), sans-serif;
+  font-weight: 700;
+  font-size: 15px;
+  white-space: nowrap;
+  border: 1.5px solid transparent;
+  transition: background-color .15s ease, border-color .15s ease, transform .15s ease;
+}
+.sp-btn svg { flex: none; }
+.sp-btn:hover { transform: translateY(-1px); }
+.sp-btn:active { transform: scale(.98); }
+/* The primary button is the WhatsApp CTA; it stays amber, with the green WhatsAppLogo inside. */
+.sp-btn-primary { background: var(--sp-amber); color: var(--sp-ink); }
+.sp-btn-primary:hover { background: var(--sp-amber-hover); }
+.sp-btn-outline { background: transparent; color: var(--sp-ink); border-color: var(--sp-ink); }
+.sp-btn-outline:hover { background: var(--sp-cream); }
+.sp-btn-arrow { transition: transform .2s var(--sp-ease); }
+.sp-btn:hover .sp-btn-arrow { transform: translateX(4px); }
+.sp :focus-visible { outline: 3px solid var(--sp-ink); outline-offset: 2px; }
+
+/* ---------- Typography ---------- */
+.sp-h2 {
+  margin: 0;
+  color: var(--sp-ink);
+  font-family: var(--font-archivo), sans-serif;
+  font-weight: 800;
+  letter-spacing: -.04em;
+  text-wrap: balance;
+  font-size: clamp(2.25rem, 9vw, 2.75rem);
+  line-height: 1.02;
+}
+.sp-h2-accent { color: var(--sp-burnt); }
+.sp-reassurance {
+  margin: 20px 0 0;
+  color: var(--sp-ink);
+  font-family: var(--font-archivo), sans-serif;
+  font-weight: 700;
+  letter-spacing: -.02em;
+  font-size: 22px;
+  line-height: 1.2;
+}
+.sp-reassurance-accent { color: var(--sp-ember); }
+.sp-lead {
+  margin: 16px 0 0;
+  color: var(--sp-soft);
+  font-size: 16.5px;
+  line-height: 1.6;
+  max-width: 54ch;
+}
+
+/* ---------- Photo ---------- */
+.sp-photo {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  border-radius: 20px;
+  overflow: hidden;
+  background: var(--sp-cream);
+  margin-top: 28px;
+}
+.sp-photo img { object-fit: cover; object-position: 60% 55%; }
+
+/* ---------- Card ---------- */
+.sp-card {
+  position: relative;
+  background: var(--sp-card);
+  border: 1px solid var(--sp-border);
+  border-radius: 20px;
+  box-shadow: var(--shadow-card);
+  padding: 24px;
+  margin-top: -40px;
+}
+.sp-tab {
+  display: inline-block;
+  margin: 0 0 16px;
+  padding: 7px 14px;
+  background: var(--sp-dark);
+  color: var(--sp-cream);
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+.sp-card-grid { display: block; }
+.sp-card-title {
+  margin: 0;
+  color: var(--sp-ink);
+  font-family: var(--font-archivo), sans-serif;
+  font-weight: 800;
+  letter-spacing: -.03em;
+  font-size: clamp(1.5rem, 6vw, 1.75rem);
+  line-height: 1.1;
+}
+.sp-card-intro { margin: 12px 0 0; color: var(--sp-soft); font-size: 16px; line-height: 1.55; }
+
+/* You leave with */
+.sp-leave { list-style: none; margin: 20px 0 0; padding: 0; display: grid; gap: 10px; }
+.sp-leave li { display: flex; align-items: flex-start; gap: 10px; color: var(--sp-ink); font-size: 15px; line-height: 1.4; }
+.sp-leave-icon { flex: none; color: var(--sp-ink); margin-top: 2px; }
+
+/* CTA stack */
+.sp-cta { margin-top: 24px; display: grid; gap: 12px; justify-items: start; }
+.sp-btn-primary { width: 100%; }
+.sp-call {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  min-height: 44px;
+  color: var(--sp-ember);
+  font-size: 14.5px;
+  font-weight: 600;
+}
+.sp-call svg { flex: none; }
+.sp-call:hover { color: var(--sp-burnt); }
+
+/* Six criteria */
+.sp-criteria {
+  list-style: none;
+  margin: 28px 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+}
+.sp-criterion { display: flex; align-items: flex-start; gap: 14px; }
+.sp-criterion-icon { flex: none; color: var(--sp-ink); line-height: 0; margin-top: 1px; }
+.sp-criterion-text { display: flex; flex-direction: column; gap: 3px; }
+.sp-criterion-label { color: var(--sp-ink); font-size: 16px; font-weight: 600; line-height: 1.2; }
+.sp-criterion-desc { color: var(--sp-soft); font-size: 14.5px; line-height: 1.4; }
+
+/* ---------- Hook band ---------- */
+.sp-hook-reveal { margin-top: 40px; }
+.sp-hook {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+  background: var(--sp-card);
+  border: 1px solid var(--sp-border);
+  border-radius: 20px;
+  padding: 24px;
+}
+.sp-hook-icon { flex: none; color: var(--sp-ink); line-height: 0; }
+.sp-hook-copy { display: flex; flex-direction: column; gap: 8px; }
+.sp-hook-title {
+  margin: 0;
+  color: var(--sp-ink);
+  font-family: var(--font-archivo), sans-serif;
+  font-weight: 800;
+  letter-spacing: -.03em;
+  font-size: clamp(1.35rem, 5.5vw, 1.6rem);
+  line-height: 1.1;
+}
+.sp-hook-body { margin: 0; color: var(--sp-soft); font-size: 16px; line-height: 1.55; max-width: 62ch; }
+.sp-hook-cta { width: 100%; }
+
+/* ---------- Tablet (768–1023px) ---------- */
+@media (min-width: 768px) {
+  .sp { padding: 96px 0; }
+  .sp-photo { aspect-ratio: 16 / 10; border-radius: 28px; margin-top: 32px; }
+  .sp-card { border-radius: 28px; padding: 40px; margin-top: -56px; }
+  .sp-tab { border-radius: 8px 8px 0 0; }
+  .sp-criteria { grid-template-columns: 1fr 1fr; gap: 28px 32px; }
+  .sp-cta { justify-items: start; }
+  .sp-btn-primary { width: auto; }
+  .sp-hook { flex-direction: row; align-items: center; gap: 24px; padding: 28px 40px; }
+  .sp-hook-copy { flex: 1; }
+  .sp-hook-cta { width: auto; flex: none; }
+}
+
+/* ---------- Desktop (1024px and up) ---------- */
+@media (min-width: 1024px) {
+  .sp { padding: 120px 0; }
+
+  .sp-act1 {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: 32px;
+    align-items: start;
+  }
+  .sp-intro-reveal { grid-column: 1 / span 7; grid-row: 1; }
+  .sp-photo-reveal { grid-column: 8 / span 5; grid-row: 1; }
+  .sp-intro { display: flex; flex-direction: column; }
+  .sp-h2 {
+    font-size: clamp(2.25rem, 4.4vw, 4rem);
+    line-height: 1.02;
+    max-width: 14ch;
+  }
+  .sp-reassurance { margin-top: 20px; font-size: clamp(28px, 2.2vw, 32px); }
+  .sp-lead { margin-top: 16px; font-size: clamp(18px, 1.3vw, 19px); }
+
+  .sp-photo {
+    aspect-ratio: 8 / 9;
+    border-radius: 28px;
+    margin-top: 0;
+  }
+
+  .sp-card {
+    position: relative;
+    z-index: 2;
+    border-radius: 28px;
+    padding: 48px;
+    margin-top: -96px;
+  }
+  .sp-tab {
+    position: absolute;
+    top: -28px;
+    left: 48px;
+    margin: 0;
+    border-radius: 8px 8px 0 0;
+  }
+  .sp-card-grid {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: 48px;
+  }
+  .sp-card-left { grid-column: 1 / span 4; }
+  .sp-criteria {
+    grid-column: 5 / span 8;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 36px 32px;
+    margin-top: 0;
+  }
+  .sp-criterion-desc { max-width: 22ch; }
+
+  .sp-hook-reveal { margin-top: 40px; }
+}
+
+@media (min-width: 1280px) {
+  .sp-h2 { max-width: none; }
+}
+
+/* ---------- Motion (only with script available and no reduced-motion preference).
+   Each group has its own Reveal trigger, so the motion plays as that group rises
+   into view. Hidden start states live only under html.js-motion; everything
+   renders in its final state with JS off or with reduced motion.
+   Only transform / opacity / clip-path / filter are animated. ---------- */
+@media (prefers-reduced-motion: no-preference) {
+  /* Intro group */
+  html.js-motion .sp-intro-reveal .sp-h2,
+  html.js-motion .sp-intro-reveal .sp-reassurance,
+  html.js-motion .sp-intro-reveal .sp-lead { opacity: 0; }
+
+  html.js-motion .sp-intro-reveal.is-visible .sp-h2 {
+    animation: sp-rise-blur 760ms var(--sp-ease) both;
+  }
+  html.js-motion .sp-intro-reveal.is-visible .sp-reassurance {
+    animation: sp-rise-24 720ms var(--sp-ease) 140ms both;
+  }
+  html.js-motion .sp-intro-reveal.is-visible .sp-lead {
+    animation: sp-rise-20 720ms var(--sp-ease) 240ms both;
+  }
+
+  /* Photo: clip reveal + inner zoom settle */
+  html.js-motion .sp-photo-reveal .sp-photo {
+    clip-path: inset(100% 0 0 0 round 28px);
+    will-change: clip-path;
+  }
+  html.js-motion .sp-photo-reveal .sp-photo img { transform: scale(1.14); }
+  html.js-motion .sp-photo-reveal.is-visible .sp-photo {
+    animation: sp-clip 1000ms cubic-bezier(.65, 0, .35, 1) 80ms both;
+  }
+  html.js-motion .sp-photo-reveal.is-visible .sp-photo img {
+    animation: sp-photo-img 1300ms cubic-bezier(.22, 1, .36, 1) 80ms both;
+  }
+
+  /* Card: lift in with a soft scale, then internal stagger */
+  html.js-motion .sp-card-reveal .sp-card,
+  html.js-motion .sp-card-reveal .sp-tab,
+  html.js-motion .sp-card-reveal .sp-card-title,
+  html.js-motion .sp-card-reveal .sp-card-intro,
+  html.js-motion .sp-card-reveal .sp-criterion,
+  html.js-motion .sp-card-reveal .sp-leave li,
+  html.js-motion .sp-card-reveal .sp-cta { opacity: 0; }
+
+  html.js-motion .sp-card-reveal.is-visible .sp-card {
+    animation: sp-card-in 820ms var(--sp-ease) both;
+  }
+  html.js-motion .sp-card-reveal.is-visible .sp-tab {
+    animation: sp-tab-drop 440ms var(--sp-ease) 420ms both;
+  }
+  html.js-motion .sp-card-reveal.is-visible .sp-card-title {
+    animation: sp-rise-18 620ms var(--sp-ease) 360ms both;
+  }
+  html.js-motion .sp-card-reveal.is-visible .sp-card-intro {
+    animation: sp-rise-14 600ms var(--sp-ease) 440ms both;
+  }
+  html.js-motion .sp-card-reveal.is-visible .sp-leave li {
+    animation: sp-rise-12 520ms var(--sp-ease) both;
+  }
+  html.js-motion .sp-card-reveal.is-visible .sp-leave li:nth-child(1) { animation-delay: 520ms; }
+  html.js-motion .sp-card-reveal.is-visible .sp-leave li:nth-child(2) { animation-delay: 580ms; }
+  html.js-motion .sp-card-reveal.is-visible .sp-leave li:nth-child(3) { animation-delay: 640ms; }
+  html.js-motion .sp-card-reveal.is-visible .sp-cta {
+    animation: sp-rise-14 600ms var(--sp-ease) 720ms both;
+  }
+  html.js-motion .sp-card-reveal.is-visible .sp-criterion {
+    animation: sp-rise-16 620ms var(--sp-ease) both;
+  }
+  html.js-motion .sp-card-reveal.is-visible .sp-criterion:nth-child(1) { animation-delay: 480ms; }
+  html.js-motion .sp-card-reveal.is-visible .sp-criterion:nth-child(2) { animation-delay: 545ms; }
+  html.js-motion .sp-card-reveal.is-visible .sp-criterion:nth-child(3) { animation-delay: 610ms; }
+  html.js-motion .sp-card-reveal.is-visible .sp-criterion:nth-child(4) { animation-delay: 675ms; }
+  html.js-motion .sp-card-reveal.is-visible .sp-criterion:nth-child(5) { animation-delay: 740ms; }
+  html.js-motion .sp-card-reveal.is-visible .sp-criterion:nth-child(6) { animation-delay: 805ms; }
+
+  html.js-motion .sp-hook-reveal .sp-hook { opacity: 0; }
+  html.js-motion .sp-hook-reveal.is-visible .sp-hook {
+    animation: sp-rise-28 720ms var(--sp-ease) both;
+  }
+}
+
+@keyframes sp-rise-10 { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+@keyframes sp-rise-12 { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+@keyframes sp-rise-14 { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+@keyframes sp-rise-16 { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+@keyframes sp-rise-18 { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
+@keyframes sp-rise-20 { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: none; } }
+@keyframes sp-rise-24 { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: none; } }
+@keyframes sp-rise-28 { from { opacity: 0; transform: translateY(28px); } to { opacity: 1; transform: none; } }
+@keyframes sp-rise-blur {
+  from { opacity: 0; transform: translateY(30px); filter: blur(10px); }
+  60%  { opacity: 1; filter: blur(0); }
+  to   { opacity: 1; transform: none; filter: blur(0); }
+}
+@keyframes sp-card-in {
+  from { opacity: 0; transform: translateY(44px) scale(.975); }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes sp-tab-drop { from { opacity: 0; transform: translateY(-12px); } to { opacity: 1; transform: none; } }
+@keyframes sp-clip { from { clip-path: inset(100% 0 0 0 round 28px); } to { clip-path: inset(0 round 28px); } }
+@keyframes sp-photo-img { from { transform: scale(1.14); } to { transform: none; } }
