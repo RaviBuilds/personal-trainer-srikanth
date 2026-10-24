@@ -6,90 +6,22 @@ import { ProgressGallery } from "@/components/progress-gallery";
 import { SiteHeader } from "@/components/site-header";
 import { siteContent } from "@/src/lib/site-content";
 
-const method = [
-  ["Understand", "Start with your goals, schedule, experience, and the context that matters to your training."],
-  ["Plan", "Agree on a training direction that fits your starting point and the time you can give it."],
-  ["Coach", "Get clear guidance through exercises in the format that has been confirmed for you."],
-  ["Review", "Look at the signals that matter for your goals and routine, then adjust the approach."],
-];
+const method = [["Understand", "Start with your goals, schedule, experience, and the context that matters to your training."], ["Plan", "Agree on a training direction that fits your starting point and the time you can give it."], ["Coach", "Get clear guidance through exercises in the format that suits your week."], ["Review", "Look at the signals that matter for your goals and routine, then adjust the approach."]];
+const goals = siteContent.programmes;
+const formatCards = siteContent.delivery;
+const priceGroups = [{ id: "training-only", title: "Training-only" }, { id: "nutrition-only", title: "Nutrition-only" }, { id: "combined", title: "Training plus nutrition guidance" }];
 
 export default function Home() {
-  return (
-    <>
-      <SiteHeader />
-      <main>
-        <section className="hero" aria-labelledby="hero-title">
-          <div className="container hero-grid">
-            <div className="hero-copy">
-              <p className="eyebrow">Personal training in Hyderabad</p>
-              <h1 id="hero-title">Personal training in Hyderabad, built around you.</h1>
-              <p className="lede">Coaching shaped around your goals, schedule, and starting point, with online and in-person formats to explore.</p>
-              <div className="hero-actions">
-                <a className="button" href="#contact">Enquire about training</a>
-                <a className="text-link" href="#coaching">Explore programmes <span aria-hidden="true">↘</span></a>
-              </div>
-            </div>
-            <div className="hero-media">
-              <Image src={siteContent.assets.hero.src} alt={siteContent.assets.hero.alt} width={1200} height={1350} priority />
-              <p className="image-note">Temporary image asset · replace with approved coaching photography</p>
-            </div>
-          </div>
-        </section>
-
-        <section className="format-strip" aria-label="Available coaching formats">
-          <div className="container format-inner">
-            <strong>Choose the setting that fits your week.</strong>
-            <div className="format-list"><span>In-person sessions</span><span>Online coaching</span><span>Goal-led training</span></div>
-          </div>
-        </section>
-
-        <section className="section approach" id="approach" aria-labelledby="approach-title">
-          <div className="container split-grid">
-            <div className="split-copy"><p className="eyebrow">A useful starting point</p><h2 id="approach-title">Good coaching begins with a useful conversation.</h2><p>The right training approach depends on more than a goal written down. It also depends on your routine, experience, preferences, and the format that is practical for you.</p><p>Share what you are working towards and what your week looks like. The details of coaching, scheduling, and fit can then be discussed clearly.</p></div>
-            <div className="split-media"><Image src={siteContent.assets.detail.src} alt={siteContent.assets.detail.alt} width={1000} height={760} /></div>
-          </div>
-        </section>
-
-        <section className="section coaching" id="coaching" aria-labelledby="coaching-title">
-          <div className="container service-layout">
-            <div className="section-intro"><p className="eyebrow">Coaching formats</p><h2 id="coaching-title">Start with a format that feels workable.</h2><p>Both formats are presented as options. Exact delivery details, location, session structure, and inclusions are confirmed during your enquiry.</p></div>
-            <div className="service-list">
-              <article className="service-panel"><div><h3>In-person fitness training</h3><p>For people who value face-to-face coaching and a dedicated training setting. Enquire with your preferred area so the delivery arrangement can be confirmed.</p></div><Link href={siteContent.services.inPerson.href}>View format <span aria-hidden="true">↗</span></Link></article>
-              <article className="service-panel"><div><h3>Online fitness coaching</h3><p>For people who want training to work around their own space and schedule. The live or programme format, platform, and equipment expectations are confirmed before starting.</p></div><Link href={siteContent.services.online.href}>View format <span aria-hidden="true">↗</span></Link></article>
-            </div>
-          </div>
-        </section>
-
-        <section className="section programmes" id="programmes" aria-labelledby="programmes-title">
-          <div className="container programme-layout">
-            <div className="section-intro"><p className="eyebrow">Training directions</p><h2 id="programmes-title">Choose the work that matters to you.</h2><p>These programme directions are a useful way to begin a conversation. Each can be shaped around your experience, routine, setting, and the support you want.</p></div>
-            <div className="programme-list">{siteContent.programmes.map((programme) => <details className="programme-item" key={programme.id}><summary><span><strong>{programme.title}</strong><small>{programme.summary}</small></span><b aria-hidden="true">+</b></summary><div className="programme-detail"><p><strong>May suit:</strong> {programme.suits}</p><p><strong>Approach:</strong> {programme.approach}</p><p><strong>Setting:</strong> {programme.setting}</p><a className="text-link" href="#contact">Start with this direction <span aria-hidden="true">↘</span></a></div></details>)}</div>
-          </div>
-        </section>
-
-        <section className="section draft-services" aria-labelledby="draft-services-title">
-          <div className="container service-layout"><div className="section-intro"><p className="eyebrow">Editable service modules</p><h2 id="draft-services-title">Ways a programme could be delivered.</h2><p>These draft modules keep the page ready for future service decisions. They can be enabled, edited, or removed centrally.</p></div><div className="draft-service-list">{siteContent.draftServices.filter((service) => service.enabled).map((service) => <article className="draft-service" key={service.id}><div><h3>{service.title}</h3><p>{service.description}</p></div><p className="service-prep"><strong>Practical preparation</strong>{service.preparation}</p>{service.id === "nutrition-recovery" && <p className="service-source">General Indian nutrition reference: <a href="https://www.nin.res.in/downloads/DietaryGuidelinesforIndians.pdf" target="_blank" rel="noreferrer">ICMR-NIN Dietary Guidelines for Indians</a>.</p>}</article>)}</div></div>
-        </section>
-
-        <section className="section pricing" id="pricing" aria-labelledby="pricing-title">
-          <div className="container"><div className="pricing-heading"><div><p className="eyebrow">Sample pricing</p><h2 id="pricing-title">Clear monthly options, without invented discounts.</h2></div><p>Illustrative draft rates are shown for planning the page structure. Monthly rates and session counts are editable in the central site configuration.</p></div><div className="pricing-groups">{(["training-only", "nutrition-only", "combined"] as const).map((category) => <div className="price-group" key={category}><h3>{category === "training-only" ? "Training only" : category === "nutrition-only" ? "Nutrition only" : "Combined support"}</h3><div className="price-options">{siteContent.draftPrices.filter((price) => price.category === category).map((price) => <article className="price-option" key={price.id}><div><h4>{price.title}</h4><p>{price.detail}</p></div><strong>₹{price.monthly.toLocaleString("en-IN")}<small>/month</small></strong></article>)}</div></div>)}</div><div className="term-table" aria-label="Illustrative term totals"><div className="term-heading"><strong>Monthly sample rate</strong><span>3 months</span><span>6 months</span><span>12 months</span></div>{siteContent.draftPrices.map((price) => <div className="term-row" key={price.id}><span>{price.title}</span><strong>₹{price.monthly.toLocaleString("en-IN")}</strong><span>₹{(price.monthly * 3).toLocaleString("en-IN")}</span><span>₹{(price.monthly * 6).toLocaleString("en-IN")}</span><span>₹{(price.monthly * 12).toLocaleString("en-IN")}</span></div>)}</div><p className="pricing-note">Sample pricing · totals are simple monthly-rate calculations. No discounts or additional inclusions are assumed.</p></div>
-        </section>
-
-        <section className="section method" aria-labelledby="method-title">
-          <div className="container"><div className="section-intro"><p className="eyebrow">The approach</p><h2 id="method-title">A clear process, without unnecessary noise.</h2><p>Training gets easier to understand when the next step is visible. This is a general framework for the coaching conversation, not a claim about a clinical assessment or a specific tracking system.</p></div><div className="method-grid">{method.map(([title, copy]) => <article className="method-step" key={title}><h3>{title}</h3><p>{copy}</p></article>)}</div></div>
-        </section>
-
-        <section className="section coach-band" aria-labelledby="coach-title">
-          <div className="container split-grid"><div className="split-copy"><p className="eyebrow">Meet {siteContent.name}</p><h2 id="coach-title">Personal attention, kept practical.</h2><p>Shrikant is the working public name for this first website pass. The final public name, credentials, service details, and biography are still to be confirmed before launch.</p><p>For now, the site keeps the focus on a transparent training conversation rather than making claims that are not yet verified.</p><a className="text-link" href={siteContent.instagram} target="_blank" rel="noreferrer">View Instagram profile <span aria-hidden="true">↗</span></a></div><div className="split-media"><Image src={siteContent.assets.coach.src} alt={siteContent.assets.coach.alt} width={900} height={1100} /></div></div>
-        </section>
-
-        <ProgressGallery />
-
-        <section className="section faq-section" id="faqs" aria-labelledby="faq-title"><div className="container faq-grid"><div><p className="eyebrow">FAQs</p><h2 id="faq-title">Before you enquire.</h2><p className="section-intro">A few practical answers, with details that still need to be confirmed kept visible.</p></div><FAQList /></div></section>
-
-        <section className="contact" id="contact" aria-labelledby="contact-title"><div className="container contact-grid"><div><p className="eyebrow eyebrow-light">Start a conversation</p><h2 id="contact-title">Let&apos;s find a training approach that fits your life.</h2><p className="lede">Tell us what you are considering. This form is ready for a real endpoint once the final contact workflow is configured.</p></div><EnquiryForm /></div></section>
-      </main>
-      <footer className="footer"><div className="container footer-inner"><div className="wordmark"><span>{siteContent.brand}</span><small>{siteContent.descriptor}</small></div><div className="footer-links"><Link href="/guides/">Guides</Link><Link href="/privacy/">Privacy</Link><Link href="/disclaimer/">Disclaimer</Link><a href={siteContent.instagram}>Instagram</a></div></div></footer>
-    </>
-  );
+  return <><SiteHeader /><main>
+    <section className="hero" aria-labelledby="hero-title"><div className="container hero-grid"><div className="hero-copy"><p className="eyebrow">Personal training in Hyderabad</p><h1 id="hero-title">Personal training in <em>Hyderabad</em>, built around you.</h1><p className="lede">Coaching shaped around your goals, schedule, and starting point, with gym-based, client-location, and online formats.</p><div className="hero-actions"><a className="button" href="#contact">Enquire about training</a><a className="text-link" href="#formats">Explore formats <span aria-hidden="true">↘</span></a></div></div><div className="hero-visual"><Image src={siteContent.assets.hero.src} alt={siteContent.assets.hero.alt} fill priority sizes="(max-width: 800px) 100vw, 55vw" /><div className="hero-visual-note">A considered place to begin</div></div></div></section>
+    <section className="format-strip" aria-label="Available coaching formats"><div className="container format-inner"><strong>Choose the setting that fits your week.</strong><div className="format-list"><span><i>↗</i> Gym-based</span><span><i>◌</i> Client location</span><span><i>＋</i> Online</span></div></div></section>
+    <section className="section approach" id="approach" aria-labelledby="approach-title"><div className="container split-grid"><div className="split-copy"><p className="eyebrow">The starting point</p><h2 id="approach-title">Good coaching begins with a useful conversation.</h2><p>The right training approach depends on more than a goal written down. It also depends on your routine, experience, preferences, and the format that is practical for you.</p><p>Share what you are working towards and what your week looks like. We can then discuss a clear starting point for training.</p><a className="text-link" href="#contact">Start with your context <span aria-hidden="true">↘</span></a></div><div className="approach-media"><Image src={siteContent.assets.detail.src} alt={siteContent.assets.detail.alt} fill sizes="(max-width: 800px) 100vw, 45vw" /></div></div></section>
+    <section className="section coaching" id="formats" aria-labelledby="formats-title"><div className="container"><div className="section-intro wide-intro"><p className="eyebrow">Three ways to train</p><h2 id="formats-title">Make the format fit your life.</h2><p>Choose the setting that gives you the clearest, most practical way to train.</p></div><div className="format-cards">{formatCards.map((format) => <article className="format-card" key={format.id}><div className="card-image"><Image src={siteContent.assets.formats[format.id as keyof typeof siteContent.assets.formats].src} alt={siteContent.assets.formats[format.id as keyof typeof siteContent.assets.formats].alt} fill sizes="(max-width: 800px) 100vw, 33vw" /></div><div className="format-card-copy"><h3>{format.title}</h3><p>{format.description}</p><p className="card-preparation"><strong>Prepare:</strong> {format.preparation}</p><Link href={format.id === "online" ? siteContent.services.online.href : siteContent.services.inPerson.href}>View format <span aria-hidden="true">↗</span></Link></div></article>)}</div></div></section>
+    <section className="section goals" id="goals" aria-labelledby="goals-title"><div className="container goals-layout"><div className="section-intro"><p className="eyebrow">Training directions</p><h2 id="goals-title">Choose the work that matters to you.</h2><p>Each direction can be shaped around your experience, routine, setting, and the support you want.</p></div><div className="goal-grid">{goals.map((goal, index) => <details className={`goal-card goal-${index + 1}`} key={goal.id}><summary><div className="goal-image">{goal.id === "strength" || goal.id === "conditioning" || goal.id === "mobility" ? <Image src={siteContent.assets.goals[goal.id as "strength" | "conditioning" | "mobility"].src} alt={siteContent.assets.goals[goal.id as "strength" | "conditioning" | "mobility"].alt} fill sizes="(max-width: 800px) 100vw, 25vw" /> : <span className="goal-mark" aria-hidden="true">◌</span>}</div><div className="goal-title"><h3>{goal.title}</h3><span className="goal-toggle" aria-hidden="true">+</span></div><p>{goal.summary}</p></summary><div className="goal-detail"><p>{goal.approach}</p><a className="text-link" href="#contact">Start with this direction <span aria-hidden="true">↘</span></a></div></details>)}</div></div></section>
+    {siteContent.nutritionModule.enabled && <section className="section nutrition-module" aria-labelledby="nutrition-title"><div className="container nutrition-grid"><div><p className="eyebrow">A supporting layer</p><h2 id="nutrition-title">{siteContent.nutritionModule.title}</h2></div><div><p>{siteContent.nutritionModule.copy}</p><p>{siteContent.nutritionModule.detail}</p></div></div></section>}
+    <section className="section pricing" id="pricing" aria-labelledby="pricing-title"><div className="container"><div className="pricing-heading"><div><p className="eyebrow">Sample pricing</p><h2 id="pricing-title">Simple monthly examples.</h2></div><p>Draft rates are shown for planning the page structure. Membership, venue fees, travel, equipment, assessments, and cancellation terms are not assumed unless stated in the configuration.</p></div><div className="pricing-groups">{priceGroups.map((group) => <section className="pricing-group" key={group.id} aria-labelledby={`${group.id}-title`}><h3 id={`${group.id}-title`}>{group.title}</h3><div className="price-board">{siteContent.draftPrices.filter((price) => price.category === group.id).map((price) => <article className="price-option" key={price.id}><div><h4>{price.title}</h4><p>{price.detail}</p></div><strong>₹{price.monthly.toLocaleString("en-IN")}<small>/month</small></strong><div className="price-totals"><span>3 months ₹{(price.monthly * 3).toLocaleString("en-IN")}</span><span>6 months ₹{(price.monthly * 6).toLocaleString("en-IN")}</span><span>12 months ₹{(price.monthly * 12).toLocaleString("en-IN")}</span></div></article>)}</div></section>)}</div><p className="pricing-note">Draft preview · totals use simple monthly multiplication; no discounts or additional inclusions are assumed.</p></div></section>
+    <section className="section method" aria-labelledby="method-title"><div className="container"><div className="section-intro"><p className="eyebrow">The approach</p><h2 id="method-title">A clear process, without unnecessary noise.</h2><p>Training gets easier to understand when the next step is visible.</p></div><div className="method-grid">{method.map(([title, copy]) => <article className="method-step" key={title}><h3>{title}</h3><p>{copy}</p></article>)}</div></div></section>
+    <section className="section coach-band" aria-labelledby="coach-title"><div className="container split-grid"><div className="coach-image"><Image src={siteContent.assets.coach.src} alt={siteContent.assets.coach.alt} fill sizes="(max-width: 800px) 100vw, 40vw" /></div><div className="split-copy"><p className="eyebrow">Meet {siteContent.name}</p><h2 id="coach-title">Personal attention, kept practical.</h2><p>Training is built around a clear conversation, thoughtful exercise selection, and guidance that respects the reality of your week.</p>{siteContent.profile.qualifications || siteContent.profile.experience || siteContent.profile.achievements ? <div className="profile-facts">{[siteContent.profile.qualifications, siteContent.profile.experience, siteContent.profile.achievements].filter(Boolean).map((fact) => <p key={fact}>{fact}</p>)}</div> : <p className="profile-note">Profile details will be added here as they are approved.</p>}<a className="text-link" href={siteContent.instagram} target="_blank" rel="noreferrer">View Instagram profile <span aria-hidden="true">↗</span></a></div></div></section>
+    <ProgressGallery /><section className="section faq-section" id="faqs" aria-labelledby="faq-title"><div className="container faq-grid"><div><p className="eyebrow">FAQs</p><h2 id="faq-title">Before you enquire.</h2><p className="section-intro">A few practical answers to help you choose a starting point.</p></div><FAQList /></div></section><section className="contact" id="contact" aria-labelledby="contact-title"><div className="container contact-grid"><div><p className="eyebrow eyebrow-light">Start a conversation</p><h2 id="contact-title">Let&apos;s find a training approach that fits your life.</h2><p className="lede">Tell us what you are considering and which format feels most practical.</p></div><EnquiryForm /></div></section>
+  </main><footer className="footer"><div className="container footer-inner"><div className="wordmark"><span>{siteContent.brand}</span><small>{siteContent.descriptor}</small></div><div className="footer-links"><Link href="/guides/">Guides</Link><Link href="/privacy/">Privacy</Link><Link href="/disclaimer/">Disclaimer</Link><a href={siteContent.instagram}>Instagram</a></div></div></footer></>;
 }
