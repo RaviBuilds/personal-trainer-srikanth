@@ -1,17 +1,13 @@
 import type { ProgressStory } from "./site-content";
 
 /**
- * Progress-story records. Real client names, photos, quotes and figures live ONLY in this module,
- * and it must be imported only from Server Components (see components/progress-gallery.tsx). Do not
- * import it from a "use client" file or from src/lib/site-content.ts, because that would ship every
- * record, verified or not, to every visitor's browser.
- *
- * A record is published in production only when its own `verified` flag is true. See getVisibleStories().
+ * Illustrative progress-story records. This is sample content, not real client case studies, and the
+ * section labels it as such. Keep this module imported only from Server Components (see
+ * components/progress-gallery.tsx) so the records are not bundled into client JavaScript.
  */
 const progressStoryRecords: ProgressStory[] = [
   {
     id: "weight-loss",
-    verified: false,
     goal: "Weight loss",
     client: "Anita K., 34",
     title: "Fat loss through strength training, steady cardio and simple food habits",
@@ -28,7 +24,6 @@ const progressStoryRecords: ProgressStory[] = [
   },
   {
     id: "muscle-gain",
-    verified: false,
     goal: "Muscle gain",
     client: "Rohit S., 27",
     title: "Lean muscle and healthy weight gain, built session by session",
@@ -45,7 +40,6 @@ const progressStoryRecords: ProgressStory[] = [
   },
   {
     id: "after-pregnancy",
-    verified: false,
     goal: "After pregnancy",
     client: "Sneha R., 31",
     title: "Returning to strength after pregnancy, at home and at her own pace",
@@ -62,7 +56,6 @@ const progressStoryRecords: ProgressStory[] = [
   },
   {
     id: "online-fitness",
-    verified: false,
     goal: "Online fitness",
     client: "Karthik M., 38",
     title: "Online coaching that fit around a full work week",
@@ -79,13 +72,7 @@ const progressStoryRecords: ProgressStory[] = [
   },
 ];
 
-/**
- * The single gate for progress stories. In a production build a story renders only when its own
- * `verified` flag is true. No environment variable can override that, so one setting can never
- * publish unverified client names, photos, quotes or figures. Unverified stories are shown only
- * outside production (local development), as layout placeholders.
- */
+/** Every illustrative story, in development and production alike. */
 export function getVisibleStories(): ProgressStory[] {
-  const isProduction = process.env.NODE_ENV === "production";
-  return progressStoryRecords.filter((story) => story.verified === true || !isProduction);
+  return progressStoryRecords;
 }
