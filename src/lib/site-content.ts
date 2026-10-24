@@ -38,7 +38,12 @@ export const siteContent = {
       mobility: { src: "/images/mobility-training.png", alt: "Temporary editorial image representing mobility practice" },
     },
   },
-  progressGallery: { enabled: true, published: false, stories: [] as ProgressStory[] },
+  progressGallery: { enabled: true, published: false, stories: [
+    { id: "story-one", before: { src: "/images/home-training.png", alt: "Placeholder before image slot for a future approved progress story" }, after: { src: "/images/conditioning-training.png", alt: "Placeholder after image slot for a future approved progress story" }, beforeCaption: "Before image placeholder", afterCaption: "After image placeholder" },
+    { id: "story-two", before: { src: "/images/gym-training.png", alt: "Placeholder before image slot for a future approved progress story" }, after: { src: "/images/mobility-training.png", alt: "Placeholder after image slot for a future approved progress story" }, beforeCaption: "Before image placeholder", afterCaption: "After image placeholder" },
+    { id: "story-three", before: { src: "/images/online-coaching.png", alt: "Placeholder before image slot for a future approved progress story" }, after: { src: "/images/training-detail.png", alt: "Placeholder after image slot for a future approved progress story" }, beforeCaption: "Before image placeholder", afterCaption: "After image placeholder" },
+    { id: "story-four", before: { src: "/images/hero-coaching.png", alt: "Placeholder before image slot for a future approved progress story" }, after: { src: "/images/coach-portrait.png", alt: "Placeholder after image slot for a future approved progress story" }, beforeCaption: "Before image placeholder", afterCaption: "After image placeholder" },
+  ] as ProgressStory[] },
   nutritionModule: { enabled: true, title: "Nutrition and recovery guidance", copy: "General education around hydration, workout fuelling, recovery habits, sleep, and consistency can sit alongside training. It is practical guidance, not medical advice or a treatment plan.", detail: "The focus is on habits you can understand and repeat, with any personal health questions directed to an appropriate qualified professional." },
   programmes: [
     { id: "strength", title: "Strength", summary: "Build a consistent practice around foundational resistance work.", approach: "This can include movement patterns, technique practice, manageable progression, and accessory work shaped around your experience and equipment." },
