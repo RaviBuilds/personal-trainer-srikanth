@@ -1,6 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
+import { EnquiryForm } from "@/components/enquiry-form";
 import { FAQList } from "@/components/faq-list";
+import { ProgressGallery } from "@/components/progress-gallery";
 import { SiteHeader } from "@/components/site-header";
 import { siteContent } from "@/src/lib/site-content";
 
@@ -66,7 +68,7 @@ export default function Home() {
         </section>
 
         <section className="section draft-services" aria-labelledby="draft-services-title">
-          <div className="container service-layout"><div className="section-intro"><p className="eyebrow">Editable service modules</p><h2 id="draft-services-title">Ways a programme could be delivered.</h2><p>These draft modules keep the page ready for future service decisions. They can be enabled, edited, or removed centrally.</p></div><div className="draft-service-list">{siteContent.draftServices.filter((service) => service.enabled).map((service) => <article className="draft-service" key={service.id}><div><h3>{service.title}</h3><p>{service.description}</p></div><p className="service-prep"><strong>Practical preparation</strong>{service.preparation}</p></article>)}</div></div>
+          <div className="container service-layout"><div className="section-intro"><p className="eyebrow">Editable service modules</p><h2 id="draft-services-title">Ways a programme could be delivered.</h2><p>These draft modules keep the page ready for future service decisions. They can be enabled, edited, or removed centrally.</p></div><div className="draft-service-list">{siteContent.draftServices.filter((service) => service.enabled).map((service) => <article className="draft-service" key={service.id}><div><h3>{service.title}</h3><p>{service.description}</p></div><p className="service-prep"><strong>Practical preparation</strong>{service.preparation}</p>{service.id === "nutrition-recovery" && <p className="service-source">General Indian nutrition reference: <a href="https://www.nin.res.in/downloads/DietaryGuidelinesforIndians.pdf" target="_blank" rel="noreferrer">ICMR-NIN Dietary Guidelines for Indians</a>.</p>}</article>)}</div></div>
         </section>
 
         <section className="section pricing" id="pricing" aria-labelledby="pricing-title">
@@ -81,9 +83,11 @@ export default function Home() {
           <div className="container split-grid"><div className="split-copy"><p className="eyebrow">Meet Shrikant</p><h2 id="coach-title">Personal attention, kept practical.</h2><p>Shrikant is the working public name for this first website pass. The final public name, credentials, service details, and biography are still to be confirmed before launch.</p><p>For now, the site keeps the focus on a transparent training conversation rather than making claims that are not yet verified.</p><a className="text-link" href={siteContent.instagram} target="_blank" rel="noreferrer">View Instagram profile <span aria-hidden="true">↗</span></a></div><div className="split-media"><Image src={siteContent.assets.coach.src} alt={siteContent.assets.coach.alt} width={900} height={1100} /></div></div>
         </section>
 
+        <ProgressGallery />
+
         <section className="section faq-section" id="faqs" aria-labelledby="faq-title"><div className="container faq-grid"><div><p className="eyebrow">FAQs</p><h2 id="faq-title">Before you enquire.</h2><p className="section-intro">A few practical answers, with details that still need to be confirmed kept visible.</p></div><FAQList /></div></section>
 
-        <section className="contact" id="contact" aria-labelledby="contact-title"><div className="container contact-grid"><div><p className="eyebrow eyebrow-light">Start a conversation</p><h2 id="contact-title">Let&apos;s find a training approach that fits your life.</h2><p className="lede">Tell us what you are considering. This form is ready for a real endpoint once the final contact workflow is configured.</p></div><form className="contact-form" action="mailto:" method="post" encType="text/plain"><div className="form-grid"><label>Name<input required name="name" type="text" autoComplete="name" /></label><label>Preferred contact<input required name="contact" type="text" /></label></div><label>Coaching format<select name="format" defaultValue=""><option value="" disabled>Select one</option><option>In-person training</option><option>Online coaching</option><option>Not sure yet</option></select></label><label>What would you like to work on?<textarea required name="goal" /></label><p className="form-note">Please do not include sensitive medical information. The enquiry flow and privacy details must be reviewed before production launch.</p><button className="button" type="submit">Prepare enquiry</button></form></div></section>
+        <section className="contact" id="contact" aria-labelledby="contact-title"><div className="container contact-grid"><div><p className="eyebrow eyebrow-light">Start a conversation</p><h2 id="contact-title">Let&apos;s find a training approach that fits your life.</h2><p className="lede">Tell us what you are considering. This form is ready for a real endpoint once the final contact workflow is configured.</p></div><EnquiryForm /></div></section>
       </main>
       <footer className="footer"><div className="container footer-inner"><div className="wordmark"><span>{siteContent.brand}</span><small>{siteContent.descriptor}</small></div><div className="footer-links"><Link href="/guides/">Guides</Link><Link href="/privacy/">Privacy</Link><Link href="/disclaimer/">Disclaimer</Link><a href={siteContent.instagram}>Instagram</a></div></div></footer>
     </>
