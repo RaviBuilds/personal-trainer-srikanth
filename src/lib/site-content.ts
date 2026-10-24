@@ -1,3 +1,5 @@
+import type { Metadata } from "next";
+
 export type SiteAsset = { src: string; alt: string };
 export type SiteService = { published: boolean; href: string; label: string };
 export type ProgressStory = {
@@ -70,3 +72,12 @@ export const siteContent = {
   ],
 } as const;
 export type SiteContent = typeof siteContent;
+
+export function pageMetadata(title: string, description: string, path = "/"): Metadata {
+  return {
+    title: `${title} | ${siteContent.name}`,
+    description,
+    robots: siteContent.draftPreview ? { index: false, follow: false } : { index: true, follow: true },
+    ...(siteContent.domain ? { alternates: { canonical: `${siteContent.domain.replace(/\/$/, "")}${path}` } } : {}),
+  };
+}

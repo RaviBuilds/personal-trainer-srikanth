@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { SiteHeader } from "@/components/site-header";
+import { siteContent } from "@/src/lib/site-content";
 
 export type ServicePageProps = {
   title: string;
@@ -15,7 +16,7 @@ export type ServicePageProps = {
 
 export function ServicePage({ title, intro, who, session, preparation, included, excluded, faqs, related }: ServicePageProps) {
   return <><SiteHeader /><main>
-    <section className="page-hero"><div className="container"><p className="eyebrow">Personal training with Shrikant</p><h1>{title}</h1><p className="lede">{intro}</p><Link className="button" href="/#contact">Enquire about training</Link></div></section>
+    <section className="page-hero"><div className="container"><p className="eyebrow">Personal training with {siteContent.name}</p><h1>{title}</h1><p className="lede">{intro}</p><Link className="button" href="/#contact">Enquire about training</Link></div></section>
     <div className="article service-article">
       <section><h2>Who this may suit</h2><ul>{who.map((item) => <li key={item}>{item}</li>)}</ul></section>
       <section><h2>What a session or plan can involve</h2><ul>{session.map((item) => <li key={item}>{item}</li>)}</ul></section>
