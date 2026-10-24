@@ -1,11 +1,11 @@
 "use client";
 
 const faqs = [
-  ["Do you offer both online and in-person training?", "The current website presents both formats as available options. Exact delivery details, session format, and scheduling are confirmed during your enquiry."],
-  ["Where do in-person sessions take place?", "The specific venue and service localities are being confirmed. Enquire with your preferred area and the format you are considering."],
-  ["Are sessions suitable for beginners?", "Training conversations can start from your current experience, goals, schedule, and comfort level. The right starting point is discussed before any plan is agreed."],
-  ["How much does personal training cost?", "Pricing is not published yet because package details and session terms are still being finalised. Use the enquiry form to ask about current options."],
-  ["How do I start?", "Share a little about your goals and preferred format. The next step is a conversation about fit, availability, and the details that need to be confirmed."],
+  ["Do you offer gym-based, client-location, and online training?", "Yes. The homepage outlines gym-based personal training, training at your location, and online personal training. The right setting depends on your space, schedule, and goals."],
+  ["Where do client-location sessions take place?", "They can be discussed around your home or another suitable location. A clear floor area, stable non-slip surface, water, and a mat if useful are practical starting points."],
+  ["Are sessions suitable for beginners?", "Yes. Training can start from your current experience, goals, schedule, and comfort level, with simple movement practice and clear guidance."],
+  ["How much does personal training cost?", "Sample monthly rates are shown on this draft page for planning: training-only, nutrition-only, and combined examples. Venue, membership, travel, equipment, and other terms are not included unless stated."],
+  ["How do I start?", "Share a little about your goals, experience, schedule, and preferred format. The next step is a conversation about fit and a practical starting point."],
 ];
 
 export function FAQList() {
