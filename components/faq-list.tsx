@@ -9,5 +9,5 @@ const faqs = [
 ];
 
 export function FAQList() {
-  return <div className="faq-list">{faqs.map(([question, answer]) => <details key={question}><summary>{question}<span aria-hidden="true">+</span></summary><p>{answer}</p></details>)}</div>;
+  return <div className="faq-list">{faqs.map(([question, answer]) => <details key={question}><summary><span>{question}</span><span className="faq-icon" aria-hidden="true">+</span></summary><p>{answer}</p></details>)}</div>;
 }

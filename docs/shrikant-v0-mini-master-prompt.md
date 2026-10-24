@@ -2,7 +2,7 @@
 
 **Purpose:** A single master prompt for v0 Mini to build the first complete, polished Next.js website using the canonical project brief, temporary stock/AI-generated imagery, and an intentionally art-directed design system.
 
-**Canonical source:** `public/docs/shrikant-personal-trainer-canonical-brief-v1-1.md` (or the exact file name currently present in `public/docs`). If the actual filename differs, locate the Markdown file in that folder and read it before implementation.
+**Canonical source:** `docs/shrikant-personal-trainer-canonical-brief-v1-1.md` (or the exact file name currently present in `docs`). If the actual filename differs, locate the Markdown file in that folder and read it before implementation.
 
 ---
 
@@ -13,7 +13,7 @@ You are acting as a senior product designer, art director, SEO-aware content des
 ### Source of truth and rules
 
 1. First inspect the existing repository, package.json, Next.js version, App Router structure, Tailwind version, global CSS, installed component libraries, and existing design skills/instructions. Preserve working foundations; do not overwrite or replace the app architecture without a clear reason.
-2. Read the canonical brief in `public/docs/shrikant-personal-trainer-canonical-brief-v1-1.md` completely. It is the source of truth for business context, research, SEO, and required content. If the filename is slightly different, find the existing canonical `.md` file in `public/docs`.
+2. Read the canonical brief in `docs/shrikant-personal-trainer-canonical-brief-v1-1.md` completely. It is the source of truth for business context, research, SEO, and required content. If the filename is slightly different, find the existing canonical `.md` file in `docs`.
 3. Where these instructions differ from the canonical brief, follow the more specific directions in this master prompt for design implementation and temporary image usage. Do not invent personal facts.
 4. Build all requested pages and components now. Do not stop after the homepage. Ensure the homepage and internal routes render correctly.
 5. Use temporary professional stock images or AI-generated images for the first implementation. Do not wait for the trainer's real photos. Make every image easy to replace later through one central asset configuration.
@@ -355,7 +355,7 @@ Implement the website now. Do not reply with another plan or a textual mockup. M
 
 ```text
 PROJECT SOURCE OF TRUTH
-Read public/docs/shrikant-personal-trainer-canonical-brief-v1-1.md for scope, business context, SEO, routes and verified/unverified facts. Never invent qualifications, experience, prices, service areas, contact details, testimonials, statistics or results. Keep all trainer facts in one central config, and never hard-code the display name in multiple components.
+Read docs/shrikant-personal-trainer-canonical-brief-v1-1.md for scope, business context, SEO, routes and verified/unverified facts. Never invent qualifications, experience, prices, service areas, contact details, testimonials, statistics or results. Keep all trainer facts in one central config, and never hard-code the display name in multiple components.
 
 DESIGN DIRECTION
 Warm, premium, light-first fitness brand. Warm off-white/white background, near-black text, amber CTA, restrained burnt-orange graphics, one dark contact/footer band. Use Archivo + Figtree if compatible with the repo. Use a 12-column desktop grid, deliberate responsive alignment, 8px spacing base, and three main radii (8/16/28px). Use design tokens, not scattered hex values.

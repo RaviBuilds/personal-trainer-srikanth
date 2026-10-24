@@ -1,0 +1,7 @@
+import Image from "next/image";
+import { siteContent } from "@/src/lib/site-content";
+
+export function ProgressGallery() {
+  if (!siteContent.progressGallery.enabled || (!siteContent.progressGallery.published && !siteContent.draftPreview)) return null;
+  return <section className="section progress-gallery" aria-labelledby="progress-title"><div className="container"><div className="section-intro"><p className="eyebrow">Draft content</p><h2 id="progress-title">Progress stories, when approved.</h2><p>This gallery is a layout-only preview. It stays out of public navigation and indexing until permissioned images, captions, and any approved words are added in the central content configuration.</p></div><div className="progress-grid">{siteContent.progressGallery.stories.map((story) => <article className="progress-story" key={story.id}><div className="progress-pair"><figure><Image src={story.before.src} alt={story.before.alt} width={800} height={600} /><figcaption>{story.beforeCaption}</figcaption></figure><figure><Image src={story.after.src} alt={story.after.alt} width={800} height={600} /><figcaption>{story.afterCaption}</figcaption></figure></div>{story.approvedQuote && <blockquote>{story.approvedQuote}</blockquote>}{story.approvedResult && <p className="progress-result">{story.approvedResult}</p>}<p className="draft-note">Layout-only sample media · not a client result</p></article>)}</div></div></section>;
+}

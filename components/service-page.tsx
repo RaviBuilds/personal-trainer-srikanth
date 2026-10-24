@@ -1,7 +1,30 @@
 import Link from "next/link";
 import { SiteHeader } from "@/components/site-header";
+import { siteContent } from "@/src/lib/site-content";
 
-export function ServicePage({ title, intro, points }: { title: string; intro: string; points: string[] }) {
-  return <><SiteHeader /><main><section className="page-hero"><div className="container"><p className="eyebrow">Personal training with Shrikant</p><h1>{title}</h1><p className="lede">{intro}</p><Link className="button" href="/#contact">Enquire about training</Link></div></section><article className="article"><h2>What to clarify before you start</h2><p>The format, schedule, location or platform, inclusions, and pricing for this service are still being confirmed. An honest enquiry is the best way to check whether the current option fits your needs.</p><ul>{points.map((point) => <li key={point}>{point}</li>)}</ul><h2>A practical next step</h2><p>Share your goals, current routine, preferred format, and any relevant scheduling context. The details can then be discussed without assuming a package or result before it has been agreed.</p><Link className="button" href="/#contact">Discuss your training</Link></article></main><Footer /></>;
+export type ServicePageProps = {
+  title: string;
+  intro: string;
+  who: string[];
+  session: string[];
+  preparation: string[];
+  included: string[];
+  excluded: string[];
+  faqs: [string, string][];
+  related: { href: string; label: string }[];
+};
+
+export function ServicePage({ title, intro, who, session, preparation, included, excluded, faqs, related }: ServicePageProps) {
+  return <><SiteHeader /><main>
+    <section className="page-hero"><div className="container"><p className="eyebrow">Personal training with {siteContent.name}</p><h1>{title}</h1><p className="lede">{intro}</p><Link className="button" href="/#contact">Enquire about training</Link></div></section>
+    <div className="article service-article">
+      <section><h2>Who this may suit</h2><ul>{who.map((item) => <li key={item}>{item}</li>)}</ul></section>
+      <section><h2>What a session or plan can involve</h2><ul>{session.map((item) => <li key={item}>{item}</li>)}</ul></section>
+      <section><h2>Prepare for a useful start</h2><ul>{preparation.map((item) => <li key={item}>{item}</li>)}</ul></section>
+      <div className="service-columns"><section><h2>Included, as agreed</h2><ul>{included.map((item) => <li key={item}>{item}</li>)}</ul></section><section><h2>Not assumed</h2><ul>{excluded.map((item) => <li key={item}>{item}</li>)}</ul></section></div>
+      <section><h2>Common questions</h2><div className="guide-sections">{faqs.map(([question, answer]) => <details key={question}><summary>{question}</summary><p>{answer}</p></details>)}</div></section>
+      <section><h2>Explore related directions</h2><div className="related-links">{related.map((item) => <Link key={item.href} className="text-link" href={item.href}>{item.label} <span aria-hidden="true">↗</span></Link>)}</div></section>
+      <Link className="button" href="/#contact">Start a conversation</Link>
+    </div>
+  </main><footer className="footer"><div className="container footer-inner"><div className="wordmark"><span>SHRIKANT</span><small>PERSONAL TRAINING</small></div><div className="footer-links"><Link href="/">Home</Link><Link href="/guides/">Guides</Link><Link href="/privacy/">Privacy</Link></div></div></footer></>;
 }
-function Footer() { return <footer className="footer"><div className="container footer-inner"><div className="wordmark"><span>SHRIKANT</span><small>PERSONAL TRAINING</small></div><div className="footer-links"><Link href="/">Home</Link><Link href="/guides/">Guides</Link><Link href="/privacy/">Privacy</Link></div></div></footer>; }
