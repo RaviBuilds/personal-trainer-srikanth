@@ -1,0 +1,7 @@
+import Link from "next/link";
+import { SiteHeader } from "@/components/site-header";
+
+export function ServicePage({ title, intro, points }: { title: string; intro: string; points: string[] }) {
+  return <><SiteHeader /><main><section className="page-hero"><div className="container"><p className="eyebrow">Personal training with Shrikant</p><h1>{title}</h1><p className="lede">{intro}</p><Link className="button" href="/#contact">Enquire about training</Link></div></section><article className="article"><h2>What to clarify before you start</h2><p>The format, schedule, location or platform, inclusions, and pricing for this service are still being confirmed. An honest enquiry is the best way to check whether the current option fits your needs.</p><ul>{points.map((point) => <li key={point}>{point}</li>)}</ul><h2>A practical next step</h2><p>Share your goals, current routine, preferred format, and any relevant scheduling context. The details can then be discussed without assuming a package or result before it has been agreed.</p><Link className="button" href="/#contact">Discuss your training</Link></article></main><Footer /></>;
+}
+function Footer() { return <footer className="footer"><div className="container footer-inner"><div className="wordmark"><span>SHRIKANT</span><small>PERSONAL TRAINING</small></div><div className="footer-links"><Link href="/">Home</Link><Link href="/guides/">Guides</Link><Link href="/privacy/">Privacy</Link></div></div></footer>; }
