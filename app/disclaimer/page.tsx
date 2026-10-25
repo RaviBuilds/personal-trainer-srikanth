@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
-import { SiteFooter } from "@/components/site-footer";
-import { SiteHeader } from "@/components/site-header";
+import { LegalPage } from "@/components/legal-page";
+import { disclaimerPage } from "@/src/lib/legal-content";
 import { pageMetadata } from "@/src/lib/site-content";
 
-export const metadata: Metadata = pageMetadata("Training disclaimer", "Read the scope, safety, and expectations for the Srikanth Personal Training website.", "/disclaimer/");
-export default function Page() { return <><SiteHeader /><main><article className="article"><p className="eyebrow">Scope and expectations</p><h1>Training disclaimer</h1><p>Information on this website is general and does not replace advice from a suitably qualified healthcare professional. Do not use the enquiry form to share urgent, sensitive, or clinical information.</p><h2>About the service</h2><p>Coaching format, location, pricing, qualifications, and scope must be confirmed with Srikanth before booking. No result, transformation, or health outcome is guaranteed.</p></article></main><SiteFooter currentPath="/disclaimer/" /></>; }
+export const metadata: Metadata = pageMetadata(disclaimerPage.seo.title, disclaimerPage.seo.description, disclaimerPage.path);
+
+export default function Page() { return <LegalPage page={disclaimerPage} />; }

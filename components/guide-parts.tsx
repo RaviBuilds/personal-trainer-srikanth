@@ -22,7 +22,9 @@ export function Inline({ text }: { text: string }) {
     nodes.push(
       /^https?:/.test(href)
         ? <a key={key++} className="gd-link" href={href} target="_blank" rel="noopener noreferrer">{label}</a>
-        : <Link key={key++} className="gd-link" href={href}>{label}</Link>,
+        : /^(tel|mailto):/.test(href)
+          ? <a key={key++} className="gd-link" href={href}>{label}</a>
+          : <Link key={key++} className="gd-link" href={href}>{label}</Link>,
     );
     cursor = match.index + whole.length;
   }

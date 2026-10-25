@@ -82,7 +82,8 @@ function FormatRows({ block }: { block: Extract<GuideBlock, { type: "formats" }>
   );
 }
 
-function Block({ block }: { block: GuideBlock }) {
+/** Renders one content block. Shared with the privacy and disclaimer pages (components/legal-page.tsx). */
+export function Block({ block }: { block: GuideBlock }) {
   switch (block.type) {
     case "p":
       return <p className="gd-p"><Inline text={block.text} /></p>;
