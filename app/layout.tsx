@@ -16,6 +16,9 @@ import "./instagram.css";
 import "./faq.css";
 import "./contact-card.css";
 import "./footer.css";
+import "./in-person.css";
+import "./online.css";
+import "./guides.css";
 
 const archivo = Archivo({ variable: "--font-archivo", subsets: ["latin"] });
 const figtree = Figtree({ variable: "--font-figtree", subsets: ["latin"] });

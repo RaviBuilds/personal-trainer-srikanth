@@ -23,6 +23,8 @@ export function buildFooterNavGroups(name: string): FooterNavGroup[] {
       title: "Guides",
       links: [
         { label: "All training guides", href: "/guides/" },
+        { label: "What a personal trainer can help with", href: "/guides/what-a-personal-trainer-can-help-with/" },
+        { label: "Choosing a fitness trainer in Hyderabad", href: "/guides/how-to-choose-a-personal-trainer-hyderabad/" },
         { label: "Personal trainer fees in Hyderabad", href: "/guides/personal-trainer-fees-hyderabad/" },
         { label: "Your first month of training", href: "/guides/first-month-personal-training/" },
         { label: "Gym, home or online training", href: "/guides/gym-home-online-training/" },

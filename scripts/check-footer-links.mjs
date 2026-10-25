@@ -43,9 +43,10 @@ for (const group of buildFooterNavGroups("Srikanth")) {
     }
     // A dynamic route matches any segment, so also require the slug to be defined in that page.
     const dynamic = route.segments.map((seg, i) => (/^\[.+\]$/.test(seg) ? pathname.split("/").filter(Boolean)[i] : null)).filter(Boolean);
-    const pageSource = readFileSync(route.file, "utf8");
+    // Dynamic slugs may be defined in the page itself or in the guides content file it reads.
+    const pageSource = readFileSync(route.file, "utf8") + "\n" + readFileSync(join(root, "src", "lib", "guides-content.ts"), "utf8");
     for (const slug of dynamic) {
-      if (!pageSource.includes(`"${slug}"`)) failures.push(`${group.title} > "${label}": ${slug} is not defined in ${relative(root, route.file)}`);
+      if (!pageSource.includes(`slug: "${slug}"`)) failures.push(`${group.title} > "${label}": ${slug} is not defined in ${relative(root, route.file)}`);
     }
     if (hash && (pathname || "/") === "/") {
       const idPattern = new RegExp(`(?:\\bid|anchorId)\\s*[=:]\\s*\\{?["']${hash}["']`);

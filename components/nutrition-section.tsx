@@ -31,7 +31,7 @@ export function NutritionSection() {
   );
 
   return (
-    <section className="section nw" aria-labelledby="nutrition-title">
+    <section className="section nw" id="nutrition" aria-labelledby="nutrition-title">
       <div className="container">
         <NutritionWheel
           header={header}

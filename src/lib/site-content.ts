@@ -281,6 +281,14 @@ const services = {
   atHome: { published: false, href: "/services/personal-trainer-at-home-hyderabad/", label: "At-home training" },
 } satisfies Record<string, SiteService>;
 
+// Section ids on the in-person page. Homepage links to the gym and home formats point at these, so the ids are written once.
+const inPersonSections = { where: "where-you-train", gym: "gym-sessions", home: "home-sessions" } as const;
+const inPersonLinks = {
+  where: `${services.inPerson.href}#${inPersonSections.where}`,
+  gym: `${services.inPerson.href}#${inPersonSections.gym}`,
+  home: `${services.inPerson.href}#${inPersonSections.home}`,
+};
+
 export type HeroIcon = "dumbbell" | "house" | "monitor" | "calendar" | "users" | "activity" | "apple";
 
 export type SectionIcon =
@@ -531,8 +539,8 @@ export const siteContent = {
     eyebrow: "Personal training in Hyderabad",
     lead: "Coaching shaped around your goals, schedule and starting point, at the gym, at your home, or online.",
     pathways: [
-      { label: "At the gym", href: services.inPerson.href, icon: "dumbbell" },
-      { label: "At your home", href: services.inPerson.href, icon: "house" },
+      { label: "At the gym", href: inPersonLinks.gym, icon: "dumbbell" },
+      { label: "At your home", href: inPersonLinks.home, icon: "house" },
       { label: "Online coaching", href: services.online.href, icon: "monitor" },
     ] as { label: string; href: string; icon: HeroIcon }[],
     whatsappLabel: "Chat on WhatsApp",
@@ -626,7 +634,7 @@ export const siteContent = {
       ],
       bestFor: ["Strength", "Muscle gain", "Fat loss"],
       ready: "Your gym access, water and comfortable training clothes.",
-      cta: { label: "Explore gym training", href: services.inPerson.href },
+      cta: { label: "Explore gym training", href: inPersonLinks.gym },
       image: {
         src: "/images/gym-training.png",
         alt: "Personal trainer coaching a client through a barbell squat in a bright gym",
@@ -646,7 +654,7 @@ export const siteContent = {
       ],
       bestFor: ["Privacy", "Busy schedules", "Beginners"],
       ready: "A clear floor area, a non-slip surface, water and a mat.",
-      cta: { label: "Explore home training", href: services.inPerson.href },
+      cta: { label: "Explore home training", href: inPersonLinks.home },
       image: {
         src: "/images/home-training.png",
         alt: "Personal trainer guiding a client through a lunge in a living room",
@@ -919,7 +927,7 @@ export const siteContent = {
       icon: "briefcase" as SectionIcon,
       question: "Prefer to train in the comfort of your home?",
       answer: "Srikanth brings the session to you, with a plan that fits the space and equipment you have.",
-      cta: { label: "Talk to Srikanth", href: services.inPerson.href },
+      cta: { label: "Talk to Srikanth", href: inPersonLinks.home },
       whatsappMessage: "Hi Srikanth, I would prefer to train at home. Can we talk about home training?",
     },
   },
@@ -953,14 +961,14 @@ export type FaqGroup = { id: string; title: string; descriptor: string; icon: Fa
  * hero and the formats cards send "At your home".
  */
 export const faqRoutes: Record<string, string | null> = {
-  gym: services.inPerson.href,
-  home: services.inPerson.href,
+  gym: inPersonLinks.gym,
+  home: inPersonLinks.home,
   online: services.online.href,
   formats: "#formats",
   pricing: "#pricing",
-  // There is no nutrition page and no "how to choose a trainer" guide yet. Set these when the pages exist.
+  // There is no nutrition page yet. Set it when the page exists.
   nutrition: null,
-  chooseGuide: null,
+  chooseGuide: "/guides/how-to-choose-a-personal-trainer-hyderabad/",
 };
 
 // The lowest monthly fee in the price list, formatted for display.
@@ -1105,3 +1113,513 @@ export const faqGroups: FaqGroup[] = [
     ],
   },
 ];
+
+
+// ---------------------------------------------------------------------------
+// In-person personal training page (/services/in-person-personal-training-hyderabad/).
+// Copy and images for the page live here; the page component reads them and hard-codes nothing. Contact details,
+// goals, session length and fees guidance are read from the shared config above, so the page cannot drift from it.
+// ---------------------------------------------------------------------------
+export type InPersonImage = { src: string; alt: string; width: number; height: number; aspect: string; focalPoint: { x: number; y: number } };
+
+// The fees guide label is written to follow "Read ", so it starts in lower case; as a standalone link it needs a capital.
+const sentenceCase = (text: string) => text.charAt(0).toUpperCase() + text.slice(1);
+
+const perSessionFact = (formatId: string) => siteContent.formats.find((format) => format.id === formatId)?.facts.find((fact) => fact.label === "Per session");
+const gymSession = perSessionFact("gym");
+const homeSession = perSessionFact("home");
+const sessionLength = gymSession && homeSession && gymSession.value === homeSession.value && gymSession.unit === homeSession.unit
+  ? `${gymSession.value} ${gymSession.unit === "min" ? "minutes" : gymSession.unit ?? ""}`.trim()
+  : null;
+
+export const inPersonSectionIds = inPersonSections;
+
+export const inPersonPage = {
+  path: services.inPerson.href,
+  breadcrumbLabel: "In-person personal training",
+  // pageMetadata appends the site name, so the title carries no brand.
+  seo: {
+    title: "In-Person Personal Training in Hyderabad: Gym & Home",
+    description: `In-person personal training in Hyderabad with ${coachName}: one-to-one coaching at a gym or at home, shaped around your goal, equipment and routine.`,
+  },
+  hero: {
+    headline: { before: "In-person personal training ", accent: "in Hyderabad" },
+    lede: `In-person coaching gives you live instruction and feedback, in a gym or at home in Hyderabad. ${coachName} shapes each session around your goals, your experience and your routine, and around the setting and equipment you have to work with.`,
+    primaryLabel: "Enquire about in-person training",
+    whatsappMessage: "Hi Srikanth, I'd like to enquire about in-person personal training in Hyderabad.",
+    callLabel: `Call ${coachName}`,
+    onlineNote: { before: "Would you rather train remotely? Read about ", linkLabel: "online personal training", after: "." },
+    image: {
+      src: "/images/hero-coaching-v2.png",
+      alt: "A trainer guiding a client through a dumbbell squat in a bright gym with large windows",
+      width: 928,
+      height: 1152,
+      aspect: "4 / 5",
+      focalPoint: { x: 55, y: 42 },
+    } satisfies InPersonImage,
+  },
+  glance: {
+    title: "At a glance",
+    format: { label: "Format", value: "One-to-one, face to face" },
+    settings: { label: "Settings", gym: "At a gym", joiner: " or ", home: "at home" },
+    facts: [
+      ...(sessionLength ? [{ label: "Session length", value: sessionLength }] : []),
+      { label: "Languages", value: joinList(languages) },
+    ] as { label: string; value: string }[],
+    plans: { label: "Plans", text: "Set out in the arrangement you choose.", linkLabel: "See the plans", href: "/#pricing" },
+    callPrefix: "Or call",
+  },
+  setting: {
+    id: inPersonSections.where,
+    headline: "Choose your training setting",
+    lede: "Both settings give you live coaching. What changes is the equipment around you, the travel involved and how private the session feels. Neither is better for everyone, so choose the one your week can support.",
+    gym: {
+      id: inPersonSections.gym,
+      title: "Gym sessions",
+      body: [
+        `A gym gives you access to the equipment available there, and ${coachName} can demonstrate, observe and correct your technique as you use it. That suits people who want a fuller range of equipment than they have at home, or who like to leave the house to train.`,
+        "The venue and the access arrangements are made clear before you start. Any gym membership or venue charges are separate from the coaching fees and are confirmed in advance.",
+      ],
+      points: [
+        "Live technique guidance on the equipment available at the venue",
+        "A separate space that keeps training apart from home and work",
+        "Venue and access arrangements agreed before you begin",
+      ],
+      image: {
+        src: "/images/gym-training.png",
+        alt: "A trainer watching a client perform a barbell squat inside a rack in a bright gym",
+        width: 1200,
+        height: 896,
+        aspect: "3 / 2",
+        focalPoint: { x: 55, y: 50 },
+      } satisfies InPersonImage,
+    },
+    home: {
+      id: inPersonSections.home,
+      title: "Training at home",
+      body: [
+        "Home sessions are shaped around the space and equipment you actually have. A clear floor area and a few basics can take you a long way, and the plan adapts if you have more or less than that.",
+        `Location, space, access and any other arrangements are discussed before you start. Share your locality when you enquire and ${coachName} will confirm whether it fits his schedule.`,
+      ],
+      points: [
+        "Exercises chosen to suit your available space and equipment",
+        "No travel for you, and a more private, familiar setting",
+        "Building and access arrangements talked through first",
+      ],
+      image: {
+        src: "/images/home-training.png",
+        alt: "A trainer guiding a client through a lunge on a rug in a bright living room",
+        width: 928,
+        height: 1152,
+        aspect: "4 / 5",
+        focalPoint: { x: 50, y: 38 },
+      } satisfies InPersonImage,
+    },
+    comparison: {
+      caption: "Gym sessions and home sessions compared",
+      columns: { topic: "What to compare", gym: "Gym", home: "At home" },
+      rows: [
+        { topic: "Equipment", gym: "Whatever the venue has available", home: "What you have, adapted to your space" },
+        { topic: "Travel", gym: "You travel to the venue", home: "The session comes to you, once the location is confirmed" },
+        { topic: "Privacy and setting", gym: "A shared training environment, apart from home", home: "Private and familiar" },
+        { topic: "Check before starting", gym: "Venue, access arrangements and any membership or venue charges", home: "Location, space, access and building arrangements" },
+      ],
+    },
+  },
+  process: {
+    headline: "How in-person coaching works",
+    lede: "Four stages that feed into each other. The pace is set by you, and there is no fixed timeline.",
+    stagesLabel: `The four stages of in-person coaching with ${coachName}`,
+    stages: [
+      { name: "Understand", body: "A conversation about your goal, your experience, your schedule, your preferred setting and any limitations that matter. Nobody asks you to perform on day one." },
+      { name: "Plan", body: "A training direction shaped around your routine, your setting and the equipment available, so the plan fits the week you actually have." },
+      { name: "Coach", body: `Each exercise is explained and demonstrated. ${coachName} watches how you move and adjusts the session as it happens, so technique comes before load.` },
+      { name: "Review", body: "Together you look at what is working and adapt the training direction as agreed, so the plan keeps up with you." },
+    ],
+  },
+  goals: {
+    headline: "What you can work towards",
+    lede: "In-person sessions can be built around any of the goals below. Most people combine two, and the plan reflects that.",
+    listLabel: "Goals you can train for",
+  },
+  fit: {
+    headline: "Is in-person training right for you?",
+    inPerson: {
+      title: "In-person may suit you if you",
+      items: [
+        "Prefer live demonstration and feedback while you move",
+        "Want a dedicated appointment, or a separate setting to train in",
+        "Are learning exercises, or returning to structured training",
+        "Want to use the gym equipment available to you",
+      ],
+    },
+    online: {
+      title: "Online may suit you if",
+      items: [
+        "Travel or scheduling is the main thing stopping you from training regularly",
+        "Your week changes often and you need sessions that move with it",
+      ],
+      link: { label: "Read about online personal training", href: services.online.href },
+      note: "Both are one-to-one coaching. The better format is the one you can keep up.",
+    },
+    guide: { before: "Still deciding where to train? ", linkLabel: "Compare gym, home and online training", href: "/guides/gym-home-online-training/", after: " side by side." },
+  },
+  prepare: {
+    headline: "Prepare for your first session",
+    everyone: {
+      title: "For every session",
+      items: [
+        "Think about your main goal and your current routine, so the first conversation can be specific.",
+        "Share any limitations, or guidance you have had from a doctor, before training begins.",
+        "Wear comfortable clothing and bring water.",
+      ],
+    },
+    setting: {
+      title: "For your setting",
+      items: [
+        { label: "At home", text: "Clear a safe, suitable space and make a note of the equipment you have." },
+        { label: "At the gym", text: "Understand the venue's access arrangements before you arrive." },
+      ],
+    },
+    note: "Personal training is exercise coaching. It is not diagnosis, treatment, physiotherapy or injury care. If you have a medical condition, an injury or any concern about exercising, speak to an appropriate healthcare professional first.",
+    guide: { before: "Wondering what the first few weeks look like? Read ", linkLabel: "what to expect in your first month of personal training", href: "/guides/first-month-personal-training/", after: "." },
+  },
+  frequency: {
+    headline: "How often should you train?",
+    body: "There is no single right number. How often you train depends on your goal, your current ability, how well you recover and the schedule you can sustain. A routine you keep up for months does more for you than an ambitious one you drop in three weeks.",
+    factorsLabel: "What shapes your training frequency",
+    factors: [
+      { name: "Your goal", text: "Different goals ask for different amounts of work." },
+      { name: "Current ability", text: "A beginner and an experienced lifter start from different places." },
+      { name: "Recovery", text: "Sleep, food and rest days decide how much training you can absorb." },
+      { name: "Your schedule", text: "The plan has to fit the week you really have." },
+    ],
+    who: {
+      before: "For general context, the World Health Organization recommends that adults aged 18 to 64 do at least 150 to 300 minutes of moderate-intensity aerobic activity a week, or 75 to 150 minutes of vigorous-intensity activity, along with muscle-strengthening activities on two or more days a week. See the ",
+      linkLabel: "WHO physical activity fact sheet",
+      href: "https://www.who.int/news-room/fact-sheets/detail/physical-activity",
+      after: ". This is guidance for the general population, not a programme prescribed for you. Your own frequency is agreed with you before you start.",
+    },
+  },
+  compare: {
+    headline: "Compare sessions and packages",
+    lede: "Two quotes are hard to compare until you know what each one covers. Ask about these together and note the answers.",
+    listLabel: "What to compare between packages",
+    items: [
+      { name: "Sessions", text: "How many sessions, and how long each one lasts." },
+      { name: "Setting and access", text: "Where you train, and any membership or access costs." },
+      { name: "Travel or venue costs", text: "Whether any apply to your arrangement." },
+      { name: "Planning and check-ins", text: "What planning, check-ins or reviews are included." },
+      { name: "Terms", text: "Rescheduling, cancellation and renewal terms." },
+      { name: "Progress", text: "How your progress is reviewed, and how often." },
+    ],
+    links: [
+      { label: "See the in-person plans in the pricing section", href: "/#pricing" },
+      { label: sentenceCase(pricing.feesGuide.linkLabel), href: pricing.feesGuide.href },
+    ],
+  },
+  includes: {
+    headline: "What the coaching includes",
+    lede: `The exact inclusions are set out in the arrangement you choose. In general, coaching with ${coachName} covers:`,
+    items: [
+      "The format you agree: a gym, your home or another suitable location",
+      "A session frequency that suits your goal and your week",
+      "Training guidance, with exercises explained, demonstrated and adjusted in the session",
+      "Any check-ins or reviews included in your chosen package",
+    ],
+    scope: {
+      title: "A note on scope",
+      body: "Personal training is not medical care, and outcomes vary from person to person. They depend on your starting point, consistency, food and recovery, and none are guaranteed.",
+      link: { label: "Read the full disclaimer", href: "/disclaimer/" },
+      moreLink: { label: "What a personal trainer can and cannot help with", href: "/guides/what-a-personal-trainer-can-help-with/" },
+    },
+  },
+  faq: {
+    headline: "Questions about in-person training",
+    items: [
+      { q: "Do you train at a gym or at home?", a: `Both. Sessions can take place at a gym or at your home, and the right setting depends on your goal, your equipment and what is practical for your week. ${coachName} talks through the options with you before you start. If you would rather train remotely, online personal training is also available.` },
+      { q: "Do I need a gym membership?", a: "Not for home sessions. For gym sessions, the venue and its access arrangements are confirmed before you start, including whether any membership or venue charge applies. Those charges are separate from the coaching fees." },
+      { q: "What equipment is needed for home training?", a: `You do not need a full home gym. A clear, safe floor area is the starting point, and the plan is adapted to whatever equipment you have, including none. A non-slip surface, a mat and water help. Tell ${coachName} what you own when you enquire and he will plan around it.` },
+      { q: "What should I bring to the first session?", a: "Comfortable clothing and water are the essentials, and shoes suited to training help too. Have your goal and routine in mind, and share any limitations or medical guidance beforehand. For gym sessions, check the venue's access arrangements before you arrive. For home sessions, clear your space and note your equipment." },
+      { q: "How often should I train?", a: `It depends on your goal, your current ability, how well you recover and the schedule you can sustain. ${coachName} agrees a frequency with you before you start and adjusts it as you go. The WHO's adult activity guidance is general context for the population, not a prescription for you.` },
+      { q: "How do I compare in-person and online coaching?", a: "Both are one-to-one. In-person suits you if you want live demonstration and feedback, a dedicated appointment or access to gym equipment. Online suits you if travel or scheduling is your main barrier. Compare where sessions happen, how they are delivered, what equipment you need and what each package includes." },
+      { q: "How can I compare package costs?", a: "Look beyond the monthly figure. Ask about the number and length of sessions, setting and access costs, any travel or venue costs, what planning and check-ins are included, and the rescheduling, cancellation and renewal terms. Current plans are listed in the pricing section of the homepage." },
+      { q: "Can training address injuries or medical conditions?", a: `Personal training is exercise coaching, not diagnosis, treatment, physiotherapy or injury care. Tell ${coachName} about any limitation before you start, and speak to a doctor or another suitable healthcare professional first if you have a medical condition or injury. He can plan exercise around guidance you share, but he does not manage the condition itself.` },
+    ],
+  },
+  cta: {
+    headline: "Start with a conversation",
+    body: `Tell ${coachName} what you want to work on, whether you prefer a gym or your home, and when you are generally free. He will reply with how in-person training could work for you.`,
+    whatsappLabel: "Chat on WhatsApp",
+    whatsappMessage: "Hi Srikanth, I'd like to start with a conversation about in-person training. I'll share my goal, my preferred setting and when I'm generally free.",
+    relatedTitle: "Keep reading",
+    related: [
+      { label: "Online personal training", href: services.online.href },
+      { label: sentenceCase(pricing.feesGuide.linkLabel), href: pricing.feesGuide.href },
+      { label: "What to expect in your first month of personal training", href: "/guides/first-month-personal-training/" },
+      { label: "Gym, home or online training: how to choose a format", href: "/guides/gym-home-online-training/" },
+      { label: "How to choose the best fitness trainer in Hyderabad", href: "/guides/how-to-choose-a-personal-trainer-hyderabad/" },
+    ],
+  },
+};
+
+
+// ---------------------------------------------------------------------------
+// Online personal training page (/services/online-personal-training/).
+// Copy and images for the page live here; the page component reads them and hard-codes nothing. Contact details,
+// session length, reach and the online plans are read from the shared config above, so the page cannot drift from it.
+// No prices are repeated here: the pricing section owns them and this page links to it.
+// ---------------------------------------------------------------------------
+export type OnlineImage = InPersonImage;
+
+const onlineSessionFact = perSessionFact("online");
+const onlineSessionLength = onlineSessionFact
+  ? `${onlineSessionFact.value} ${onlineSessionFact.unit === "min" ? "minutes" : onlineSessionFact.unit ?? ""}`.trim()
+  : null;
+// The online training plans exactly as the pricing section describes them (name and what is included, never the fee).
+const onlineTrainingPlans = (pricing.groups.find((group) => group.id === "training")?.plans ?? [])
+  .filter((item) => item.id.startsWith("online"))
+  .map((item) => ({ id: item.id, name: item.name, meta: item.meta }));
+
+export const onlineSectionIds = {
+  formats: "formats",
+  booking: "booking",
+  setup: "setup",
+  process: "how-it-works",
+  rightFit: "right-fit",
+  equipment: "equipment",
+  compare: "compare-packages",
+  nutrition: "nutrition",
+  faq: "faq",
+} as const;
+
+export const onlinePage = {
+  path: services.online.href,
+  breadcrumbLabel: "Online personal training",
+  // pageMetadata appends the site name, so the title carries no brand.
+  seo: {
+    title: "Online Personal Training: Live & Plan-Based",
+    description: `Online personal training with ${coachName}, an online personal trainer in Hyderabad: live video sessions, a written plan with check-ins, or both.`,
+  },
+  hero: {
+    headline: { before: "Online personal training that fits your ", accent: "space and schedule" },
+    lede: [
+      `Online coaching can be shaped around the room you have, the equipment you own, your goal and the hours you can give it. Depending on the package you choose, it can mean live one-to-one video sessions with ${coachName}, a written plan with check-ins, or a combination of the two.`,
+      "The exact arrangement is agreed with you before you begin.",
+    ],
+    primaryLabel: "Enquire about online training",
+    whatsappMessage: "Hi Srikanth, I'd like to enquire about online personal training.",
+    callLabel: `Call ${coachName}`,
+    inPersonNote: { before: "Would you rather have a coach in the room? Read about ", linkLabel: "in-person personal training in Hyderabad", after: "." },
+    image: {
+      // The file on disk is 1200 x 896. A 5 / 4 crop keeps both the laptop and the person in frame.
+      src: "/images/online-coaching.png",
+      alt: "A woman in a lunge on a mat in her living room, holding a resistance band and following a trainer on a laptop screen",
+      width: 1200,
+      height: 896,
+      aspect: "5 / 4",
+      focalPoint: { x: 60, y: 50 },
+    } satisfies OnlineImage,
+  },
+  glance: {
+    title: "At a glance",
+    format: { label: "Format", value: "One-to-one: live video, a written plan, or both" },
+    facts: [
+      ...(onlineSessionLength ? [{ label: "Live session length", value: onlineSessionLength }] : []),
+      { label: "Where", value: "Clients in Hyderabad and across India" },
+      { label: "Languages", value: joinList(languages) },
+      { label: "You will need", value: "A camera-enabled device, steady internet and clear floor space" },
+    ] as { label: string; value: string }[],
+    plans: { label: "Plans", text: "Set out in the package you choose.", linkLabel: "See the plans", href: "/#pricing" },
+    jump: {
+      label: "On this page",
+      links: [
+        { label: "Formats", href: `#${onlineSectionIds.formats}` },
+        { label: "Booking", href: `#${onlineSectionIds.booking}` },
+        { label: "Setup", href: `#${onlineSectionIds.setup}` },
+        { label: "Packages", href: `#${onlineSectionIds.compare}` },
+      ],
+    },
+    callPrefix: "Or call",
+  },
+  formats: {
+    id: onlineSectionIds.formats,
+    headline: "Three ways to train online",
+    lede: `${coachName} coaches as an online personal trainer for people in Hyderabad and across India. The three arrangements below differ in when you get feedback and how much of the structure you carry yourself. Which of them a package includes is set out in the pricing section.`,
+    rowLabels: { how: "How it works", feedback: "When feedback happens", suits: "Who may prefer it" },
+    ways: [
+      {
+        name: "Live one-to-one sessions",
+        how: `A booked video session with ${coachName}. You train in your own space while he explains, watches and coaches in real time.`,
+        feedback: "During the session. He can see your movement on camera and adjust it as you go.",
+        suits: "People who want a set appointment and live correction, or who are still learning the exercises.",
+      },
+      {
+        name: "Written plan with check-ins",
+        how: "A plan shaped around your goal, your schedule and the equipment you have, with check-ins as agreed.",
+        feedback: "At the check-ins you agree, where the plan is reviewed and adjusted.",
+        suits: "People who are comfortable training on their own, or whose timings change too much for fixed sessions.",
+      },
+      {
+        name: "Combined coaching",
+        how: "Live sessions plus a plan and check-ins for your other training days, where the package is set up that way.",
+        feedback: "Live in the sessions, and at the check-ins for the rest of your week.",
+        suits: "People who want live correction and a clear plan for the days in between.",
+      },
+    ],
+    note: { text: "The sessions, plan and check-ins a package includes are set out in the arrangement you choose.", linkLabel: "Compare what each package includes", href: `#${onlineSectionIds.compare}` },
+  },
+  booking: {
+    id: onlineSectionIds.booking,
+    headline: "How booking works",
+    lede: `Booking starts with a conversation. You message or call, and the details are agreed with ${coachName} directly.`,
+    stepsLabel: "The steps from first message to training",
+    steps: [
+      { name: "Enquire", body: "Message or call and share your goal, your schedule, where you are based and the equipment you have." },
+      { name: "Talk it through", body: "Discuss your experience, your space and which online format fits you." },
+      { name: "Review the package", body: "Go through what the package includes, such as live sessions, planning and check-ins, and the terms that apply." },
+      { name: "Arrange your slots", body: "If your package includes live sessions, agree times that suit you." },
+      { name: "Train and review", body: "Start training, then review the plan together as agreed and adjust it where it helps." },
+    ],
+  },
+  setup: {
+    id: onlineSectionIds.setup,
+    headline: "Set up your space before the first session",
+    lede: `You do not need a studio. A few practical things make live sessions easier for you and let ${coachName} see how you move.`,
+    checklistLabel: "Before your first session",
+    items: [
+      "A phone, tablet or laptop with a working camera.",
+      "Stable internet in the room where you will train.",
+      "Light from the front or side, so your movement is visible. A bright window directly behind you hides it.",
+      "The device placed on something stable and far enough away to show your whole movement.",
+      "A clear, stable floor area with room to move.",
+      "Equipment only if your chosen plan needs it. Ask what it needs before you buy anything.",
+      "Any limitation or medical advice shared beforehand, so the session can be planned around it.",
+    ],
+    diagram: {
+      label: "Top-down view of a training room: the device sits on a stable surface at one end, its camera covers a clear floor area, and light comes in from the side.",
+      caption: "Device at one end, a clear floor in the camera's view, and light from the front or side.",
+      device: "Device",
+      view: "Camera view",
+      floorLines: ["Clear floor", "space"],
+      light: "Side light",
+    },
+    guide: { before: "New to coaching of any kind? ", linkLabel: "See what to expect in your first month of personal training", href: "/guides/first-month-personal-training/", after: "." },
+  },
+  process: {
+    id: onlineSectionIds.process,
+    headline: "How online coaching works",
+    lede: `Online fitness coaching follows the same four stages as ${coachName}'s in-person work. What changes is how each one is delivered.`,
+    stagesLabel: `The four stages of online coaching with ${coachName}`,
+    stages: [
+      { name: "Understand", body: "A conversation about your goal, schedule, experience, space and equipment, so the plan starts from your real situation." },
+      { name: "Plan", body: "A training direction built around the time you can give and the setup you have, not around an ideal gym." },
+      { name: "Coach", body: "Guidance through live sessions, written programming or the agreed mix, with technique coming before load." },
+      { name: "Review", body: "You look at what is working and adjust the plan as agreed, so it keeps up with your week." },
+    ],
+    loopNote: "Review feeds back into the plan.",
+  },
+  fit: {
+    id: onlineSectionIds.rightFit,
+    headline: "Who online coaching suits\u2014and when in-person may be better",
+    lede: "Both are one-to-one coaching, and neither is universally more effective. The better format is the one you can keep up.",
+    online: {
+      title: "Online may suit you if",
+      items: [
+        "Travel time is what keeps getting in the way of training.",
+        "Your schedule changes from week to week.",
+        "You prefer to train in private, at home.",
+        "You live outside Hyderabad, or are not always in the city.",
+      ],
+    },
+    inPerson: {
+      title: "In-person may suit you if",
+      items: [
+        "You want a coach physically in the room with you.",
+        "You want to use gym equipment you do not have at home.",
+        "You value live correction in the room, including hands-on set-up for heavier lifts.",
+        "You want a dedicated appointment at a set place, away from home or work.",
+      ],
+      link: { label: "Read about in-person personal training in Hyderabad", href: services.inPerson.href },
+    },
+    guide: { before: "Not sure which suits your week? ", linkLabel: "Compare gym, home and online training", href: "/guides/gym-home-online-training/", after: " side by side." },
+  },
+  equipment: {
+    id: onlineSectionIds.equipment,
+    headline: "Train with the equipment you have",
+    statement: "You do not need to buy anything to begin.",
+    lede: "Online plans are built around what is actually in front of you. The plan can be discussed around any of these:",
+    tiersLabel: "Equipment options for online training",
+    tiers: [
+      { name: "Bodyweight", text: "Floor-based and standing exercises that need only space. A mat helps but is optional." },
+      { name: "Home equipment", text: "Whatever you already own, such as resistance bands, dumbbells or a bench. The plan works around it." },
+      { name: "Gym access", text: "If you already train at a gym, the plan can use what the gym offers." },
+    ],
+    note: "If a goal would be easier with equipment you do not have, talk it through first. Please do not buy anything before that conversation.",
+  },
+  compare: {
+    id: onlineSectionIds.compare,
+    headline: "Compare online packages and support",
+    lede: [
+      "Support means what the package you choose actually includes. No response time or round-the-clock availability is assumed on this page, so ask about each point below before you decide.",
+      "If you are looking for affordable online personal training, compare like with like. A monthly figure only makes sense next to what it covers.",
+    ],
+    listLabel: "What to compare between online packages",
+    items: [
+      { name: "Live sessions", text: "How many there are each month, and how long each one lasts." },
+      { name: "Written plan", text: "Whether one is included, and how it is updated." },
+      { name: "Check-ins", text: "How often they happen, and in what format." },
+      { name: "Questions between check-ins", text: "How they are handled." },
+      { name: "Booking and terms", text: "How booking works, and the rescheduling, missed-session and renewal terms." },
+      { name: "Space and equipment", text: "What the package expects you to have." },
+    ],
+    plans: {
+      title: "Online options in the pricing section",
+      items: onlineTrainingPlans,
+    },
+    links: [
+      { label: "See the online plans and fees", href: "/#pricing" },
+      { label: sentenceCase(pricing.feesGuide.linkLabel), href: pricing.feesGuide.href },
+    ],
+  },
+  nutrition: {
+    id: onlineSectionIds.nutrition,
+    headline: "Nutrition and recovery",
+    body: [
+      `Training sits inside a week that also has food, water and sleep in it. ${coachName}'s nutrition guidance covers those general habits around training: everyday eating and portions, hydration, and sleep and recovery.`,
+      "It is general education. It is not medical nutrition therapy, treatment, or a diet plan for a health condition. Some packages pair training with nutrition guidance, and the pricing section lists them.",
+    ],
+    link: { label: "See how nutrition guidance works", href: "/#nutrition" },
+    disclaimerLink: { label: "Read the disclaimer", href: "/disclaimer/" },
+  },
+  faq: {
+    id: onlineSectionIds.faq,
+    headline: "Questions about online training",
+    items: [
+      { q: "Do I need a home gym?", a: "No. A clear, stable floor area is the starting point, and the plan is built around whatever equipment you have, including none. Talk about what you own, and what your goal needs, before you buy anything." },
+      { q: "Is online coaching live or plan-based?", a: "It can be either, or both. Live one-to-one video sessions, a written plan with check-ins, or a combination are all possible formats. The package you choose sets out which one you get." },
+      { q: "What device and internet do I need?", a: "A phone, tablet or laptop with a working camera, and a stable internet connection in the room where you train. Light from the front or side, and a stable place to rest the device so your whole movement is in view, make sessions easier. Confirm which video app will be used when you enquire." },
+      { q: "How do I book a live session?", a: `Message or call, share your goal, schedule and equipment, and agree a package. If the package includes live sessions, you then arrange suitable times with ${coachName}. Bookings are made with him directly rather than through a booking tool on this site.` },
+      { q: "Can you give technique feedback through a camera?", a: "In live sessions, yes. He can see you on camera, explain the exercise and adjust what he sees as you go. A camera shows less than being in the room, so some set-ups, such as heavier lifts, may suit in-person sessions better. With a written plan, feedback comes at the check-ins you agree." },
+      { q: "Can I enquire from outside Hyderabad?", a: `Yes. ${coachName} works with online clients in Hyderabad and across India. Tell him where you are based and when you can train when you enquire.` },
+      { q: "How do I compare online packages?", a: "Look beyond the monthly figure. Compare the live sessions per month and their length, whether a written plan is included and how it is updated, how often check-ins happen and in what format, how questions between check-ins are handled, the booking, rescheduling, missed-session and renewal terms, and the space and equipment you need. The pricing section lists the current online options." },
+      { q: "What happens if the internet drops or I miss a session?", a: "Tell him as soon as you can. How a dropped connection or a missed session is handled depends on the rescheduling and missed-session terms of your package, so ask about them before you start." },
+      { q: "Is online training as effective as in-person?", a: "Neither format is universally more effective. Results depend on your starting point, consistency, food and recovery, and none are guaranteed. Online works well when you can train regularly and your work can be seen or reviewed. In-person suits you if you want a coach in the room or access to gym equipment. Choose the format you can keep up." },
+    ],
+  },
+  cta: {
+    id: "enquire",
+    headline: "Start with a conversation",
+    body: `Tell ${coachName} your goal, the equipment you have and the times you might be able to train, and he can suggest how online coaching could work for you.`,
+    whatsappLabel: "Chat on WhatsApp",
+    whatsappMessage: "Hi Srikanth, I'd like to start with a conversation about online training. I'll share my goal, the equipment I have and when I might be able to train.",
+    relatedTitle: "Keep reading",
+    related: [
+      { label: "In-person personal training in Hyderabad", href: services.inPerson.href },
+      { label: sentenceCase(pricing.feesGuide.linkLabel), href: pricing.feesGuide.href },
+      { label: "What to expect in your first month of personal training", href: "/guides/first-month-personal-training/" },
+      { label: "Gym, home or online training: how to choose a format", href: "/guides/gym-home-online-training/" },
+      { label: "What a personal trainer can and cannot help with", href: "/guides/what-a-personal-trainer-can-help-with/" },
+    ],
+  },
+};
